@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#include <string.h>
 
 typedef enum tile_type {
     DOOR_VER = -11,
@@ -24,8 +24,9 @@ typedef enum tile_type {
     WALL_HOR = -6,
 
     SPACE = -3,
-    DARK = -1,
-    NULLTILE = 1000,
+    DARK = -2,
+
+    NULLTILE = -1,
 } tile_type;
 
 #define ROOM_WIDTH 13
@@ -62,6 +63,8 @@ int read_map_file(char *path) {
     int row, col;
     size_t strlen, t;
     char *line;
+
+    memset(room_map, -1, sizeof(room_map));
 
     fp = fopen(path, "r");
 
