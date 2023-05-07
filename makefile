@@ -1,8 +1,8 @@
 CC = gcc
-CFLAGS = -lncurses
+CFLAGS = -lncursesw
 SOURCES = ./src/*.c
 
-all: rogue run clean rebuild
+all: rogue run clean rebuild test
 
 rogue: 
 		$(CC) $(SOURCES) $(CFLAGS) -o rogue
