@@ -12,15 +12,29 @@
 #include <string.h>
 #include <locale.h>
 
+#include "floor.h"
 #include "color.h"
-#include "tiles.h"
-#include "map.h"
+
+void init();
+bool quit();
 
 int main() {
-    int bg, fg;
-    int col;
-    room *rm;
+    floor *cur_floor;
 
+    init();
+
+    cur_floor = init_floor();
+
+    while(true) {
+        refresh();
+    }
+    
+    endwin();
+
+    return 0;
+}
+
+void init() {
     setlocale(LC_ALL, "");
 
     initscr();
@@ -31,15 +45,4 @@ int main() {
     start_color();
     init_colorpairs();
     init_tiles();
-    
-    rm = get_tmp_room();
-    draw_room(rm);
-
-    refresh();
-    
-    getch();
-    free_room(rm);
-    endwin();
-
-    return 0;
 }

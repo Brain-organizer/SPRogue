@@ -1,12 +1,13 @@
+#ifndef ROOM_HEADER
+#define ROOM_HEADER
+
 #include "tiles.h"
-
-#ifndef MAP_HEADER
-
-#define MAP_HEADER
+#include "entity.h"
 
 typedef struct room {
     int r, c;
     tile **map;
+    entity **entities;
 } room;
 
 room * get_tmp_room();

@@ -4,6 +4,10 @@
         "stdio.h": "c",
         "string.h": "c",
         "ncurses.h": "c",
-        "map.h": "c"
+        "map.h": "c",
+        "time.h": "c",
+        "struct_timeval.h": "c",
+        "stdlib.h": "c",
+        "tiles.h": "c"
     }
 }

@@ -1,7 +1,6 @@
 #include <ncurses.h>
 #include <stdlib.h>
-#include "map.h"
-
+#include "rooms.h"
 
 room * get_tmp_room() {
     room * rm;
@@ -90,9 +89,14 @@ void draw_room(room *rm) {
 
 void free_room(room *rm) {
     int r, c;
+    entity *ptr = rm->entities[0];
 
     for(r = 0; r < rm->r; ++r) {
-        free(rm->map[r]);
+        free_tile(rm->map[r]);
+    }
+    while(ptr) {
+        free_entity(ptr);
+        ++ptr;
     }
 
     free(rm->map);

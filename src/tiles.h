@@ -1,8 +1,9 @@
-#include <stdint.h>
-
 #ifndef TILE_HEADER
-
 #define TILE_HEADER
+
+#include <stdint.h>
+#include <stdlib.h>
+
 #define TILE_NUM 8
 
 typedef enum tile_type {
@@ -32,7 +33,6 @@ typedef struct tile {
     uint64_t status;
     uint64_t flags;
     //status stat[10];
-    //entity *entity;
     //pile *pile;
 } tile;
 
@@ -41,5 +41,7 @@ void init_tiles();
 void draw_tile(tile *tile);
 
 tile get_tile_template(tile_type type);
+
+void free_tile(tile *tile);
 
 #endif

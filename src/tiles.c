@@ -153,3 +153,7 @@ void draw_tile(tile *tile) {
 tile get_tile_template(tile_type type) {
     return tile_template[type];
 }
+
+void free_tile(tile *tile) {
+    free(tile);
+}
