@@ -8,6 +8,7 @@
         "time.h": "c",
         "struct_timeval.h": "c",
         "stdlib.h": "c",
-        "tiles.h": "c"
+        "tiles.h": "c",
+        "floor.h": "c"
     }
 }

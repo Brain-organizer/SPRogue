@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <ncurses.h>
 #include "floor.h"
 
 floor * init_floor() {
@@ -13,6 +14,7 @@ floor * init_floor() {
 }
 void draw(floor *f) {
     draw_room(f->cur_room);
+    refresh();
 }
 void update(floor *f) {
 

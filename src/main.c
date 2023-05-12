@@ -26,8 +26,10 @@ int main() {
     cur_floor = init_floor();
 
     while(true) {
-        refresh();
+        draw(cur_floor);
     }
+
+    free_floor(cur_floor);
     
     endwin();
 
@@ -45,4 +47,5 @@ void init() {
     start_color();
     init_colorpairs();
     init_tiles();
+    init_entities();
 }

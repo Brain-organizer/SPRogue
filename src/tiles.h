@@ -32,6 +32,8 @@ typedef struct tile {
     tile_type type;
     uint64_t status;
     uint64_t flags;
+    int entity_id;
+    int player_id;
     //status stat[10];
     //pile *pile;
 } tile;

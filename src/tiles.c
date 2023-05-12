@@ -4,10 +4,15 @@
 tile tile_template[TILE_NUM];
 void (*draw_tile_func[TILE_NUM])(tile *);
 
+void set_tile_template(tile_type tp) {
+    tile_template[tp].entity_id = -1;
+    tile_template[tp].player_id = -1;
+    tile_template[tp].status = 0;
+    tile_template[tp].flags = 0;
+}
+
 void set_tile_template_TT_NULL_func() {
     tile_template[TT_NULL].type = TT_NULL;
-    tile_template[TT_NULL].status = 0;
-    tile_template[TT_NULL].flags = 0;
 }
 void draw_tile_func_TT_NULL(tile *tile) {
     return;
@@ -15,7 +20,6 @@ void draw_tile_func_TT_NULL(tile *tile) {
 
 void set_tile_template_TT_GRASS_FLOOR_func() {
     tile_template[TT_GRASS_FLOOR].type = TT_GRASS_FLOOR;
-    tile_template[TT_GRASS_FLOOR].status = 0;
     tile_template[TT_GRASS_FLOOR].flags = TF_PASSABLE | TF_BURNABLE;
 }
 void draw_tile_func_TT_GRASS_FLOOR(tile *tile) {
@@ -35,7 +39,6 @@ void draw_tile_func_TT_GRASS_FLOOR(tile *tile) {
 
 void set_tile_template_TT_CAVE_FLOOR_func() {
     tile_template[TT_CAVE_FLOOR].type = TT_CAVE_FLOOR;
-    tile_template[TT_CAVE_FLOOR].status = 0;
     tile_template[TT_CAVE_FLOOR].flags = TF_PASSABLE;
 }
 void draw_tile_func_TT_CAVE_FLOOR(tile *tile) {
@@ -50,8 +53,6 @@ void draw_tile_func_TT_CAVE_FLOOR(tile *tile) {
 
 void set_tile_template_TT_DARK_func() {
     tile_template[TT_DARK].type = TT_DARK;
-    tile_template[TT_DARK].status = 0;
-    tile_template[TT_DARK].flags = 0;
 }
 void draw_tile_func_TT_DARK(tile *tile) {
     tile->col = colornum(0, 0, false, false);
@@ -65,8 +66,6 @@ void draw_tile_func_TT_DARK(tile *tile) {
 
 void set_tile_template_TT_CAVE_WALL_VER_func() {
     tile_template[TT_CAVE_WALL_VER].type = TT_CAVE_WALL_VER;
-    tile_template[TT_CAVE_WALL_VER].status = 0;
-    tile_template[TT_CAVE_WALL_VER].flags = 0;
 }
 void draw_tile_func_TT_CAVE_WALL_VER(tile *tile) {
     tile->col = colornum(0, 7, false, false);
@@ -80,8 +79,6 @@ void draw_tile_func_TT_CAVE_WALL_VER(tile *tile) {
 
 void set_tile_template_TT_CAVE_WALL_HOR_func() {
     tile_template[TT_CAVE_WALL_HOR].type = TT_CAVE_WALL_HOR;
-    tile_template[TT_CAVE_WALL_HOR].status = 0;
-    tile_template[TT_CAVE_WALL_HOR].flags = 0;
 }
 void draw_tile_func_TT_CAVE_WALL_HOR(tile *tile) {
     tile->col = colornum(0, 7, false, false);
@@ -95,7 +92,6 @@ void draw_tile_func_TT_CAVE_WALL_HOR(tile *tile) {
 
 void set_tile_template_TT_WOOD_WALL_VER_func() {
     tile_template[TT_WOOD_WALL_VER].type = TT_WOOD_WALL_VER;
-    tile_template[TT_WOOD_WALL_VER].status = 0;
     tile_template[TT_WOOD_WALL_VER].flags = TF_BURNABLE;
 }
 void draw_tile_func_TT_WOOD_WALL_VER(tile *tile) {
@@ -115,7 +111,6 @@ void draw_tile_func_TT_WOOD_WALL_VER(tile *tile) {
 
 void set_tile_template_TT_WOOD_WALL_HOR_func() {
     tile_template[TT_WOOD_WALL_HOR].type = TT_WOOD_WALL_HOR;
-    tile_template[TT_WOOD_WALL_HOR].status = 0;
     tile_template[TT_WOOD_WALL_HOR].flags = TF_BURNABLE;
 }
 void draw_tile_func_TT_WOOD_WALL_HOR(tile *tile) {
@@ -133,7 +128,7 @@ void draw_tile_func_TT_WOOD_WALL_HOR(tile *tile) {
     unsetcolor(tile->col);
 }
 
-#define INIT_TILE_MACRO(NAME) set_tile_template_ ## NAME ## _func(); draw_tile_func[NAME] = draw_tile_func_ ## NAME;
+#define INIT_TILE_MACRO(NAME) set_tile_template(NAME); set_tile_template_ ## NAME ## _func(); draw_tile_func[NAME] = draw_tile_func_ ## NAME;
 
 void init_tiles() {
     INIT_TILE_MACRO(TT_NULL)

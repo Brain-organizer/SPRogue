@@ -4,6 +4,7 @@
 #include <ncurses.h>
 
 typedef struct player {
+    int r, c;
     int delay;
 } player;
 
