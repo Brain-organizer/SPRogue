@@ -6,13 +6,14 @@
 floor *cur_floor;
 
 void init_floor() {
-    floor *f = malloc(sizeof(floor));
-    f->cur_room = get_tmp_room();
-    f->rooms = malloc(sizeof(floor *) * 2);
-    f->rooms[0] = f->cur_room;
-    f->rooms[1] = 0;
+    cur_floor = malloc(sizeof(floor));
+    cur_floor->cur_room = get_tmp_room();
+    cur_floor->rooms = malloc(sizeof(floor *) * 2);
+    cur_floor->rooms[0] = cur_floor->cur_room;
+    cur_floor->rooms[1] = 0;
     
-    cur_floor = f;
+    //player를 room에 집어넣는다. 
+    push_player_into_room(3,4,0);
 }
 void draw() {
     draw_room(cur_floor->cur_room);

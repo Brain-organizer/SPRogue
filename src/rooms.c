@@ -1,7 +1,8 @@
 #include <ncurses.h>
 #include <stdlib.h>
-#include "rooms.h"
+#include "floor.h"
 #include "entity.h"
+#include "player.h"
 
 room * get_tmp_room() {
     room * rm;
@@ -76,11 +77,6 @@ room * get_tmp_room() {
     rm->map[4][5].status |= TS_FIRE;
 
     rm->entities = malloc(sizeof(entity *) * 2);
-    rm->entities[0] = malloc(sizeof(entity));
-    *(rm->entities[0]) = get_entity_template(ET_CARROT);
-    rm->entities[0]->r = 3;
-    rm->entities[0]->c = 4;
-    rm->map[3][4].entity_id = 0;
 
     return rm;
 }
