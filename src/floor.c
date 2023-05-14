@@ -23,6 +23,10 @@ void update(floor *f) {
 
 }
 
+room *get_cur_room(){
+    return cur_floor->cur_room;
+}
+
 void free_floor() {
     floor *f = cur_floor;
     f->cur_room = f->rooms[0];

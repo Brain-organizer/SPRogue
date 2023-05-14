@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "entity.h"
 #include "color.h"
+#include "floor.h"
 
 entity entity_template[ENTITY_NUM];
 void (*draw_entity_func[ENTITY_NUM])(entity *);
@@ -44,6 +45,25 @@ entity get_entity_template(entity_type et) {
 
 void do_random_movement(entity *e) {
 
+}
+
+void update_all_entities(){ //player(당근)을 제외한 모든 entity에 대해 딜레이를 확인하고, 딜레이가 0이면 random movement를 진행.
+
+    room *cur_room = get_cur_room();
+    entity *target_ent;
+
+    for(int row = 0 ; row <  cur_room->r ; row++){
+        for(int col = 0; col < cur_room->c ; col++){
+            if(cur_room->map[row][col].entity_id == -1)
+                continue;
+
+            target_ent = cur_room->entities[cur_room->map[row][col].entity_id];
+            if(target_ent->type != ET_CARROT){
+                update_entity(target_ent);
+            }
+        }
+        
+    }
 }
 
 void update_entity(entity *e) {

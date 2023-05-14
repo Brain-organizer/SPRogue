@@ -14,5 +14,6 @@ void init_floor();
 void draw();
 void update(floor *f);
 void free_floor();
+room *get_cur_room();
 
 #endif
