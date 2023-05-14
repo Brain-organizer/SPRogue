@@ -3,24 +3,28 @@
 #include <ncurses.h>
 #include "floor.h"
 
-floor * init_floor() {
+floor *cur_floor;
+
+void init_floor() {
     floor *f = malloc(sizeof(floor));
     f->cur_room = get_tmp_room();
     f->player = init_player();
     f->rooms = malloc(sizeof(floor *) * 2);
     f->rooms[0] = f->cur_room;
     f->rooms[1] = 0;
-    return f;
+    
+    cur_floor = f;
 }
-void draw(floor *f) {
-    draw_room(f->cur_room);
+void draw() {
+    draw_room(cur_floor->cur_room);
     refresh();
 }
 void update(floor *f) {
 
 }
 
-void free_floor(floor *f) {
+void free_floor() {
+    floor *f = cur_floor;
     f->cur_room = f->rooms[0];
     while(f->cur_room) {
         free_room(f->cur_room);

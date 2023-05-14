@@ -19,17 +19,18 @@ void init();
 bool quit();
 
 int main() {
-    floor *cur_floor;
 
     init();
 
-    cur_floor = init_floor();
+    init_floor();
+    draw();
 
     while(true) {
-        draw(cur_floor);
+        
+        draw();
     }
 
-    free_floor(cur_floor);
+    free_floor();
     
     endwin();
 

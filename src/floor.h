@@ -10,9 +10,9 @@ typedef struct floor {
     player *player;
 } floor;
 
-floor * init_floor();
-void draw(floor *f);
+void init_floor();
+void draw();
 void update(floor *f);
-void free_floor(floor *f);
+void free_floor();
 
 #endif
