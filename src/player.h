@@ -3,13 +3,9 @@
 
 #include <ncurses.h>
 
-typedef struct player {
-    int r, c;
-    int delay;
-} player;
 
-player * init_player();
-void update_player(player *p);
-void free_player(player *p);
+void init_player();
+void update_player();
+void free_player();
 
 #endif

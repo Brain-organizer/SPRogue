@@ -7,7 +7,6 @@
 typedef struct floor {
     room **rooms;
     room *cur_room;
-    player *player;
 } floor;
 
 void init_floor();

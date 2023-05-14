@@ -106,6 +106,8 @@ void free_room(room *rm) {
         free_tile(rm->map[r]);
     }
     while(ptr) {
+        if(ptr->type == ET_CARROT)
+            continue;
         free_entity(ptr);
         ++ptr;
     }

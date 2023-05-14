@@ -8,7 +8,6 @@ floor *cur_floor;
 void init_floor() {
     floor *f = malloc(sizeof(floor));
     f->cur_room = get_tmp_room();
-    f->player = init_player();
     f->rooms = malloc(sizeof(floor *) * 2);
     f->rooms[0] = f->cur_room;
     f->rooms[1] = 0;
@@ -23,6 +22,7 @@ void update(floor *f) {
 
 }
 
+//현재 방의 포인터를 반환
 room *get_cur_room(){
     return cur_floor->cur_room;
 }

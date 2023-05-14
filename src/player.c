@@ -1,23 +1,29 @@
 #include <stdlib.h>
 #include <string.h>
 #include "player.h"
+#include "entity.h"
 
-player * init_player() {
-    player *p = malloc(sizeof(player));
-    p->delay = 100;
-    return p;
+entity *player;
+
+void init_player() {
+    player = malloc(sizeof(entity));
+    player->delay = 100;
 }
 
-void update_player(player *p) {
-    if(p->delay) {
-        --(p->delay);
+void place_player() {
+    
+}
+
+void update_player() {
+    if(player->delay) {
+        --(player->delay);
     }
     else {
         getch();
-        p->delay = 100;
+        player->delay = 100;
     }
 }
 
-void free_player(player *p) {
-    free(p);
+void free_player() {
+    free(player);
 }

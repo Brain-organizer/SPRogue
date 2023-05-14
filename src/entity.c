@@ -57,13 +57,18 @@ void update_all_entities(){ //player(당근)을 제외한 모든 entity에 대�
             if(cur_room->map[row][col].entity_id == -1)
                 continue;
 
-            target_ent = cur_room->entities[cur_room->map[row][col].entity_id];
+            target_ent = get_entity_at(row,col);
             if(target_ent->type != ET_CARROT){
                 update_entity(target_ent);
             }
         }
-        
     }
+}
+
+//현재 방의 row행, col열에 있는 entity의 포인터를 반환하는 함수
+entity *get_entity_at(int row, int col){
+    room *cur_room = get_cur_room();
+    return cur_room->entities[cur_room->map[row][col].entity_id];
 }
 
 void update_entity(entity *e) {
