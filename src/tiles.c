@@ -159,3 +159,17 @@ tile *get_tile_at(int r, int c) {
     if(r < 0 || r >= rm->r || c < 0 || c >= rm->c) return NULL;
     return rm->map[r] + c;
 }
+
+//현재 방의 row행 col열이 이동 가능한 곳이면 1, 아니면 0 반환
+int is_passable(int row, int col){
+    room *rm = get_cur_room();
+    if(row < 0 || row >= rm->r || col < 0 || col >= rm->c) return 0;
+    return rm->map[row][col].flags & TF_PASSABLE;
+}
+
+//현재 방의 row행 col열이 불이 붙을 수 있는 타일이면 1, 아니면 0 반환
+int is_burnable(int row, int col){
+    room *rm = get_cur_room();
+    if(row < 0 || row >= rm->r || col < 0 || col >= rm->c) return 0;
+    return rm->map[row][col].flags & TF_BURNABLE;
+}

@@ -48,4 +48,8 @@ void free_tile(tile *tile);
 
 tile *get_tile_at(int r, int c);
 
+int is_passable(int row, int col);
+
+int is_burnable(int row, int col);
+
 #endif
