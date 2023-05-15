@@ -4,6 +4,8 @@
  * License: The MIT License (MIT)
  */
 
+// https://github.com/eteran/c-vector
+
 #ifndef CVECTOR_H_
 #define CVECTOR_H_
 
