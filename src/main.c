@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <locale.h>
+#include <time.h>
 
 #include "floor.h"
 #include "color.h"
@@ -19,7 +20,6 @@ void init();
 bool quit();
 
 int main() {
-
     init();
 
     init_floor();
@@ -44,6 +44,8 @@ int main() {
 }
 
 void init() {
+    srand(time(NULL));
+    
     setlocale(LC_ALL, "");
 
     initscr();

@@ -1,7 +1,10 @@
 #include <stdlib.h>
+#include <stdbool.h>
 #include "entity.h"
 #include "color.h"
 #include "floor.h"
+#include "tiles.h"
+#include "util.h"
 
 entity entity_template[ENTITY_NUM];
 void (*draw_entity_func[ENTITY_NUM])(entity *);
@@ -44,7 +47,25 @@ entity get_entity_template(entity_type et) {
 }
 
 void do_random_movement(entity *e) {
+    tile *nexts[MOVE_TYPES];
+    int i;
+    bool check = true;      // 움직일 곳이 있는지 확인
 
+    for(i = 0; i < MOVE_TYPES; ++i) {
+        nexts[i] = get_tile_at(e->r+MOVE_DIRS[i][0], e->c+MOVE_DIRS[i][1]);
+
+        if(nexts[i] && !(nexts[i]->flags & TF_PASSABLE)) nexts[i] = NULL;
+
+        if(nexts[i]) check = false;
+    }
+
+    if(check) return;
+
+    do {
+        i = rand() % MOVE_TYPES;
+    } while(nexts[i] == NULL);
+
+    move_entity_to(e, nexts[i]);
 }
 
 void update_all_entities(){ //player(당근)을 제외한 모든 entity에 대해 딜레이를 확인하고, 딜레이가 0이면 random movement를 진행.
@@ -58,9 +79,10 @@ void update_all_entities(){ //player(당근)을 제외한 모든 entity에 대�
                 continue;
 
             target_ent = get_entity_at(row,col);
-            if(target_ent->type != ET_CARROT){
+            // 일단 움직임 테스트하기 위해 코멘트함
+            //if(target_ent->type != ET_CARROT){
                 update_entity(target_ent);
-            }
+            //}
         }
     }
 }
@@ -77,7 +99,7 @@ void update_entity(entity *e) {
     }
     else {
         do_random_movement(e);
-        e->delay = 100;
+        e->delay = 10000;
     }
 }
 void free_entity(entity *e) {

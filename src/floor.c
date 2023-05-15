@@ -37,3 +37,18 @@ void free_floor() {
     }
     free(f->rooms);
 }
+
+void move_entity_to(entity *e, tile *next) {
+    tile *cur = get_tile_at(e->r, e->c);
+
+    if(next->entity_id != -1) return;   // 공격 아직 미구현
+
+    next->entity_id = cur->entity_id;
+    next->player_id = cur->player_id;
+
+    cur->entity_id = -1;
+    cur->player_id = -1;
+
+    e->r = next->r;
+    e->c = next->c;
+}

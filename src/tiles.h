@@ -46,4 +46,6 @@ tile get_tile_template(tile_type type);
 
 void free_tile(tile *tile);
 
+tile *get_tile_at(int r, int c);
+
 #endif

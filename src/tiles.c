@@ -1,5 +1,6 @@
 #include "color.h"
 #include "tiles.h"
+#include "floor.h"
 
 tile tile_template[TILE_NUM];
 void (*draw_tile_func[TILE_NUM])(tile *);
@@ -151,4 +152,10 @@ tile get_tile_template(tile_type type) {
 
 void free_tile(tile *tile) {
     free(tile);
+}
+
+tile *get_tile_at(int r, int c) {
+    room *rm = get_cur_room();
+    if(r < 0 || r >= rm->r || c < 0 || c >= rm->c) return NULL;
+    return rm->map[r] + c;
 }
