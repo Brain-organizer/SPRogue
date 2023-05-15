@@ -14,13 +14,8 @@ void init_player() {
 
 //player를 현재 room에다 배치하는 함수. map의 row행 col열에 배치되며, room의 entities[idx]에 player의 entity가 들어가게 된다. 
 //room이 변경된 후 반드시 호출해주어야 하는 함수.
-void push_player_into_room(int row, int col, int idx){
-    room * cur_room = get_cur_room();
-
-    cur_room -> entities[idx] = player;
-    cur_room->map[row][col].entity_id = idx;
-    player->r = row;
-    player->c = col;
+void push_player_into_room(int row, int col){
+    push_entity_into_room(player, row, col);
 }
 
 void place_player() {

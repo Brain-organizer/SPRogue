@@ -2,6 +2,7 @@
 #include <string.h>
 #include <ncurses.h>
 #include "floor.h"
+#include "util.h"
 
 floor *cur_floor;
 
@@ -13,7 +14,7 @@ void init_floor() {
     cur_floor->rooms[1] = 0;
     
     //player를 room에 집어넣는다. 
-    push_player_into_room(3,4,0);
+    push_player_into_room(3,4);
 }
 void draw() {
     draw_room(cur_floor->cur_room);
@@ -40,6 +41,10 @@ void free_floor() {
 
 void move_entity_to(entity *e, tile *next) {
     tile *cur = get_tile_at(e->r, e->c);
+
+    if(cur == NULL) {
+        raise("move_entity_to");
+    }
 
     if(next->entity_id != -1) return;   // 공격 아직 미구현
 

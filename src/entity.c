@@ -5,6 +5,7 @@
 #include "floor.h"
 #include "tiles.h"
 #include "util.h"
+#include "rooms.h"
 
 entity entity_template[ENTITY_NUM];
 void (*draw_entity_func[ENTITY_NUM])(entity *);
@@ -104,4 +105,15 @@ void update_entity(entity *e) {
 }
 void free_entity(entity *e) {
     free(e);
+}
+
+void push_entity_into_room(entity *e, int row, int col) {
+    room *rm = get_cur_room();
+    if(row < 0 || row >= rm->r || col < 0 || col >= rm->c || rm->map[row][col].entity_id != -1) {
+        raise("push_entity_into_room");
+    }
+    rm->map[row][col].entity_id = cvector_size(rm->entities);
+    cvector_push_back(rm->entities, e);
+    e->r = row;
+    e->c = col;
 }

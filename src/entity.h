@@ -22,5 +22,6 @@ entity get_entity_template(entity_type et);
 void free_entity(entity *e);
 void update_all_entities();
 entity *get_entity_at(int row, int col);
+void push_entity_into_room(entity *e, int row, int col);
 
 #endif

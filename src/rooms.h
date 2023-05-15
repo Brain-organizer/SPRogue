@@ -4,10 +4,12 @@
 #include "tiles.h"
 #include "entity.h"
 
+#include "cvector.h"
+
 typedef struct room {
     int r, c;
     tile **map;
-    entity **entities;
+    cvector_vector_type(entity *) entities;
 } room;
 
 room * get_tmp_room();

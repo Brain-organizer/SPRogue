@@ -76,7 +76,7 @@ room * get_tmp_room() {
     rm->map[2][5].status |= TS_FIRE;
     rm->map[4][5].status |= TS_FIRE;
 
-    rm->entities = malloc(sizeof(entity *) * 2);
+    rm->entities = NULL;
 
     return rm;
 }
@@ -96,17 +96,18 @@ void draw_room(room *rm) {
 
 void free_room(room *rm) {
     int r, c;
-    entity *ptr = rm->entities[0];
+    int i;
 
     for(r = 0; r < rm->r; ++r) {
         free_tile(rm->map[r]);
     }
-    while(ptr) {
-        if(ptr->type == ET_CARROT)
-            continue;
-        free_entity(ptr);
-        ++ptr;
+
+    for(i = 0; i < cvector_size(rm->entities); ++i) {
+        if(rm->entities[i]->type == ET_CARROT) continue;
+        free_entity(rm->entities[i]);
     }
+
+    cvector_free(rm->entities);
 
     free(rm->map);
     free(rm);
