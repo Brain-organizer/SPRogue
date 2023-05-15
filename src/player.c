@@ -28,7 +28,28 @@ void update_player() {
         --(player->delay);
     }
     else {
-        getch();
+        
+        switch(getch()) {
+            case KEY_RIGHT:
+                move_player_to(player->r , player->c +1);
+                break;
+            case KEY_LEFT:
+                move_player_to(player->r , player->c -1);
+                break;
+            case KEY_UP:
+                move_player_to(player->r -1, player->c);
+                break;
+            case KEY_DOWN:
+                move_player_to(player->r +1, player->c);
+                break;
+            case 'i': case 'I':
+                //인벤토리 창
+
+            case 'p': case 'P':
+                //일시정지
+
+            //...
+        }
         player->delay = 100;
     }
 }

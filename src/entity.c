@@ -80,18 +80,20 @@ void update_all_entities(){ //player(당근)을 제외한 모든 entity에 대�
                 continue;
 
             target_ent = get_entity_at(row,col);
-            // 일단 움직임 테스트하기 위해 코멘트함
-            //if(target_ent->type != ET_CARROT){
+            if(target_ent->type != ET_CARROT){// 플레이어 움직임 확인하기 위해 코멘트 해제
                 update_entity(target_ent);
-            //}
+            }
         }
     }
 }
 
-//현재 방의 row행, col열에 있는 entity의 포인터를 반환하는 함수
+//현재 방의 row행, col열에 있는 entity의 포인터를 반환하는 함수. entity가 없을시 null 반환.
 entity *get_entity_at(int row, int col){
     room *cur_room = get_cur_room();
-    return cur_room->entities[cur_room->map[row][col].entity_id];
+    if(cur_room->map[row][col].entity_id>=0)
+        return cur_room->entities[cur_room->map[row][col].entity_id];
+    else
+        return NULL;
 }
 
 void update_entity(entity *e) {
