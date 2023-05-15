@@ -3,6 +3,7 @@
 #include "player.h"
 #include "entity.h"
 #include "floor.h"
+#include "action.h"
 
 entity *player;
 
@@ -30,6 +31,11 @@ void update_player() {
         getch();
         player->delay = 100;
     }
+}
+
+//player entity의 포인터를 반환
+entity *get_player(){
+    return player;
 }
 
 void free_player() {
