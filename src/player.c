@@ -42,6 +42,9 @@ void update_player() {
             case KEY_DOWN:
                 move_player_to(player->r +1, player->c);
                 break;
+            case '.':
+                player->delay = 100;
+                break;
             case 'i': case 'I':
                 //인벤토리 창
 
