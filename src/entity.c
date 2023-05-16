@@ -32,11 +32,23 @@ void draw_entity_func_ET_CARROT(entity *entity) {
     unsetcolor(entity->col);
 }
 
+void set_entity_template_ET_RABBIT_func() {
+    entity_template[ET_RABBIT].type = ET_RABBIT;
+}
+void draw_entity_func_ET_RABBIT(entity *entity) {
+    entity->col = colornum(7, 0, false, false);
+    setcolor(entity->col);
+    mvaddstr(entity->r, entity->c, "R");
+
+    unsetcolor(entity->col);
+}
+
 #define INIT_ENTITY_MACRO(NAME) set_entity_template(NAME); set_entity_template_ ## NAME ## _func(); draw_entity_func[NAME] = draw_entity_func_ ## NAME;
 
 void init_entities() {
     INIT_ENTITY_MACRO(ET_NULL)
     INIT_ENTITY_MACRO(ET_CARROT)
+    INIT_ENTITY_MACRO(ET_RABBIT)
 }
 
 void draw_entity(entity *entity) {
@@ -102,20 +114,15 @@ void update_entity(entity *e) {
     }
     else {
         do_random_movement(e);
-        e->delay = 10000;
+        e->delay = 200;
     }
 }
 void free_entity(entity *e) {
     free(e);
 }
 
-void push_entity_into_room(entity *e, int row, int col) {
-    room *rm = get_cur_room();
-    if(row < 0 || row >= rm->r || col < 0 || col >= rm->c || rm->map[row][col].entity_id != -1) {
-        raise("push_entity_into_room");
-    }
-    rm->map[row][col].entity_id = cvector_size(rm->entities);
-    cvector_push_back(rm->entities, e);
-    e->r = row;
-    e->c = col;
+entity *create_entity(entity_type et) {
+    entity *out = malloc(sizeof(entity));
+    *out = get_entity_template(et);
+    return out;
 }

@@ -1,11 +1,12 @@
 #ifndef ENTITY_HEADER
 #define ENTITY_HEADER
 
-#define ENTITY_NUM 2
+#define ENTITY_NUM 3
 
 typedef enum entity_type {
     ET_NULL,
     ET_CARROT,
+    ET_RABBIT,
 } entity_type;
 
 typedef struct entity {
@@ -22,6 +23,6 @@ entity get_entity_template(entity_type et);
 void free_entity(entity *e);
 void update_all_entities();
 entity *get_entity_at(int row, int col);
-void push_entity_into_room(entity *e, int row, int col);
+entity *create_entity(entity_type et);
 
 #endif

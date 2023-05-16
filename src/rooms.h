@@ -18,4 +18,6 @@ void draw_room(room *rm);
 
 void free_room(room *rm);
 
+void push_entity_into_room(room *rm, entity *e, int row, int col);
+
 #endif

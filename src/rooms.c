@@ -3,6 +3,7 @@
 #include "floor.h"
 #include "entity.h"
 #include "player.h"
+#include "util.h"
 
 room * get_tmp_room() {
     room * rm;
@@ -78,6 +79,8 @@ room * get_tmp_room() {
 
     rm->entities = NULL;
 
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 4, 4);
+
     return rm;
 }
 
@@ -111,4 +114,16 @@ void free_room(room *rm) {
 
     free(rm->map);
     free(rm);
+}
+
+void push_entity_into_room(room *rm, entity *e, int row, int col) {
+    if(rm == NULL) rm = get_cur_room();
+    
+    if(row < 0 || row >= rm->r || col < 0 || col >= rm->c || rm->map[row][col].entity_id != -1) {
+        raise("push_entity_into_room");
+    }
+    rm->map[row][col].entity_id = cvector_size(rm->entities);
+    cvector_push_back(rm->entities, e);
+    e->r = row;
+    e->c = col;
 }
