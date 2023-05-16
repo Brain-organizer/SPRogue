@@ -3,9 +3,10 @@
 
 #include "rooms.h"
 #include "player.h"
+#include "cvector.h"
 
 typedef struct floor {
-    room **rooms;
+    cvector_vector_type(room *) rooms;
     room *cur_room;
 } floor;
 
