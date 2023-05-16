@@ -1,12 +1,13 @@
 #ifndef ENTITY_HEADER
 #define ENTITY_HEADER
 
-#define ENTITY_NUM 3
+#define ENTITY_NUM ET_END 
 
 typedef enum entity_type {
-    ET_NULL,
+    ET_NULL=0,
     ET_CARROT,
     ET_RABBIT,
+    ET_END,
 } entity_type;
 
 typedef struct entity {

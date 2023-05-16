@@ -4,10 +4,10 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#define TILE_NUM 8
+#define TILE_NUM TT_END
 
 typedef enum tile_type {
-    TT_NULL,
+    TT_NULL=0,
     TT_GRASS_FLOOR,
     TT_CAVE_FLOOR,
     TT_DARK,
@@ -15,6 +15,7 @@ typedef enum tile_type {
     TT_CAVE_WALL_HOR,
     TT_WOOD_WALL_VER,
     TT_WOOD_WALL_HOR,
+    TT_END,
 } tile_type;
 
 typedef enum tile_status {
