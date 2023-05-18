@@ -2,9 +2,9 @@ CC = gcc
 CFLAGS = -lncursesw
 SOURCES = ./src/*.c
 
-all: rogue run clean rebuild test
+.PHONY: run clean
 
-rogue: 
+build:
 		$(CC) $(SOURCES) $(CFLAGS) -o rogue
 
 run:
@@ -12,6 +12,3 @@ run:
 
 clean:
 		rm rogue
-
-rebuild:
-		$(CC) $(SOURCES) $(CFLAGS) -o rogue
