@@ -8,9 +8,7 @@
 entity *player;
 
 void init_player() {
-    player = malloc(sizeof(entity));
-    player->delay = 100;
-    *player = get_entity_template(ET_CARROT);
+    player = create_entity(ET_CARROT);
 }
 
 //player를 현재 room에다 배치하는 함수. map의 row행 col열에 배치되며, room의 entities[idx]에 player의 entity가 들어가게 된다. 

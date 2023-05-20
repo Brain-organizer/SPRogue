@@ -12,6 +12,8 @@ typedef struct entity {
     int r, c;
     int delay;
     int col;
+    int hp;
+    int power;
     entity_type type;
 } entity;
 
@@ -23,5 +25,6 @@ void free_entity(entity *e);
 void update_all_entities();
 entity *get_entity_at(int row, int col);
 entity *create_entity(entity_type et);
+void remove_entity(entity *target);
 
 #endif

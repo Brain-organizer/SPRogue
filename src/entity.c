@@ -22,6 +22,9 @@ void draw_entity_func_ET_NULL(entity *entity) {
 }
 
 void set_entity_template_ET_CARROT_func() {
+    entity_template[ET_CARROT].delay = 100;
+    entity_template[ET_CARROT].hp = 200;
+    entity_template[ET_CARROT].power = 20;
     entity_template[ET_CARROT].type = ET_CARROT;
 }
 void draw_entity_func_ET_CARROT(entity *entity) {
@@ -33,6 +36,8 @@ void draw_entity_func_ET_CARROT(entity *entity) {
 }
 
 void set_entity_template_ET_RABBIT_func() {
+    entity_template[ET_RABBIT].hp = 100;
+    entity_template[ET_RABBIT].power = 20;
     entity_template[ET_RABBIT].type = ET_RABBIT;
 }
 void draw_entity_func_ET_RABBIT(entity *entity) {
