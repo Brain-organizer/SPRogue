@@ -35,7 +35,27 @@ void move_player_to(int row, int col){
 
 }
 
-//to do : from이 to에게 데미지를 입힘. 데미지는 from->power에 정의?
+//from 엔티티가 to 엔티티를 공격하는 함수. from의 power에 해당하는 값만큼 to의 hp가 줄어든다. 만약 hp가 0이 된다면 to는 죽게된다.
 void attack(entity *from, entity *to){
-    
+    switch(from->type){
+    case ET_CARROT: case ET_RABBIT:
+        if(to->hp <= from->power){
+            to->hp = 0;
+            kill_et(to);
+        }
+        else{
+            to->hp -= from->power;
+            //todo : to의 hp가 줄어들었다는 메세지 or entity들의 hp 잔량을 옆에 표시해줌
+            
+        }
+        
+    //todo : 투사체의 공격은 다른 케이스. 
+    }
+}
+
+//entity를 죽이는 함수. entity를 map에서 삭제하고, 죽었다는 메세지를 표시해줌.
+void kill_et(entity *target){
+    remove_entity(target);
+
+    //todo :죽었다는 메세지 표시해주기.
 }

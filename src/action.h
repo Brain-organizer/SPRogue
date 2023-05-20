@@ -2,3 +2,4 @@
 
 void move_player_to(int row, int col);
 void attack(entity *from, entity *to);
+void kill_et(entity *target);
