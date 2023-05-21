@@ -29,7 +29,7 @@ void move_player_to(int row, int col){
         player->r = row;
         player->c = col;
     }
-    else if(target->type != ET_CARROT){ // 공격가능한 대상이 있으면 공격
+    else if(target->is_enemy){ // 공격가능한 대상이 있으면 공격
         attack(player, target);
     }
 

@@ -14,6 +14,7 @@ typedef struct entity {
     int col;
     int hp;
     int power;
+    int is_enemy; //적이거나 적 소유의 무언가이면 1, player나 player 소유물이면 0
     entity_type type;
 } entity;
 
