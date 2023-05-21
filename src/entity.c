@@ -87,7 +87,7 @@ void do_random_movement(entity *e) {
         i = rand() % MOVE_TYPES;
     } while(nexts[i] == NULL);
 
-    move_entity_to(e, nexts[i]);
+    handle_entity_enter_tile_event(e, nexts[i]);
 }
 
 void update_all_entities(){ //player(당근)을 제외한 모든 entity에 대해 딜레이를 확인하고, 딜레이가 0이면 random movement를 진행.
@@ -113,6 +113,12 @@ entity *get_entity_at(int row, int col){
     room *cur_room = get_cur_room();
     if(is_within_bound(row, col) && cur_room->map[row][col].entity_id>=0)
         return cur_room->entities[cur_room->map[row][col].entity_id];
+    else
+        return NULL;
+}
+entity *get_entity_at_tile(tile *t) {
+    if(t)
+        return get_entity_at(t->r, t->c);
     else
         return NULL;
 }

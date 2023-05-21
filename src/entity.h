@@ -1,6 +1,8 @@
 #ifndef ENTITY_HEADER
 #define ENTITY_HEADER
 
+#include "tiles.h"
+
 typedef enum entity_type {
     ET_NULL=0,
     ET_CARROT,
@@ -25,6 +27,7 @@ entity get_entity_template(entity_type et);
 void free_entity(entity *e);
 void update_all_entities();
 entity *get_entity_at(int row, int col);
+entity *get_entity_at_tile(tile *t);
 entity *create_entity(entity_type et);
 void remove_entity(entity *target);
 

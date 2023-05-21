@@ -16,6 +16,4 @@ void update(floor *f);
 void free_floor();
 room *get_cur_room();
 
-void move_entity_to(entity *e, tile *next);
-
 #endif

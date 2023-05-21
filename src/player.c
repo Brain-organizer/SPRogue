@@ -29,16 +29,16 @@ void update_player() {
         
         switch(getch()) {
             case KEY_RIGHT:
-                move_player_to(player->r , player->c +1);
+                handle_player_enter_tile_event(get_tile_at(player->r, player->c+1));
                 break;
             case KEY_LEFT:
-                move_player_to(player->r , player->c -1);
+                handle_player_enter_tile_event(get_tile_at(player->r, player->c-1));
                 break;
             case KEY_UP:
-                move_player_to(player->r -1, player->c);
+                handle_player_enter_tile_event(get_tile_at(player->r-1, player->c));
                 break;
             case KEY_DOWN:
-                move_player_to(player->r +1, player->c);
+                handle_player_enter_tile_event(get_tile_at(player->r+1, player->c));
                 break;
             case '.':
                 player->delay = 100;
