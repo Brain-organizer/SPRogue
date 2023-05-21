@@ -18,6 +18,8 @@ typedef enum tile_type {
     TT_WOOD_WALL_NW,
     TT_WOOD_FLOOR,
     TT_WOOD_TABLE,
+    TT_WOOD_DOOR_VER,
+    TT_WOOD_DOOR_HOR,
     TILE_NUM,
 } tile_type;
 
@@ -29,6 +31,7 @@ typedef enum tile_status {
 typedef enum tile_flag {
     TF_PASSABLE = 1 << 0,
     TF_BURNABLE = 1 << 1,
+    TF_DOOR = 1 << 2,
 } tile_flag;
 
 typedef struct tile {

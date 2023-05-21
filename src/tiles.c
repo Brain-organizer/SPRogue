@@ -227,6 +227,32 @@ void draw_tile_func_TT_WOOD_TABLE(tile *tile) {
     unsetcolor(tile->col);
 }
 
+void set_tile_template_TT_WOOD_DOOR_VER_func() {
+    tile_template[TT_WOOD_DOOR_VER].type = TT_WOOD_DOOR_VER;
+    tile_template[TT_WOOD_DOOR_VER].flags |= TF_DOOR;
+}
+void draw_tile_func_TT_WOOD_DOOR_VER(tile *tile) {
+    tile->col = colornum(0, 6, false, false);
+    setcolor(tile->col);
+
+    mvaddstr(tile->r, tile->c, "╏");
+
+    unsetcolor(tile->col);
+}
+
+void set_tile_template_TT_WOOD_DOOR_HOR_func() {
+    tile_template[TT_WOOD_DOOR_HOR].type = TT_WOOD_DOOR_HOR;
+    tile_template[TT_WOOD_DOOR_HOR].flags |= TF_DOOR;
+}
+void draw_tile_func_TT_WOOD_DOOR_HOR(tile *tile) {
+    tile->col = colornum(0, 6, false, false);
+    setcolor(tile->col);
+
+    mvaddstr(tile->r, tile->c, "╍");
+
+    unsetcolor(tile->col);
+}
+
 #define INIT_TILE_MACRO(NAME) set_tile_template(NAME); set_tile_template_ ## NAME ## _func(); draw_tile_func[NAME] = draw_tile_func_ ## NAME;
 
 void init_tiles() {
@@ -243,6 +269,8 @@ void init_tiles() {
     INIT_TILE_MACRO(TT_WOOD_WALL_NW)
     INIT_TILE_MACRO(TT_WOOD_FLOOR)
     INIT_TILE_MACRO(TT_WOOD_TABLE)
+    INIT_TILE_MACRO(TT_WOOD_DOOR_VER)
+    INIT_TILE_MACRO(TT_WOOD_DOOR_HOR)
 }
 
 void draw_tile(tile *tile) {
