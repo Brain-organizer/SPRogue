@@ -79,7 +79,6 @@ void handle_entity_enter_tile_event(entity *e, tile *new_tile) {
 void handle_player_enter_tile_event(tile *new_tile){
     entity *player = get_player();
     entity *target = get_entity_at_tile(new_tile);
-    int row = new_tile->r, col = new_tile->c;
     int prev_row = player->r;
     int prev_col = player->c;
     tile *prev_tile = get_tile_at(prev_row, prev_col);

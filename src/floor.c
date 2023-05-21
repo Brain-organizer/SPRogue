@@ -83,7 +83,7 @@ void link_rooms(room *a, room *b) {
     } while(!cands[choice]);
 
     a->doors[choice].next = b->doors[get_door_dir_opp(choice)].prev;
-    b->doors[get_door_dir_opp(choice)].next = b->doors[choice].prev;
+    b->doors[get_door_dir_opp(choice)].next = a->doors[choice].prev;
     a->doors[choice].room_id = b_ind;
     b->doors[get_door_dir_opp(choice)].room_id = a_ind;
 }

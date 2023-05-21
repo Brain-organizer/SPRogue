@@ -301,7 +301,7 @@ void push_entity_into_room(room *rm, entity *e, int row, int col) {
 //room이 변경된 후 반드시 호출해주어야 하는 함수.
 void push_player_into_room(int row, int col){
     room *rm = get_cur_room();
-    push_entity_into_room(NULL, get_player(), row, col);
+    push_entity_into_room(rm, get_player(), row, col);
     rm->map[row][col].player_id = 1;
 }
 
