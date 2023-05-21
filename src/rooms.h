@@ -13,6 +13,8 @@ typedef struct room {
 } room;
 
 room * get_tmp_room();
+room * get_butcher_room();
+room * get_start_room();
 
 void draw_room(room *rm);
 

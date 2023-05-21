@@ -8,12 +8,14 @@ floor *cur_floor;
 
 void init_floor() {
     cur_floor = malloc(sizeof(floor));
-    cur_floor->cur_room = get_tmp_room();
+    //cur_floor->cur_room = get_tmp_room();
+    //cur_floor->cur_room = get_butcher_room();
+    cur_floor->cur_room = get_start_room();
     cur_floor->rooms = NULL;
     cvector_push_back(cur_floor->rooms, cur_floor->cur_room);
     
     //player를 room에 집어넣는다. 
-    push_player_into_room(3,4);
+    push_player_into_room(cur_floor->cur_room->r/2, cur_floor->cur_room->c/2);
 }
 void draw() {
     draw_room(cur_floor->cur_room);

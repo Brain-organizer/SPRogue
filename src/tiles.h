@@ -9,15 +9,21 @@ typedef enum tile_type {
     TT_GRASS_FLOOR,
     TT_CAVE_FLOOR,
     TT_DARK,
-    TT_CAVE_WALL_VER,
-    TT_CAVE_WALL_HOR,
+    TT_CAVE_WALL,
     TT_WOOD_WALL_VER,
     TT_WOOD_WALL_HOR,
+    TT_WOOD_WALL_NE,
+    TT_WOOD_WALL_SE,
+    TT_WOOD_WALL_SW,
+    TT_WOOD_WALL_NW,
+    TT_WOOD_FLOOR,
+    TT_WOOD_TABLE,
     TILE_NUM,
 } tile_type;
 
 typedef enum tile_status {
     TS_FIRE = 1 << 0,
+    TS_BLOOD = 1 << 1,
 } tile_status;
 
 typedef enum tile_flag {
@@ -46,6 +52,8 @@ tile get_tile_template(tile_type type);
 void free_tile(tile *tile);
 
 tile *get_tile_at(int r, int c);
+
+int is_within_bound(int row, int col);
 
 int is_passable(int row, int col);
 
