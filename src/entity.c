@@ -68,28 +68,6 @@ entity get_entity_template(entity_type et) {
     return entity_template[et];
 }
 
-void do_random_movement(entity *e) {
-    tile *nexts[MOVE_TYPES];
-    int i;
-    bool check = true;      // 움직일 곳이 있는지 확인
-
-    for(i = 0; i < MOVE_TYPES; ++i) {
-        nexts[i] = get_tile_at(e->r+MOVE_DIRS[i][0], e->c+MOVE_DIRS[i][1]);
-
-        if(nexts[i] && !(nexts[i]->flags & TF_PASSABLE)) nexts[i] = NULL;
-
-        if(nexts[i]) check = false;
-    }
-
-    if(check) return;
-
-    do {
-        i = rand() % MOVE_TYPES;
-    } while(nexts[i] == NULL);
-
-    handle_entity_enter_tile_event(e, nexts[i]);
-}
-
 void update_all_entities(){ //player(당근)을 제외한 모든 entity에 대해 딜레이를 확인하고, 딜레이가 0이면 random movement를 진행.
 
     room *cur_room = get_cur_room();
