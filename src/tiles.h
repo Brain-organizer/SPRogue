@@ -59,7 +59,12 @@ tile *get_tile_at(int r, int c);
 int is_within_bound(int row, int col);
 
 int is_passable(int row, int col);
+int is_passable_tile(tile *t);
 
 int is_burnable(int row, int col);
+int is_burnable_tile(tile *t);
+
+int is_door(int row, int col);
+int is_door_tile(tile *t);
 
 #endif
