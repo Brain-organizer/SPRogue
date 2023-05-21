@@ -6,6 +6,7 @@
 #include "tiles.h"
 #include "util.h"
 #include "rooms.h"
+#include "action.h"
 
 entity entity_template[ENTITY_NUM];
 void (*draw_entity_func[ENTITY_NUM])(entity *);
@@ -100,7 +101,7 @@ void update_all_entities(){ //player(당근)을 제외한 모든 entity에 대�
                 continue;
 
             target_ent = get_entity_at(row,col);
-            if(target_ent->type != ET_CARROT){// 플레이어 움직임 확인하기 위해 코멘트 해제
+            if(target_ent->type != ET_CARROT){
                 update_entity(target_ent);
             }
         }
@@ -121,7 +122,7 @@ void update_entity(entity *e) {
         --(e->delay);
     }
     else {
-        do_random_movement(e);
+        auto_move(e);
         e->delay = 200;
     }
 }

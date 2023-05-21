@@ -3,6 +3,8 @@
 #include "entity.h"
 #include "floor.h"
 #include "tiles.h"
+#include "util.h"
+#include "automove.h"
 
 //player를 현재위치에서 row행 col열로 이동시키는 함수. 해당 위치에 문이나 몬스터가 있으면 알맞은 행동을 취한다. 
 void move_player_to(int row, int col){
@@ -33,6 +35,35 @@ void move_player_to(int row, int col){
         attack(player, target);
     }
 
+}
+
+void auto_move(entity* e){
+    dir_type dir = get_next_step(e);
+    
+    move_object_to(e, e->r + MOVE_DIRS[dir][0], e->c + MOVE_DIRS[dir][1]);
+}
+
+void move_object_to(entity *e, int row, int col){
+    entity *target = get_entity_at(row, col);
+    int prev_row = e->r;
+    int prev_col = e->c;
+    tile *prev_tile = get_tile_at(prev_row, prev_col);
+    tile *new_tile = get_tile_at(row,col);
+
+    
+    if(!is_passable(row,col)){
+        return;
+    }
+    else if(target == NULL){ //entity 아무것도 없으면 이동
+        new_tile->entity_id = prev_tile->entity_id;
+        prev_tile->entity_id = -1;
+
+        e->r = row;
+        e->c = col;
+    }
+    else if(e->is_enemy != target->is_enemy){ // 공격가능한 대상이 있으면(현재 엔티티와 타겟 엔티티가 적 관계이면) 공격
+        attack(e, target);
+    }
 }
 
 //from 엔티티가 to 엔티티를 공격하는 함수. from의 power에 해당하는 값만큼 to의 hp가 줄어든다. 만약 hp가 0이 된다면 to는 죽게된다.

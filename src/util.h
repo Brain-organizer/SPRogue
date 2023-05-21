@@ -10,6 +10,13 @@ static const int MOVE_DIRS[MOVE_TYPES][2] = {
     {0, -1},
 };
 
+typedef enum dir_type {
+    DOWN,
+    UP,
+    RIGHT,
+    LEFT,
+} dir_type;
+
 void raise(char *s);
 
 #endif
