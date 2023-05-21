@@ -10,9 +10,31 @@ void enter_door_entity() {
     fputs("Entity cannot to walk into a door!\n", stderr);
 }
 
-void enter_door_player() {
-    fputs("Player tried to walk into a door\n", stderr);
-}
+void enter_door_player(tile *t) {
+    entity *player = get_player();
+    floor *f = get_cur_floor();
+    room *rm = get_cur_room();
+    door dr;
+
+    fputs("Player tried to enter a door\n", stderr);
+    
+    if(t->door_id == -1) {
+        fputs("This tile is not a door!\n", stderr);
+        return;
+    }
+
+    dr = rm->doors[t->door_id];
+    
+    pop_entity_from_room(rm, player);
+    
+    f->cur_room = f->rooms[dr.room_id];
+
+    push_player_into_room(dr.next->r, dr.next->c);
+
+    f->room_changed = true;
+
+    fputs("Player successfully moved into a door!\n", stderr);
+} 
 
 void move_entity_to(entity *e, tile *next) {
     tile *cur = get_tile_at(e->r, e->c);
@@ -68,7 +90,7 @@ void handle_player_enter_tile_event(tile *new_tile){
 
     // } else if
     if(is_door_tile(new_tile)) {
-        enter_door_player();
+        enter_door_player(new_tile);
         return;
     }
     else if(!is_passable_tile(new_tile)){

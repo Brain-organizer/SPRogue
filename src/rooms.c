@@ -6,12 +6,18 @@
 #include "util.h"
 
 #define ASSIGN_TILE_MACRO(type, row, col) rm->map[row][col] = get_tile_template(type); rm->map[row][col].r = row; rm->map[row][col].c = col
+#define ASSIGN_DOOR_MACRO(type, dir, row, col) ASSIGN_TILE_MACRO(type, row, col); rm->map[row][col].door_id = dir; rm->doors[dir].prev = rm->map[row] + col; rm->doors[dir].next = NULL; rm->doors[dir].room_id = -1
 #define ASSIGN_STAT_MACRO(flg, row, col) rm->map[row][col].status |= flg
+
+bool is_door_ok(door d) {
+    return d.prev && !d.next;
+}
 
 room * get_tmp_room() {
     room * rm;
     int r, c;
     rm = malloc(sizeof(room));
+    memset(rm, 0, sizeof(rm));
 
     rm->r = 7;
     rm->c = 12;
@@ -91,6 +97,7 @@ room * get_butcher_room() {
     room * rm;
     int r, c;
     rm = malloc(sizeof(room));
+    memset(rm, 0, sizeof(rm));
 
     rm->r = 9;
     rm->c = 6;
@@ -149,6 +156,8 @@ room * get_butcher_room() {
         rm->map[r][c].c = c;
     }
 
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_WEST, 4, 0);
+
     rm->map[3][rm->c-3].status |= TS_BLOOD;
 
     rm->entities = NULL;
@@ -161,6 +170,7 @@ room * get_start_room() {
     int r, c, tv;
     bool flg;
     rm = malloc(sizeof(room));
+    memset(rm, 0, sizeof(rm));
 
     rm->r = 13;
     rm->c = 11;
@@ -204,7 +214,7 @@ room * get_start_room() {
     ASSIGN_TILE_MACRO(TT_CAVE_WALL, 0, c);
     ASSIGN_TILE_MACRO(TT_CAVE_WALL, 12, c);
 
-    ASSIGN_TILE_MACRO(TT_WOOD_DOOR_VER, 6, c);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_EAST, 6, c);
 
     ASSIGN_STAT_MACRO(TS_BLOOD, 5, 4);
     ASSIGN_STAT_MACRO(TS_BLOOD, 5, 5);
@@ -259,6 +269,22 @@ void free_room(room *rm) {
     free(rm);
 }
 
+void pop_entity_from_room(room *rm, entity *e) {
+    int i;
+    if(rm == NULL) rm = get_cur_room();
+
+    for(i = 0; i < cvector_size(rm->entities); ++i) {
+        if(rm->entities[i] == e) {
+            rm->map[e->r][e->c].entity_id = rm->map[e->r][e->c].player_id = -1;
+            cvector_erase(rm->entities, i);
+            return;
+        }
+    }
+
+    fprintf(stderr, "Tried to pop an entity that is not in a room\n");
+    exit(1);
+}
+
 void push_entity_into_room(room *rm, entity *e, int row, int col) {
     if(rm == NULL) rm = get_cur_room();
     
@@ -269,4 +295,16 @@ void push_entity_into_room(room *rm, entity *e, int row, int col) {
     cvector_push_back(rm->entities, e);
     e->r = row;
     e->c = col;
+}
+
+//player를 현재 room에다 배치하는 함수. map의 row행 col열에 배치되며, room의 entities[idx]에 player의 entity가 들어가게 된다. 
+//room이 변경된 후 반드시 호출해주어야 하는 함수.
+void push_player_into_room(int row, int col){
+    room *rm = get_cur_room();
+    push_entity_into_room(NULL, get_player(), row, col);
+    rm->map[row][col].player_id = 1;
+}
+
+door_dir get_door_dir_opp(door_dir dir) {
+    return door_opp[dir];
 }

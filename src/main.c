@@ -29,7 +29,7 @@ int main() {
     while(true) {
         //플레이어 액션 함수 호출 : 함수 내부에서 딜레이를 확인하고 0이면 키 입력을 받아 알맞은 행동 진행
         update_player();
-
+        
         //엔티티 액션 함수 호출 : 함수 내부에서 for문을 돌며 모든 엔티티에 대해 update_entity 수행. 
         update_all_entities();
 

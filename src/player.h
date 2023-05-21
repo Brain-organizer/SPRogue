@@ -9,7 +9,6 @@
 void init_player();
 void update_player();
 void free_player();
-void push_player_into_room(int row, int col);
 entity *get_player();
 
 #endif
