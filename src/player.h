@@ -9,6 +9,7 @@
 void init_player();
 void update_player();
 void free_player();
+void make_potatoboom();
 entity *get_player();
 
 #endif

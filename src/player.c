@@ -37,6 +37,9 @@ void update_player() {
             case '.':
                 player->delay = 100;
                 break;
+            case 'q':
+                make_potatoboom();
+                break;
             case 'i': case 'I':
                 //인벤토리 창
 
@@ -45,7 +48,6 @@ void update_player() {
 
             //...
         }
-        player->delay = 100;
     }
 
     fputs("Player update successful!\n", stderr);
@@ -58,4 +60,32 @@ entity *get_player(){
 
 void free_player() {
     free(player);
+}
+
+void make_potatoboom(){
+    int row, col;
+    switch(getch()) {
+    case KEY_RIGHT:
+        row = player->r; col = player->c+1;
+        break;
+    case KEY_LEFT:
+        row = player->r; col = player->c-1;
+        break;
+    case KEY_UP:
+        row = player->r-1; col = player->c;
+        break;
+    case KEY_DOWN:
+        row = player->r+1; col = player->c;
+        break;
+    default:
+        make_potatoboom();
+        return;
+    }
+
+    if(is_passable(row,col) && get_entity_at(row,col) == NULL)
+        push_entity_into_room(NULL, create_entity(ET_POTATOBOOM), row, col);
+    else
+        make_potatoboom();
+
+    player->delay = 300;
 }

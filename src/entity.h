@@ -7,6 +7,7 @@ typedef enum entity_type {
     ET_NULL=0,
     ET_CARROT,
     ET_RABBIT,
+    ET_POTATOBOOM,
     ENTITY_NUM,
 } entity_type;
 
@@ -17,6 +18,8 @@ typedef struct entity {
     int hp;
     int power;
     int is_enemy; //적이거나 적 소유의 무언가이면 1, player나 player 소유물이면 0
+    int attack_de;
+    int mv_de;
     entity_type type;
 } entity;
 

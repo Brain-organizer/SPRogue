@@ -53,6 +53,8 @@ void move_entity_to(entity *e, tile *next) {
 
     e->r = next->r;
     e->c = next->c;
+
+    e->delay = e->mv_de;
 }
 
 void handle_entity_enter_tile_event(entity *e, tile *new_tile) {
@@ -127,9 +129,24 @@ void attack(entity *from, entity *to){
             //todo : to의 hp가 줄어들었다는 메세지 or entity들의 hp 잔량을 옆에 표시해줌
             
         }
+        break;
         
-    //todo : 투사체의 공격은 다른 케이스. 
+    case ET_POTATOBOOM:
+        if(to->hp < from->power){
+            from->power -= to->hp;
+            kill_et(to);
+        }
+        else if(to->hp > from->power){
+            to->hp -= from->power;
+            kill_et(from);
+        }
+        else{
+            kill_et(to);
+            kill_et(from);
+        }
+        break;
     }
+    from->delay = from->attack_de;
 }
 
 //entity를 죽이는 함수. entity를 map에서 삭제하고, 죽었다는 메세지를 표시해줌.
