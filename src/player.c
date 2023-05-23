@@ -87,5 +87,5 @@ void make_potatoboom(){
     else
         make_potatoboom();
 
-    player->delay = 300;
+    player->delay = 15000;
 }

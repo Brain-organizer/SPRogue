@@ -23,13 +23,13 @@ void draw_entity_func_ET_NULL(entity *entity) {
 }
 
 void set_entity_template_ET_CARROT_func() {
-    entity_template[ET_CARROT].delay = 100;
+    entity_template[ET_CARROT].delay = 5000;
     entity_template[ET_CARROT].hp = 200;
     entity_template[ET_CARROT].power = 20;
     entity_template[ET_CARROT].is_enemy = 0;
     entity_template[ET_CARROT].type = ET_CARROT;
-    entity_template[ET_CARROT].attack_de = 150;
-    entity_template[ET_CARROT].mv_de = 100;
+    entity_template[ET_CARROT].attack_de = 7000;
+    entity_template[ET_CARROT].mv_de = 5000;
 }
 void draw_entity_func_ET_CARROT(entity *entity) {
     entity->col = colornum(2, 0, false, false);
@@ -40,13 +40,13 @@ void draw_entity_func_ET_CARROT(entity *entity) {
 }
 
 void set_entity_template_ET_RABBIT_func() {
-    entity_template[ET_RABBIT].delay = 100;
+    entity_template[ET_RABBIT].delay = 7000;
     entity_template[ET_RABBIT].hp = 100;
     entity_template[ET_RABBIT].power = 20;
     entity_template[ET_RABBIT].is_enemy = 1;
     entity_template[ET_RABBIT].type = ET_RABBIT;
-    entity_template[ET_RABBIT].attack_de = 150;
-    entity_template[ET_RABBIT].mv_de = 150;
+    entity_template[ET_RABBIT].attack_de = 10000;
+    entity_template[ET_RABBIT].mv_de = 7000;
 }
 void draw_entity_func_ET_RABBIT(entity *entity) {
     entity->col = colornum(7, 0, false, false);
@@ -57,13 +57,13 @@ void draw_entity_func_ET_RABBIT(entity *entity) {
 }
 
 void set_entity_template_ET_POTATOBOOM_func() {
-    entity_template[ET_POTATOBOOM].delay = 100;
+    entity_template[ET_POTATOBOOM].delay = 5000;
     entity_template[ET_POTATOBOOM].hp = 50;
     entity_template[ET_POTATOBOOM].power = 100;
     entity_template[ET_POTATOBOOM].is_enemy = 0;
     entity_template[ET_POTATOBOOM].type = ET_POTATOBOOM;
-    entity_template[ET_POTATOBOOM].attack_de = 400;
-    entity_template[ET_POTATOBOOM].mv_de = 100;
+    entity_template[ET_POTATOBOOM].attack_de = 7000;
+    entity_template[ET_POTATOBOOM].mv_de = 5000;
 }
 void draw_entity_func_ET_POTATOBOOM(entity * entity) {
     entity->col = colornum(3, 0, false, false);
