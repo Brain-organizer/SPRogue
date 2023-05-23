@@ -32,7 +32,7 @@ void set_entity_template_ET_CARROT_func() {
     entity_template[ET_CARROT].mv_de = 5000;
 }
 void draw_entity_func_ET_CARROT(entity *entity) {
-    entity->col = colornum(2, 0, false, false);
+    entity->col = colornum(3, 0, false, false);
     setcolor(entity->col);
     mvaddstr(entity->r, entity->c, "Y");
 
@@ -68,7 +68,26 @@ void set_entity_template_ET_POTATOBOOM_func() {
 void draw_entity_func_ET_POTATOBOOM(entity * entity) {
     entity->col = colornum(3, 0, false, false);
     setcolor(entity->col);
-    mvaddstr(entity->r, entity->c, "⭓");
+    mvaddstr(entity->r, entity->c, "o");
+
+    unsetcolor(entity->col);
+}
+
+void set_entity_template_ET_EGGPLANT_func() {
+    entity_template[ET_EGGPLANT].delay = 5000;
+    entity_template[ET_EGGPLANT].hp = 100;
+    entity_template[ET_EGGPLANT].power = 10;
+    entity_template[ET_EGGPLANT].is_enemy = 0;
+    entity_template[ET_EGGPLANT].type = ET_EGGPLANT;
+    entity_template[ET_EGGPLANT].attack_de = 7000;
+    entity_template[ET_EGGPLANT].mv_de = 5000;
+}
+void draw_entity_func_ET_EGGPLANT(entity * entity) {
+    entity->col = colornum(6, 0, false, false);
+    setcolor(entity->col);
+    mvaddstr(entity->r, entity->c, "Y");
+
+    unsetcolor(entity->col);
 }
 
 #define INIT_ENTITY_MACRO(NAME) set_entity_template(NAME); set_entity_template_ ## NAME ## _func(); draw_entity_func[NAME] = draw_entity_func_ ## NAME;
@@ -78,6 +97,7 @@ void init_entities() {
     INIT_ENTITY_MACRO(ET_CARROT)
     INIT_ENTITY_MACRO(ET_RABBIT)
     INIT_ENTITY_MACRO(ET_POTATOBOOM)
+    INIT_ENTITY_MACRO(ET_EGGPLANT)
 }
 
 void draw_entity(entity *entity) {

@@ -233,6 +233,10 @@ room * get_start_room() {
     rm->entities = NULL;
 
     push_entity_into_room(rm, create_entity(ET_RABBIT), 6, 4);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 9, 4);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 9, 5);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 9, 6);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 9, 7);
 
     return rm;
 }
