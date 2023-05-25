@@ -241,6 +241,53 @@ room * get_start_room() {
     return rm;
 }
 
+room * get_corridor_room() {
+    room * rm;
+    int r, c, tv;
+    bool flg;
+    rm = malloc(sizeof(room));
+    memset(rm, 0, sizeof(rm));
+
+    rm->r = 5;
+    rm->c = 17;
+    
+    rm->map = malloc(sizeof(tile *) * rm->r);
+
+    for(r = 0; r < rm->r; ++r) {
+        rm->map[r] = malloc(sizeof(tile) * rm->c);
+    } 
+
+    for(r = 0; r < rm->r; ++r) {
+        for(c = 0; c < rm->c; ++c) {
+            ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, r, c);
+        }
+    }
+
+    for(c = 1; c < rm->c-1; ++c) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, 0, c);
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->r-1, c);
+    }
+    for(r = 1; r < rm->r-1; ++r) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, 0);
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, rm->c-1);
+    }
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NW, 0, 0);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NE, 0, rm->c-1);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SE, rm->r-1, rm->c-1);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SW, rm->r-1, 0);
+
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_WEST, rm->r/2, 0);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_EAST, rm->r/2, rm->c-1);
+
+    for(c = 1; c < rm->c-1; ++c) {
+        ASSIGN_TILE_MACRO(TT_RED_CARPET, 2, c);
+    }
+
+    rm->entities = NULL;
+
+    return rm;
+}
+
 void draw_room(room *rm) {
     int r, c;
 

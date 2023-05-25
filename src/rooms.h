@@ -34,6 +34,7 @@ typedef struct room {
 room * get_tmp_room();
 room * get_butcher_room();
 room * get_start_room();
+room * get_corridor_room();
 
 bool is_door_ok(door d);
 

@@ -254,6 +254,32 @@ void draw_tile_func_TT_WOOD_DOOR_HOR(tile *tile) {
     unsetcolor(tile->col);
 }
 
+void set_tile_template_TT_RED_CARPET_func() {
+    tile_template[TT_RED_CARPET].type = TT_RED_CARPET;
+    tile_template[TT_RED_CARPET].flags |= TF_PASSABLE;
+}
+void draw_tile_func_TT_RED_CARPET(tile *tile) {
+    tile->col = colornum(4, 0, false, false);
+    setcolor(tile->col);
+
+    mvaddstr(tile->r, tile->c, "▓");
+
+    unsetcolor(tile->col);
+}
+
+void set_tile_template_TT_GREEN_CARPET_func() {
+    tile_template[TT_GREEN_CARPET].type = TT_GREEN_CARPET;
+    tile_template[TT_GREEN_CARPET].flags |= TF_DOOR;
+}
+void draw_tile_func_TT_GREEN_CARPET(tile *tile) {
+    tile->col = colornum(2, 0, false, false);
+    setcolor(tile->col);
+
+    mvaddstr(tile->r, tile->c, "▓");
+
+    unsetcolor(tile->col);
+}
+
 #define INIT_TILE_MACRO(NAME) set_tile_template(NAME); set_tile_template_ ## NAME ## _func(); draw_tile_func[NAME] = draw_tile_func_ ## NAME;
 
 void init_tiles() {
@@ -272,6 +298,8 @@ void init_tiles() {
     INIT_TILE_MACRO(TT_WOOD_TABLE)
     INIT_TILE_MACRO(TT_WOOD_DOOR_VER)
     INIT_TILE_MACRO(TT_WOOD_DOOR_HOR)
+    INIT_TILE_MACRO(TT_RED_CARPET)
+    INIT_TILE_MACRO(TT_GREEN_CARPET)
 }
 
 void draw_tile(tile *tile) {
