@@ -324,5 +324,6 @@ int is_door(int row, int col) {
     return is_door_tile(rm->map[row] + col);
 }
 int is_door_tile(tile *t) {
-    return t->flags & TF_DOOR;
+    room *rm = get_cur_room();
+    return (t->flags & TF_DOOR) && rm->doors[t->door_id].next;
 }
