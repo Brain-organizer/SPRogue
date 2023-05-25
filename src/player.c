@@ -52,8 +52,6 @@ void update_player() {
             //...
         }
     }
-
-    fputs("Player update successful!\n", stderr);
 }
 
 //player entity의 포인터를 반환
