@@ -27,6 +27,7 @@ typedef struct door {
 typedef struct room {
     int r, c;
     tile **map;
+    bool **dirty;
     door doors[DOOR_DIR_NUM];
     cvector_vector_type(entity *) entities;
 } room;

@@ -37,6 +37,7 @@ void enter_door_player(tile *t) {
 } 
 
 void move_entity_to(entity *e, tile *next) {
+    room *rm = get_cur_room();
     tile *cur = get_tile_at(e->r, e->c);
 
     if(cur == NULL) {
@@ -50,6 +51,9 @@ void move_entity_to(entity *e, tile *next) {
 
     cur->entity_id = -1;
     cur->player_id = -1;
+
+    rm->dirty[e->r][e->c] = true;
+    rm->dirty[next->r][next->c] = true;
 
     e->r = next->r;
     e->c = next->c;
@@ -151,7 +155,7 @@ void attack(entity *from, entity *to){
 
 //entity를 죽이는 함수. entity를 map에서 삭제하고, 죽었다는 메세지를 표시해줌.
 void kill_et(entity *target){
-    remove_entity(target);
+    pop_entity_from_room(NULL, target);
 
     //todo :죽었다는 메세지 표시해주기.
 }

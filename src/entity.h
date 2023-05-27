@@ -33,6 +33,5 @@ void update_all_entities();
 entity *get_entity_at(int row, int col);
 entity *get_entity_at_tile(tile *t);
 entity *create_entity(entity_type et);
-void remove_entity(entity *target);
 
 #endif

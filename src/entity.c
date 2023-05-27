@@ -153,26 +153,6 @@ void free_entity(entity *e) {
     free(e);
 }
 
-//entity를 삭제하는 함수. entity를 맵상에서 제거하고 entities 목록에서도 지운다. entity id들에도 변화가 생기므로 해당 변화를 맵에 반영해준다.
-void remove_entity(entity *target){
-    int et_id, size, row, col;
-    room* rm = get_cur_room();
-
-    et_id = rm->map[target->r][target->c].entity_id;
-    rm->map[target->r][target->c].entity_id = -1;
-    cvector_erase(rm->entities,et_id);
-    free_entity(target);
-
-    size = cvector_size(rm->entities);
-    for(;et_id<size; et_id++){
-        row = rm->entities[et_id]->r;
-        col = rm->entities[et_id]->c;
-        rm->map[row][col].entity_id = et_id;
-    }
-
-
-}
-
 entity *create_entity(entity_type et) {
     entity *out = malloc(sizeof(entity));
     *out = get_entity_template(et);

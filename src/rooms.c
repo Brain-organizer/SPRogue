@@ -28,6 +28,13 @@ room * get_tmp_room() {
         rm->map[r] = malloc(sizeof(tile) * rm->c);
     }
 
+    rm->dirty = malloc(sizeof(bool *) * rm->r);
+
+    for(r = 0; r < rm->r; ++r) {
+        rm->dirty[r] = malloc(sizeof(bool) * rm->c);
+        memset(rm->dirty[r], true, sizeof(bool) * rm->c);
+    }
+
     for(r = 0; r < rm->r; ++r) {
         for(c = 0; c < rm->c; ++c) {
             rm->map[r][c] = get_tile_template(TT_DARK);
@@ -108,6 +115,13 @@ room * get_butcher_room() {
         rm->map[r] = malloc(sizeof(tile) * rm->c);
     } 
 
+    rm->dirty = malloc(sizeof(bool *) * rm->r);
+
+    for(r = 0; r < rm->r; ++r) {
+        rm->dirty[r] = malloc(sizeof(bool) * rm->c);
+        memset(rm->dirty[r], true, sizeof(bool) * rm->c);
+    }
+
     r = 0;
     for(c = 0; c < rm->c; ++c) {
         rm->map[r][c] = get_tile_template(TT_WOOD_WALL_HOR);
@@ -180,6 +194,13 @@ room * get_start_room() {
     for(r = 0; r < rm->r; ++r) {
         rm->map[r] = malloc(sizeof(tile) * rm->c);
     } 
+
+    rm->dirty = malloc(sizeof(bool *) * rm->r);
+
+    for(r = 0; r < rm->r; ++r) {
+        rm->dirty[r] = malloc(sizeof(bool) * rm->c);
+        memset(rm->dirty[r], true, sizeof(bool) * rm->c);
+    }
 
     for(r = 0; r < rm->r; ++r) {
         for(c = 0; c < rm->c; ++c) {
@@ -257,6 +278,13 @@ room * get_corridor_room() {
         rm->map[r] = malloc(sizeof(tile) * rm->c);
     } 
 
+    rm->dirty = malloc(sizeof(bool *) * rm->r);
+
+    for(r = 0; r < rm->r; ++r) {
+        rm->dirty[r] = malloc(sizeof(bool) * rm->c);
+        memset(rm->dirty[r], true, sizeof(bool) * rm->c);
+    }
+
     for(r = 0; r < rm->r; ++r) {
         for(c = 0; c < rm->c; ++c) {
             ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, r, c);
@@ -293,10 +321,14 @@ void draw_room(room *rm) {
 
     for(r = 0; r < rm->r; ++r) {
         for(c = 0; c < rm->c; ++c) {
-            if(rm->map[r][c].entity_id == -1)
-                draw_tile(rm->map[r] + c);
-            else
-                draw_entity(rm->entities[rm->map[r][c].entity_id]);
+            if(rm->dirty[r][c]) {
+                rm->dirty[r][c] = false;
+
+                if(rm->map[r][c].entity_id == -1)
+                    draw_tile(rm->map[r] + c);
+                else
+                    draw_entity(rm->entities[rm->map[r][c].entity_id]);
+            }
         }
     }
 }
@@ -307,6 +339,7 @@ void free_room(room *rm) {
 
     for(r = 0; r < rm->r; ++r) {
         free_tile(rm->map[r]);
+        free(rm->dirty[r]);
     }
 
     for(i = 0; i < cvector_size(rm->entities); ++i) {
@@ -317,17 +350,24 @@ void free_room(room *rm) {
     cvector_free(rm->entities);
 
     free(rm->map);
+    free(rm->dirty);
     free(rm);
 }
 
 void pop_entity_from_room(room *rm, entity *e) {
-    int i;
+    int i, j, size;
     if(rm == NULL) rm = get_cur_room();
 
     for(i = 0; i < cvector_size(rm->entities); ++i) {
         if(rm->entities[i] == e) {
             rm->map[e->r][e->c].entity_id = rm->map[e->r][e->c].player_id = -1;
+            rm->dirty[e->r][e->c] = true;
             cvector_erase(rm->entities, i);
+
+            size = cvector_size(rm->entities);
+            for(j=0;j<size; j++){
+                rm->map[rm->entities[j]->r][rm->entities[j]->c].entity_id = j;
+            }
             return;
         }
     }
@@ -343,6 +383,7 @@ void push_entity_into_room(room *rm, entity *e, int row, int col) {
         raise("push_entity_into_room");
     }
     rm->map[row][col].entity_id = cvector_size(rm->entities);
+    rm->dirty[row][col] = true;
     cvector_push_back(rm->entities, e);
     e->r = row;
     e->c = col;
