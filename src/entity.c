@@ -36,10 +36,9 @@ void set_entity_template_ET_CARROT_func() {
 }
 void draw_entity_func_ET_CARROT(entity *entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
-    if(entity->bg > 0) unget_color_id(entity->bg);
-
+    
     entity->fg = get_color_id(139, 0, 0);
-    entity->bg = 0;
+    entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
 
     SET_COLOR(entity->col);
@@ -58,10 +57,9 @@ void set_entity_template_ET_RABBIT_func() {
 }
 void draw_entity_func_ET_RABBIT(entity *entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
-    if(entity->bg > 0) unget_color_id(entity->bg);
-
+    
     entity->fg = get_color_id(255, 255, 255);
-    entity->bg = 0;
+    entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
 
     SET_COLOR(entity->col);
@@ -80,10 +78,9 @@ void set_entity_template_ET_POTATOBOOM_func() {
 }
 void draw_entity_func_ET_POTATOBOOM(entity * entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
-    if(entity->bg > 0) unget_color_id(entity->bg);
-
+    
     entity->fg = get_color_id(139, 0, 0);
-    entity->bg = 0;
+    entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
     
     SET_COLOR(entity->col);
@@ -102,10 +99,9 @@ void set_entity_template_ET_EGGPLANT_func() {
 }
 void draw_entity_func_ET_EGGPLANT(entity * entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
-    if(entity->bg > 0) unget_color_id(entity->bg);
-
+    
     entity->fg = get_color_id(255, 255, 255);
-    entity->bg = 0;
+    entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
     
     SET_COLOR(entity->col);

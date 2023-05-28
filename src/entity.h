@@ -22,6 +22,7 @@ typedef struct entity {
     int is_enemy; //적이거나 적 소유의 무언가이면 1, player나 player 소유물이면 0
     int attack_de;
     int mv_de;
+    tile *tile;
     entity_type type;
 } entity;
 

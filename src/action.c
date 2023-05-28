@@ -81,6 +81,7 @@ void move_entity_to(entity *e, tile *next) {
     e->c = next->c;
 
     e->delay = e->mv_de;
+    e->tile = next;
 }
 
 void handle_entity_enter_tile_event(entity *e, tile *new_tile) {
