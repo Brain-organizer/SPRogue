@@ -40,7 +40,7 @@ void draw_entity_func_ET_CARROT(entity *entity) {
 
     entity->fg = get_color_id(139, 0, 0);
     entity->bg = 0;
-    entity->col = ((entity->fg << 8)+entity->bg);
+    entity->col = PAIR_COLOR(entity->fg, entity->bg);
 
     SET_COLOR(entity->col);
     mvaddstr(entity->r, entity->c, "Y");
@@ -62,7 +62,7 @@ void draw_entity_func_ET_RABBIT(entity *entity) {
 
     entity->fg = get_color_id(255, 255, 255);
     entity->bg = 0;
-    entity->col = ((entity->fg << 8)+entity->bg);
+    entity->col = PAIR_COLOR(entity->fg, entity->bg);
 
     SET_COLOR(entity->col);
     mvaddstr(entity->r, entity->c, "R");
@@ -84,7 +84,7 @@ void draw_entity_func_ET_POTATOBOOM(entity * entity) {
 
     entity->fg = get_color_id(139, 0, 0);
     entity->bg = 0;
-    entity->col = ((entity->fg << 8)+entity->bg);
+    entity->col = PAIR_COLOR(entity->fg, entity->bg);
     
     SET_COLOR(entity->col);
     mvaddstr(entity->r, entity->c, "o");
@@ -106,7 +106,7 @@ void draw_entity_func_ET_EGGPLANT(entity * entity) {
 
     entity->fg = get_color_id(255, 255, 255);
     entity->bg = 0;
-    entity->col = ((entity->fg << 8)+entity->bg);
+    entity->col = PAIR_COLOR(entity->fg, entity->bg);
     
     SET_COLOR(entity->col);
     mvaddstr(entity->r, entity->c, "Y");

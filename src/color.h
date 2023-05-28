@@ -6,6 +6,7 @@
 
 #define SET_COLOR(c) (attr_set(0, (c), 0))
 #define UNSET_COLOR(c) (attr_off(0, &(c)))
+#define PAIR_COLOR(f, g) (((f) << 8) + (g))
 
 typedef struct color {
     int r, g, b;

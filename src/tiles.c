@@ -42,14 +42,14 @@ void draw_tile_func_TT_CAVE_FLOOR(tile *tile) {
 
     if(tile->status & TS_BLOOD) {
         tile->fg = get_color_id(166, 16, 30);
-        tile->col = ((tile->fg << 8)+tile->bg);
+        tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
         SET_COLOR(tile->col);
         mvaddstr(tile->r, tile->c, "%");
     }
     else {
         tile->fg = 0;
-        tile->col = ((tile->fg << 8)+tile->bg);
+        tile->col = PAIR_COLOR(tile->fg, tile->bg);
         
         SET_COLOR(tile->col);
         mvaddstr(tile->r, tile->c, " ");
@@ -66,7 +66,7 @@ void draw_tile_func_TT_DARK(tile *tile) {
     if(tile->bg > 0) unget_color_id(tile->bg);
 
     tile->fg = tile->bg = 0;
-    tile->col = ((tile->fg << 8)+tile->bg);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
     
     SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, " ");
@@ -82,7 +82,7 @@ void draw_tile_func_TT_CAVE_WALL(tile *tile) {
 
     tile->fg = 0;
     tile->bg = get_color_id(120, 120, 120);
-    tile->col = ((tile->fg << 8)+tile->bg);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
     SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, " ");
@@ -99,7 +99,7 @@ void draw_tile_func_TT_WOOD_WALL_VER(tile *tile) {
 
     tile->fg = 0;
     tile->bg = get_color_id(133,94,66);
-    tile->col = ((tile->fg << 8)+tile->bg);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
     SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "║");
@@ -116,7 +116,7 @@ void draw_tile_func_TT_WOOD_WALL_HOR(tile *tile) {
 
     tile->fg = 0;
     tile->bg = get_color_id(133,94,66);
-    tile->col = ((tile->fg << 8)+tile->bg);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
     SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "═");
@@ -133,7 +133,7 @@ void draw_tile_func_TT_WOOD_WALL_NE(tile *tile) {
 
     tile->fg = 0;
     tile->bg = get_color_id(133,94,66);
-    tile->col = ((tile->fg << 8)+tile->bg);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
     SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "╗");
@@ -150,7 +150,7 @@ void draw_tile_func_TT_WOOD_WALL_SE(tile *tile) {
 
     tile->fg = 0;
     tile->bg = get_color_id(133,94,66);
-    tile->col = ((tile->fg << 8)+tile->bg);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
     SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "╝");
@@ -167,7 +167,7 @@ void draw_tile_func_TT_WOOD_WALL_SW(tile *tile) {
 
     tile->fg = 0;
     tile->bg = get_color_id(133,94,66);
-    tile->col = ((tile->fg << 8)+tile->bg);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
     SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "╚");
@@ -184,7 +184,7 @@ void draw_tile_func_TT_WOOD_WALL_NW(tile *tile) {
 
     tile->fg = 0;
     tile->bg = get_color_id(133,94,66);
-    tile->col = ((tile->fg << 8)+tile->bg);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
     SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "╔");
@@ -201,7 +201,7 @@ void draw_tile_func_TT_WOOD_FLOOR(tile *tile) {
 
     tile->fg = 0;
     tile->bg = get_color_id(81,65,53);
-    tile->col = ((tile->fg << 8)+tile->bg);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
     SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, " ");
@@ -217,7 +217,7 @@ void draw_tile_func_TT_WOOD_TABLE(tile *tile) {
 
     tile->fg = get_color_id(133,94,66);
     tile->bg = get_color_id(81,65,53);
-    tile->col = ((tile->fg << 8)+tile->bg);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
     SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "#");
@@ -234,7 +234,7 @@ void draw_tile_func_TT_WOOD_DOOR_VER(tile *tile) {
 
     tile->fg = 0;
     tile->bg = get_color_id(133,94,66);
-    tile->col = ((tile->fg << 8)+tile->bg);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
     SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "╏");
@@ -251,7 +251,7 @@ void draw_tile_func_TT_WOOD_DOOR_HOR(tile *tile) {
 
     tile->fg = 0;
     tile->bg = get_color_id(133,94,66);
-    tile->col = ((tile->fg << 8)+tile->bg);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
     SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "╍");
@@ -268,7 +268,7 @@ void draw_tile_func_TT_RED_CARPET(tile *tile) {
 
     tile->fg = 0;
     tile->bg = get_color_id(128, 0, 0);
-    tile->col = ((tile->fg << 8)+tile->bg);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
     SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, " ");
@@ -285,7 +285,7 @@ void draw_tile_func_TT_GREEN_CARPET(tile *tile) {
 
     tile->fg = 0;
     tile->bg = get_color_id(0, 128, 0);
-    tile->col = ((tile->fg << 8)+tile->bg);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
     SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, " ");
