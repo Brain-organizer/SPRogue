@@ -15,6 +15,7 @@
 
 #include "floor.h"
 #include "color.h"
+#include "sidebar.h"
 
 void init();
 bool quit();
@@ -25,6 +26,7 @@ int main() {
     init_floor();
 
     draw();
+    draw_sidebar();
 
     while(true) {
         //플레이어 액션 함수 호출 : 함수 내부에서 딜레이를 확인하고 0이면 키 입력을 받아 알맞은 행동 진행
@@ -34,6 +36,7 @@ int main() {
         update_all_entities();
 
         draw();
+        draw_sidebar();
     }
 
     free_floor();
@@ -59,4 +62,7 @@ void init() {
     init_tiles();
     init_entities();
     init_player();
+
+    init_sidebar();
+    set_sidebar();
 }
