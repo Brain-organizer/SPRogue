@@ -15,7 +15,7 @@ void place_player() {
     
 }
 
-void update_player() {
+bool update_player() {
     if(player->delay) {
         --(player->delay);
     }
@@ -50,8 +50,11 @@ void update_player() {
                 //일시정지
 
             //...
+            default:
+                return false;
         }
     }
+    return true;
 }
 
 //player entity의 포인터를 반환

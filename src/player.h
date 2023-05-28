@@ -7,7 +7,7 @@
 
 
 void init_player();
-void update_player();
+bool update_player();
 void free_player();
 void make_potatoboom();
 void call_peer();
