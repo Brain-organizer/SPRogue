@@ -11,6 +11,8 @@ void set_tile_template(tile_type tp) {
     tile_template[tp].door_id = -1;
     tile_template[tp].status = 0;
     tile_template[tp].flags = 0;
+    tile_template[tp].fg = tile_template[tp].bg = -1;
+    tile_template[tp].blink = 0;
 }
 
 void set_tile_template_TT_NULL_func() {
@@ -25,18 +27,7 @@ void set_tile_template_TT_GRASS_FLOOR_func() {
     tile_template[TT_GRASS_FLOOR].flags = TF_PASSABLE | TF_BURNABLE;
 }
 void draw_tile_func_TT_GRASS_FLOOR(tile *tile) {
-    if(tile->status & TS_FIRE) {
-        tile->col = colornum(4, 2, true, true);
-        setcolor(tile->col);
-        mvaddstr(tile->r, tile->c, "❃");
-    }
-    else {
-        tile->col = colornum(6, 2, false, false);
-        setcolor(tile->col);
-        mvaddstr(tile->r, tile->c, ":");
-    }
-
-    unsetcolor(tile->col);
+    return;
 }
 
 void set_tile_template_TT_CAVE_FLOOR_func() {
@@ -44,44 +35,58 @@ void set_tile_template_TT_CAVE_FLOOR_func() {
     tile_template[TT_CAVE_FLOOR].flags = TF_PASSABLE;
 }
 void draw_tile_func_TT_CAVE_FLOOR(tile *tile) {
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
+
+    tile->bg = get_color_id(200, 200, 200);
+
     if(tile->status & TS_BLOOD) {
-        tile->col = colornum(4, 7, true, false);
-        setcolor(tile->col);
+        tile->fg = get_color_id(166, 16, 30);
+        tile->col = ((tile->fg << 8)+tile->bg);
+
+        SET_COLOR(tile->col);
         mvaddstr(tile->r, tile->c, "%");
     }
     else {
-        tile->col = colornum(7, 0, false, false);
-        setcolor(tile->col);
-        mvaddstr(tile->r, tile->c, "▓");
+        tile->fg = 0;
+        tile->col = ((tile->fg << 8)+tile->bg);
+        
+        SET_COLOR(tile->col);
+        mvaddstr(tile->r, tile->c, " ");
     }
-
-    unsetcolor(tile->col);
+    
+    UNSET_COLOR(tile->col);
 }
 
 void set_tile_template_TT_DARK_func() {
     tile_template[TT_DARK].type = TT_DARK;
 }
 void draw_tile_func_TT_DARK(tile *tile) {
-    tile->col = colornum(0, 0, false, false);
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
 
-    setcolor(tile->col);
-
+    tile->fg = tile->bg = 0;
+    tile->col = ((tile->fg << 8)+tile->bg);
+    
+    SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, " ");
-
-    unsetcolor(tile->col);
+    UNSET_COLOR(tile->col);
 }
 
 void set_tile_template_TT_CAVE_WALL_func() {
     tile_template[TT_CAVE_WALL].type = TT_CAVE_WALL;
 }
 void draw_tile_func_TT_CAVE_WALL(tile *tile) {
-    tile->col = colornum(0, 7, false, false);
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
 
-    setcolor(tile->col);
+    tile->fg = 0;
+    tile->bg = get_color_id(120, 120, 120);
+    tile->col = ((tile->fg << 8)+tile->bg);
 
-    mvaddstr(tile->r, tile->c, "▓");
-
-    unsetcolor(tile->col);
+    SET_COLOR(tile->col);
+    mvaddstr(tile->r, tile->c, " ");
+    UNSET_COLOR(tile->col);
 }
 
 void set_tile_template_TT_WOOD_WALL_VER_func() {
@@ -89,18 +94,16 @@ void set_tile_template_TT_WOOD_WALL_VER_func() {
     tile_template[TT_WOOD_WALL_VER].flags = TF_BURNABLE;
 }
 void draw_tile_func_TT_WOOD_WALL_VER(tile *tile) {
-    if(tile->status & TS_FIRE) {
-        tile->col = colornum(6, 4, true, true);
-    }
-    else {
-        tile->col = colornum(0, 6, false, false);
-    }
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
 
-    setcolor(tile->col);
+    tile->fg = 0;
+    tile->bg = get_color_id(133,94,66);
+    tile->col = ((tile->fg << 8)+tile->bg);
 
+    SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "║");
-
-    unsetcolor(tile->col);
+    UNSET_COLOR(tile->col);
 }
 
 void set_tile_template_TT_WOOD_WALL_HOR_func() {
@@ -108,18 +111,16 @@ void set_tile_template_TT_WOOD_WALL_HOR_func() {
     tile_template[TT_WOOD_WALL_HOR].flags = TF_BURNABLE;
 }
 void draw_tile_func_TT_WOOD_WALL_HOR(tile *tile) {
-    if(tile->status & TS_FIRE) {
-        tile->col = colornum(6, 4, true, true);
-    }
-    else {
-        tile->col = colornum(0, 6, false, false);
-    }
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
 
-    setcolor(tile->col);
+    tile->fg = 0;
+    tile->bg = get_color_id(133,94,66);
+    tile->col = ((tile->fg << 8)+tile->bg);
 
+    SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "═");
-
-    unsetcolor(tile->col);
+    UNSET_COLOR(tile->col);
 }
 
 void set_tile_template_TT_WOOD_WALL_NE_func() {
@@ -127,18 +128,16 @@ void set_tile_template_TT_WOOD_WALL_NE_func() {
     tile_template[TT_WOOD_WALL_NE].flags = TF_BURNABLE;
 }
 void draw_tile_func_TT_WOOD_WALL_NE(tile *tile) {
-    if(tile->status & TS_FIRE) {
-        tile->col = colornum(6, 4, true, true);
-    }
-    else {
-        tile->col = colornum(0, 6, false, false);
-    }
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
 
-    setcolor(tile->col);
+    tile->fg = 0;
+    tile->bg = get_color_id(133,94,66);
+    tile->col = ((tile->fg << 8)+tile->bg);
 
+    SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "╗");
-
-    unsetcolor(tile->col);
+    UNSET_COLOR(tile->col);
 }
 
 void set_tile_template_TT_WOOD_WALL_SE_func() {
@@ -146,18 +145,16 @@ void set_tile_template_TT_WOOD_WALL_SE_func() {
     tile_template[TT_WOOD_WALL_SE].flags = TF_BURNABLE;
 }
 void draw_tile_func_TT_WOOD_WALL_SE(tile *tile) {
-    if(tile->status & TS_FIRE) {
-        tile->col = colornum(6, 4, true, true);
-    }
-    else {
-        tile->col = colornum(0, 6, false, false);
-    }
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
 
-    setcolor(tile->col);
+    tile->fg = 0;
+    tile->bg = get_color_id(133,94,66);
+    tile->col = ((tile->fg << 8)+tile->bg);
 
+    SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "╝");
-
-    unsetcolor(tile->col);
+    UNSET_COLOR(tile->col);
 }
 
 void set_tile_template_TT_WOOD_WALL_SW_func() {
@@ -165,18 +162,16 @@ void set_tile_template_TT_WOOD_WALL_SW_func() {
     tile_template[TT_WOOD_WALL_SW].flags = TF_BURNABLE;
 }
 void draw_tile_func_TT_WOOD_WALL_SW(tile *tile) {
-    if(tile->status & TS_FIRE) {
-        tile->col = colornum(6, 4, true, true);
-    }
-    else {
-        tile->col = colornum(0, 6, false, false);
-    }
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
 
-    setcolor(tile->col);
+    tile->fg = 0;
+    tile->bg = get_color_id(133,94,66);
+    tile->col = ((tile->fg << 8)+tile->bg);
 
+    SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "╚");
-
-    unsetcolor(tile->col);
+    UNSET_COLOR(tile->col);
 }
 
 void set_tile_template_TT_WOOD_WALL_NW_func() {
@@ -184,18 +179,16 @@ void set_tile_template_TT_WOOD_WALL_NW_func() {
     tile_template[TT_WOOD_WALL_NW].flags = TF_BURNABLE;
 }
 void draw_tile_func_TT_WOOD_WALL_NW(tile *tile) {
-    if(tile->status & TS_FIRE) {
-        tile->col = colornum(6, 4, true, true);
-    }
-    else {
-        tile->col = colornum(0, 6, false, false);
-    }
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
 
-    setcolor(tile->col);
+    tile->fg = 0;
+    tile->bg = get_color_id(133,94,66);
+    tile->col = ((tile->fg << 8)+tile->bg);
 
+    SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "╔");
-
-    unsetcolor(tile->col);
+    UNSET_COLOR(tile->col);
 }
 
 void set_tile_template_TT_WOOD_FLOOR_func() {
@@ -203,29 +196,32 @@ void set_tile_template_TT_WOOD_FLOOR_func() {
     tile_template[TT_WOOD_FLOOR].flags = TF_PASSABLE;
 }
 void draw_tile_func_TT_WOOD_FLOOR(tile *tile) {
-    tile->col = colornum(4, 6, false, false);
-    setcolor(tile->col);
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
 
-    if(tile->status & TS_BLOOD) {
-        mvaddstr(tile->r, tile->c, "▓");
-    }
-    else {
-        mvaddstr(tile->r, tile->c, "░");
-    }
+    tile->fg = 0;
+    tile->bg = get_color_id(81,65,53);
+    tile->col = ((tile->fg << 8)+tile->bg);
 
-    unsetcolor(tile->col);
+    SET_COLOR(tile->col);
+    mvaddstr(tile->r, tile->c, " ");
+    UNSET_COLOR(tile->col);
 }
 
 void set_tile_template_TT_WOOD_TABLE_func() {
     tile_template[TT_WOOD_TABLE].type = TT_WOOD_TABLE;
 }
 void draw_tile_func_TT_WOOD_TABLE(tile *tile) {
-    tile->col = colornum(6, 0, false, false);
-    setcolor(tile->col);
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
 
+    tile->fg = get_color_id(133,94,66);
+    tile->bg = get_color_id(81,65,53);
+    tile->col = ((tile->fg << 8)+tile->bg);
+
+    SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "#");
-
-    unsetcolor(tile->col);
+    UNSET_COLOR(tile->col);
 }
 
 void set_tile_template_TT_WOOD_DOOR_VER_func() {
@@ -233,12 +229,16 @@ void set_tile_template_TT_WOOD_DOOR_VER_func() {
     tile_template[TT_WOOD_DOOR_VER].flags |= TF_DOOR;
 }
 void draw_tile_func_TT_WOOD_DOOR_VER(tile *tile) {
-    tile->col = colornum(0, 6, false, false);
-    setcolor(tile->col);
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
 
+    tile->fg = 0;
+    tile->bg = get_color_id(133,94,66);
+    tile->col = ((tile->fg << 8)+tile->bg);
+
+    SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "╏");
-
-    unsetcolor(tile->col);
+    UNSET_COLOR(tile->col);
 }
 
 void set_tile_template_TT_WOOD_DOOR_HOR_func() {
@@ -246,12 +246,16 @@ void set_tile_template_TT_WOOD_DOOR_HOR_func() {
     tile_template[TT_WOOD_DOOR_HOR].flags |= TF_DOOR;
 }
 void draw_tile_func_TT_WOOD_DOOR_HOR(tile *tile) {
-    tile->col = colornum(0, 6, false, false);
-    setcolor(tile->col);
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
 
+    tile->fg = 0;
+    tile->bg = get_color_id(133,94,66);
+    tile->col = ((tile->fg << 8)+tile->bg);
+
+    SET_COLOR(tile->col);
     mvaddstr(tile->r, tile->c, "╍");
-
-    unsetcolor(tile->col);
+    UNSET_COLOR(tile->col);
 }
 
 void set_tile_template_TT_RED_CARPET_func() {
@@ -259,12 +263,16 @@ void set_tile_template_TT_RED_CARPET_func() {
     tile_template[TT_RED_CARPET].flags |= TF_PASSABLE;
 }
 void draw_tile_func_TT_RED_CARPET(tile *tile) {
-    tile->col = colornum(4, 0, false, false);
-    setcolor(tile->col);
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
 
-    mvaddstr(tile->r, tile->c, "▓");
+    tile->fg = 0;
+    tile->bg = get_color_id(128, 0, 0);
+    tile->col = ((tile->fg << 8)+tile->bg);
 
-    unsetcolor(tile->col);
+    SET_COLOR(tile->col);
+    mvaddstr(tile->r, tile->c, " ");
+    UNSET_COLOR(tile->col);
 }
 
 void set_tile_template_TT_GREEN_CARPET_func() {
@@ -272,12 +280,16 @@ void set_tile_template_TT_GREEN_CARPET_func() {
     tile_template[TT_GREEN_CARPET].flags |= TF_DOOR;
 }
 void draw_tile_func_TT_GREEN_CARPET(tile *tile) {
-    tile->col = colornum(2, 0, false, false);
-    setcolor(tile->col);
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
 
-    mvaddstr(tile->r, tile->c, "▓");
+    tile->fg = 0;
+    tile->bg = get_color_id(0, 128, 0);
+    tile->col = ((tile->fg << 8)+tile->bg);
 
-    unsetcolor(tile->col);
+    SET_COLOR(tile->col);
+    mvaddstr(tile->r, tile->c, " ");
+    UNSET_COLOR(tile->col);
 }
 
 #define INIT_TILE_MACRO(NAME) set_tile_template(NAME); set_tile_template_ ## NAME ## _func(); draw_tile_func[NAME] = draw_tile_func_ ## NAME;

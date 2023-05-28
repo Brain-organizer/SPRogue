@@ -38,6 +38,7 @@ typedef enum tile_flag {
 
 typedef struct tile {
     int r, c;
+    int fg, bg, blink;
     int col;
     tile_type type;
     uint64_t status;

@@ -1,91 +1,51 @@
-/*
-Reference: https://www.linuxjournal.com/content/about-ncurses-colors-0
-*/
-
 #include "color.h"
+#include "cvector.h"
 
-short curs_color(int fg)
-{
-    switch (7 & fg) {           /* RGB */
-    case 0:                     /* 000 */
-        return (COLOR_BLACK);
-    case 1:                     /* 001 */
-        return (COLOR_BLUE);
-    case 2:                     /* 010 */
-        return (COLOR_GREEN);
-    case 3:                     /* 011 */
-        return (COLOR_CYAN);
-    case 4:                     /* 100 */
-        return (COLOR_RED);
-    case 5:                     /* 101 */
-        return (COLOR_MAGENTA);
-    case 6:                     /* 110 */
-        return (COLOR_YELLOW);
-    case 7:                     /* 111 */
-        return (COLOR_WHITE);
-    }
+#define RGB_BRIGHTNESS 3
+
+color colors[256];
+
+void reset_colors() {
+    memset(colors, 0, sizeof(colors));
 }
 
-int is_bold(int col)
-{
-    /* return the intensity bit */
-    return col & (1 << 3);
-}
-
-int is_blink(int col) {
-    return col & (1 << 7);
-}
-
-int colornum(int fg, int bg, bool bold, bool blink)
-{
-    return (blink << 7) | ((bg & 7)<<4) | (bold << 3) | (fg & 7);
-}
-
-void init_colorpairs(void)
-{
-    int fg, bg;
-    int colorpair;
-
-    for (bg = 0; bg <= 7; bg++) {
-        for (fg = 0; fg <= 7; fg++) {
-            colorpair = colornum(fg, bg, true, true);
-            if(colorpair != 0) init_pair(colorpair, curs_color(fg), curs_color(bg));
-
-            colorpair = colornum(fg, bg, true, false);
-            if(colorpair != 0) init_pair(colorpair, curs_color(fg), curs_color(bg));
-            
-            colorpair = colornum(fg, bg, false, true);
-            if(colorpair != 0) init_pair(colorpair, curs_color(fg), curs_color(bg));
-
-            colorpair = colornum(fg, bg, false, false);
-            if(colorpair != 0) init_pair(colorpair, curs_color(fg), curs_color(bg));
+void init_color_pairs() {
+    int f, b;
+    for(f = 0; f < 256; ++f) {
+        for(b = 0; b < 256; ++b) {
+            if(f != 0 || b != 0)
+                init_pair((f << 8) + b, f, b);
         }
     }
 }
 
-void setcolor(int col)
-{
-    /* set the color pair (colornum) and bold/bright (A_BOLD) */
+int get_color_id(int r, int g, int b) {
+    int i;
+    for(i = 1; i < 256; ++i) {
+        if(colors[i].cnt > 0 && colors[i].r == r && colors[i].g == g && colors[i].b == b) {
+            ++colors[i].cnt;
+            return i;
+        }
+    }
+    for(i = 1; i < 256; ++i) {
+        if(colors[i].cnt == 0) {
+            colors[i].r = r;
+            colors[i].g = g;
+            colors[i].b = b;
+            colors[i].cnt = 1;
+            init_color(i, r * RGB_BRIGHTNESS, g * RGB_BRIGHTNESS, b * RGB_BRIGHTNESS);
+            return i;
+        }
+    }
 
-    attron(COLOR_PAIR(col));
-    if (is_bold(col)) {
-        attron(A_BOLD);
-    }
-    if(is_blink(col)) {
-        attron(A_BLINK);
-    }
+    fputs("get_color_id()\n", stderr);
+    exit(1);
 }
 
-void unsetcolor(int col)
-{
-    /* unset the color pair (colornum) and
-       bold/bright (A_BOLD) */
-
-    attroff(COLOR_PAIR(col));
-    if (is_bold(col)) {
-        attroff(A_BOLD);
-    }
-    if(is_blink(col)) {
-        attroff(A_BLINK);
+void unget_color_id(int i) {
+    --colors[i].cnt;
+    if(colors[i].cnt < 0) {
+        fputs("unget_color_id()\n", stderr);
+        exit(1);
     }
 }

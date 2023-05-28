@@ -54,7 +54,8 @@ void init() {
     keypad(stdscr, TRUE);
     
     start_color();
-    init_colorpairs();
+    reset_colors();
+    init_color_pairs();
     init_tiles();
     init_entities();
     init_player();

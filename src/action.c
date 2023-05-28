@@ -5,6 +5,7 @@
 #include "tiles.h"
 #include "util.h"
 #include "automove.h"
+#include "color.h"
 
 void enter_door_entity() {
     fputs("Entity cannot to walk into a door!\n", stderr);
@@ -15,6 +16,7 @@ void enter_door_player(tile *t) {
     floor *f = get_cur_floor();
     room *rm = get_cur_room();
     door dr;
+    int r, c;
 
     fputs("Player tried to enter a door\n", stderr);
     
@@ -26,12 +28,32 @@ void enter_door_player(tile *t) {
     dr = rm->doors[t->door_id];
     
     pop_entity_from_room(rm, player);
+
+    reset_colors();
+
+    for(r = 0; r < f->cur_room->r; ++r) {
+        for(c = 0; c < f->cur_room->c; ++c) {
+            f->cur_room->map[r][c].fg = f->cur_room->map[r][c].bg = -1;
+            f->cur_room->dirty[r][c] = true;
+        }
+    }
+    for(r = 0; r < cvector_size(f->cur_room->entities); ++r)
+        f->cur_room->entities[r]->bg = f->cur_room->entities[r]->fg = -1;
     
     f->cur_room = f->rooms[dr.room_id];
 
     push_player_into_room(dr.next->r, dr.next->c);
 
     f->room_changed = true;
+
+    for(r = 0; r < f->cur_room->r; ++r) {
+        for(c = 0; c < f->cur_room->c; ++c) {
+            f->cur_room->map[r][c].fg = f->cur_room->map[r][c].bg = -1;
+            f->cur_room->dirty[r][c] = true;
+        }
+    }
+    for(r = 0; r < cvector_size(f->cur_room->entities); ++r)
+        f->cur_room->entities[r]->bg = f->cur_room->entities[r]->fg = -1;
 
     fputs("Player successfully moved into a door!\n", stderr);
 } 

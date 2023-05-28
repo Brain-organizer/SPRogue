@@ -15,6 +15,7 @@ typedef enum entity_type {
 typedef struct entity {
     int r, c;
     int delay;
+    int fg, bg, blink;
     int col;
     int hp;
     int power;

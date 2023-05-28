@@ -23,11 +23,8 @@ void init_floor() {
     push_player_into_room(cur_floor->cur_room->r/2, cur_floor->cur_room->c/2);
 }
 void draw() {
-    int r;
     if(cur_floor->room_changed) {
         cur_floor->room_changed = false;
-        for(r = 0; r < cur_floor->cur_room->r; ++r) 
-            memset(cur_floor->cur_room->dirty[r], true, sizeof(bool) * cur_floor->cur_room->c);
         clear();
     }
     draw_room(cur_floor->cur_room);
