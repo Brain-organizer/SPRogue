@@ -22,15 +22,27 @@ void init_message() {
     start = 0;
     last = 0;
 }
-char *add_message() {
+void add_message(const char *format, ...) {
+    va_list arg;
     char *msg;
-    msg = malloc(2 * WIDTH + 1);
-    cvector_push_back(msgs, msg);
+    char bf[WIDTH*HEIGHT+1];
+    char *ptr;
+
+    va_start(arg, format);
+    vsprintf(bf, format, arg);
+
+    ptr = bf;
+
+    while(strlen(ptr) > 0) {
+        msg = malloc(WIDTH + 1);
+        strncpy(msg, ptr, WIDTH + 1);
+        msg[WIDTH] = '\0';
+        ptr += strlen(msg);
+        cvector_push_back(msgs, msg);
+    }
 
     start = cvector_size(msgs) - HEIGHT;
     if(start < 0) start = 0;
-
-    return msg;
 }
 void draw_message() {
     int i;

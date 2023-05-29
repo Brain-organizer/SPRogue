@@ -44,7 +44,7 @@ bool update_player() {
                 handle_player_enter_tile_event(get_tile_at(player->r+1, player->c));
                 break;
             case '.':
-                strcpy(add_message(), "You waited");
+                add_message("You waited");
                 player->delay = 100;
                 break;
             case 'q':
@@ -71,6 +71,8 @@ bool update_player() {
                 endwin();
                 exit(0);
                 break;
+            case 'm':
+                add_message("I will be writing a test message. It will be multi-lines long. aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
             //...
             default:
@@ -112,7 +114,7 @@ void make_potatoboom(){
     if(is_passable(row,col) && get_entity_at(row,col) == NULL){
         push_entity_into_room(NULL, create_entity(ET_POTATOBOOM), row, col);
 
-        strcpy(add_message(), "POTATO BOOM");
+        add_message("POTATO BOOM");
     }
     else
         make_potatoboom();
@@ -150,7 +152,7 @@ void call_peer(){
         e->mv_de = player->mv_de;
         push_entity_into_room(NULL, e, row, col);
 
-        strcpy(add_message(), "Your friend joins the battle");
+        add_message("Your friend joins the battle");
     }
     else
         call_peer();
