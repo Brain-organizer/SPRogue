@@ -23,6 +23,8 @@ typedef struct entity {
     int attack_de;
     int mv_de;
     tile *tile;
+    char *icon;
+    char *name;
     entity_type type;
 } entity;
 

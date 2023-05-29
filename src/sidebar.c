@@ -1,5 +1,6 @@
 #include <ncurses.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "entity.h"
 #include "player.h"
@@ -14,29 +15,54 @@
 #define WIDTH 20
 #define START 120 - WIDTH
 
-cvector_vector_type(char *) lines;
-int start;
 WINDOW *sidewin;
-
 
 void init_sidebar() {
     sidewin = newwin(HEIGHT, WIDTH, 0, START);
-    lines = NULL;
-    start = 0;
+}
+
+int add_sidebar_for_entity(entity *entity, int y) {
+    int x = 0;
+    SET_COLOR(entity->col);
+    mvwaddstr(sidewin, y, x, entity->icon);
+    x += strlen(entity->icon);
+    UNSET_COLOR(entity->col);
+    mvwaddstr(sidewin, y, x, ": ");
+    x += 2;
+    mvwaddstr(sidewin, y, x, entity->name);
+    ++y;
+    x = 0;
+    mvwprintw(sidewin, y, x, "Health: %d", entity->hp);
+    ++y;
+    x = 0;
+    if(entity->type != ET_CARROT) {
+        mvwprintw(sidewin, y, x, "Delay: %d", entity->delay);
+        ++y;
+        x = 0;
+    }
+
+    ++y;
+
+    return y;
 }
 
 void draw_sidebar() {
-    int i;
-    for(i = 0; i < cvector_size(lines); ++i)
-        mvwaddstr(sidewin, i, 0, lines[i]);
-    //box(sidewin, 0, 0);
+    entity *pl;
+    room * rm;
+    int y, i;
+
+    wclear(sidewin);
+
+    pl = get_player();
+    rm = get_cur_room();
+
+    y = add_sidebar_for_entity(pl, 0);
+
+    for(i = 0; i < cvector_size(rm->entities); ++i) {
+        if(rm->entities[i]->type != ET_CARROT) {
+            y = add_sidebar_for_entity(rm->entities[i], y);
+        }
+    }
+
     wrefresh(sidewin);
 }
-
-void set_sidebar() {
-    cvector_push_back(lines, "Hello sidebar!");
-    draw_sidebar();
-}
-
-void scroll_down_sidebar();
-void scroll_up_sidebar();

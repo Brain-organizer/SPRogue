@@ -7,6 +7,7 @@
 #include "action.h"
 #include "client.h"
 #include "color.h"
+#include "sidebar.h"
 
 char msg[200];
 
@@ -25,6 +26,7 @@ bool update_player() {
         --(player->delay);
     }
     else {
+        draw_sidebar();
         
         switch(getch()) {
             case KEY_RIGHT:

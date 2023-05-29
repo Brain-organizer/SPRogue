@@ -4,6 +4,7 @@
 #include "entity.h"
 #include "player.h"
 #include "util.h"
+#include "sidebar.h"
 
 #define ASSIGN_TILE_MACRO(type, row, col) rm->map[row][col] = get_tile_template(type); rm->map[row][col].r = row; rm->map[row][col].c = col
 #define ASSIGN_DOOR_MACRO(type, dir, row, col) ASSIGN_TILE_MACRO(type, row, col); rm->map[row][col].door_id = dir; rm->doors[dir].prev = rm->map[row] + col; rm->doors[dir].next = NULL; rm->doors[dir].room_id = -1
@@ -368,6 +369,7 @@ void pop_entity_from_room(room *rm, entity *e) {
             for(j=0;j<size; j++){
                 rm->map[rm->entities[j]->r][rm->entities[j]->c].entity_id = j;
             }
+
             return;
         }
     }

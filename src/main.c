@@ -38,7 +38,6 @@ int main() {
 
         increase_tick();
         draw();
-        draw_sidebar();
     }
 
     free_floor();
@@ -68,5 +67,4 @@ void init() {
     init_player();
 
     init_sidebar();
-    set_sidebar();
 }
