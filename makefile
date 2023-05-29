@@ -11,7 +11,7 @@ build:
 		$(CC) $(SOURCES) $(CFLAGS) -o rogue
 
 run: 
-		resize -s 40 125
+		resize -s 42 125
 		./rogue 2> logs/err
 
 clean:

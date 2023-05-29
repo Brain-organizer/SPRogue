@@ -58,7 +58,7 @@ void set_entity_template_ET_RABBIT_func() {
     entity_template[ET_RABBIT].attack_de = 10000;
     entity_template[ET_RABBIT].mv_de = 7000;
     entity_template[ET_RABBIT].name = "Rabbit";
-    entity_template[ET_RABBIT].desc = "You are looking at a rabbit, a race of nomadic warriors who have invaded the farm. Before their arrival, this place was called the Carrot-carrot village. Now, they call it Bunny-bunny village.";
+    entity_template[ET_RABBIT].desc = "You are looking at a rabbit, a race of nomadic warriors who have invaded the village. Before their arrival, this place was called the Carrot-carrot village. Now, they call it the Bunny-bunny farm.";
 }
 void draw_entity_func_ET_RABBIT(entity *entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
