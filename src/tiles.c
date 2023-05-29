@@ -95,7 +95,7 @@ void draw_tile_func_TT_CAVE_WALL(tile *tile) {
 void set_tile_template_TT_WOOD_WALL_VER_func() {
     tile_template[TT_WOOD_WALL_VER].type = TT_WOOD_WALL_VER;
     tile_template[TT_WOOD_WALL_VER].flags = TF_BURNABLE;
-    tile_template[TT_CAVE_WALL].name = "Wooden Wall";
+    tile_template[TT_WOOD_WALL_VER].name = "Wooden Wall";
 }
 void draw_tile_func_TT_WOOD_WALL_VER(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -113,7 +113,7 @@ void draw_tile_func_TT_WOOD_WALL_VER(tile *tile) {
 void set_tile_template_TT_WOOD_WALL_HOR_func() {
     tile_template[TT_WOOD_WALL_HOR].type = TT_WOOD_WALL_HOR;
     tile_template[TT_WOOD_WALL_HOR].flags = TF_BURNABLE;
-    tile_template[TT_CAVE_WALL].name = "Wooden Wall";
+    tile_template[TT_WOOD_WALL_HOR].name = "Wooden Wall";
 }
 void draw_tile_func_TT_WOOD_WALL_HOR(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -131,7 +131,7 @@ void draw_tile_func_TT_WOOD_WALL_HOR(tile *tile) {
 void set_tile_template_TT_WOOD_WALL_NE_func() {
     tile_template[TT_WOOD_WALL_NE].type = TT_WOOD_WALL_NE;
     tile_template[TT_WOOD_WALL_NE].flags = TF_BURNABLE;
-    tile_template[TT_CAVE_WALL].name = "Wooden Wall";
+    tile_template[TT_WOOD_WALL_NE].name = "Wooden Wall";
 }
 void draw_tile_func_TT_WOOD_WALL_NE(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -149,7 +149,7 @@ void draw_tile_func_TT_WOOD_WALL_NE(tile *tile) {
 void set_tile_template_TT_WOOD_WALL_SE_func() {
     tile_template[TT_WOOD_WALL_SE].type = TT_WOOD_WALL_SE;
     tile_template[TT_WOOD_WALL_SE].flags = TF_BURNABLE;
-    tile_template[TT_CAVE_WALL].name = "Wooden Wall";
+    tile_template[TT_WOOD_WALL_SE].name = "Wooden Wall";
 }
 void draw_tile_func_TT_WOOD_WALL_SE(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -167,7 +167,7 @@ void draw_tile_func_TT_WOOD_WALL_SE(tile *tile) {
 void set_tile_template_TT_WOOD_WALL_SW_func() {
     tile_template[TT_WOOD_WALL_SW].type = TT_WOOD_WALL_SW;
     tile_template[TT_WOOD_WALL_SW].flags = TF_BURNABLE;
-    tile_template[TT_CAVE_WALL].name = "Wooden Wall";
+    tile_template[TT_WOOD_WALL_SW].name = "Wooden Wall";
 }
 void draw_tile_func_TT_WOOD_WALL_SW(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -185,7 +185,7 @@ void draw_tile_func_TT_WOOD_WALL_SW(tile *tile) {
 void set_tile_template_TT_WOOD_WALL_NW_func() {
     tile_template[TT_WOOD_WALL_NW].type = TT_WOOD_WALL_NW;
     tile_template[TT_WOOD_WALL_NW].flags = TF_BURNABLE;
-    tile_template[TT_CAVE_WALL].name = "Wooden Wall";
+    tile_template[TT_WOOD_WALL_NW].name = "Wooden Wall";
 }
 void draw_tile_func_TT_WOOD_WALL_NW(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -203,7 +203,7 @@ void draw_tile_func_TT_WOOD_WALL_NW(tile *tile) {
 void set_tile_template_TT_WOOD_FLOOR_func() {
     tile_template[TT_WOOD_FLOOR].type = TT_WOOD_FLOOR;
     tile_template[TT_WOOD_FLOOR].flags = TF_PASSABLE;
-    tile_template[TT_CAVE_WALL].name = "Wooden Floor";
+    tile_template[TT_WOOD_FLOOR].name = "Wooden Floor";
 }
 void draw_tile_func_TT_WOOD_FLOOR(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -220,7 +220,7 @@ void draw_tile_func_TT_WOOD_FLOOR(tile *tile) {
 
 void set_tile_template_TT_WOOD_TABLE_func() {
     tile_template[TT_WOOD_TABLE].type = TT_WOOD_TABLE;
-    tile_template[TT_CAVE_WALL].name = "Wooden Table";
+    tile_template[TT_WOOD_TABLE].name = "Wooden Table";
 }
 void draw_tile_func_TT_WOOD_TABLE(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -238,7 +238,7 @@ void draw_tile_func_TT_WOOD_TABLE(tile *tile) {
 void set_tile_template_TT_WOOD_DOOR_VER_func() {
     tile_template[TT_WOOD_DOOR_VER].type = TT_WOOD_DOOR_VER;
     tile_template[TT_WOOD_DOOR_VER].flags |= TF_DOOR;
-    tile_template[TT_CAVE_WALL].name = "Wooden Door";
+    tile_template[TT_WOOD_DOOR_VER].name = "Wooden Door";
 }
 void draw_tile_func_TT_WOOD_DOOR_VER(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -256,7 +256,7 @@ void draw_tile_func_TT_WOOD_DOOR_VER(tile *tile) {
 void set_tile_template_TT_WOOD_DOOR_HOR_func() {
     tile_template[TT_WOOD_DOOR_HOR].type = TT_WOOD_DOOR_HOR;
     tile_template[TT_WOOD_DOOR_HOR].flags |= TF_DOOR;
-    tile_template[TT_CAVE_WALL].name = "Wooden Door";
+    tile_template[TT_WOOD_DOOR_HOR].name = "Wooden Door";
 }
 void draw_tile_func_TT_WOOD_DOOR_HOR(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -274,7 +274,7 @@ void draw_tile_func_TT_WOOD_DOOR_HOR(tile *tile) {
 void set_tile_template_TT_RED_CARPET_func() {
     tile_template[TT_RED_CARPET].type = TT_RED_CARPET;
     tile_template[TT_RED_CARPET].flags |= TF_PASSABLE;
-    tile_template[TT_CAVE_WALL].name = "Red Carpet";
+    tile_template[TT_RED_CARPET].name = "Red Carpet";
 }
 void draw_tile_func_TT_RED_CARPET(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -292,7 +292,7 @@ void draw_tile_func_TT_RED_CARPET(tile *tile) {
 void set_tile_template_TT_GREEN_CARPET_func() {
     tile_template[TT_GREEN_CARPET].type = TT_GREEN_CARPET;
     tile_template[TT_GREEN_CARPET].flags |= TF_DOOR;
-    tile_template[TT_CAVE_WALL].name = "Green Carpet";
+    tile_template[TT_GREEN_CARPET].name = "Green Carpet";
 }
 void draw_tile_func_TT_GREEN_CARPET(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);

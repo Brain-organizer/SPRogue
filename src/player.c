@@ -48,11 +48,9 @@ bool update_player() {
                 player->delay = 100;
                 break;
             case 'q':
-                strcpy(add_message(), "POTATO BOOM");
                 make_potatoboom();
                 break;
             case 'w':
-                strcpy(add_message(), "Your friend joins the battle");
                 call_peer();
                 break;
             case 'i': case 'I':
@@ -113,8 +111,8 @@ void make_potatoboom(){
 
     if(is_passable(row,col) && get_entity_at(row,col) == NULL){
         push_entity_into_room(NULL, create_entity(ET_POTATOBOOM), row, col);
-        sprintf(msg, "player make_potatoboom at row:%d, col:%d", row, col);
-        post_log(msg);
+
+        strcpy(add_message(), "POTATO BOOM");
     }
     else
         make_potatoboom();
@@ -152,8 +150,7 @@ void call_peer(){
         e->mv_de = player->mv_de;
         push_entity_into_room(NULL, e, row, col);
 
-        sprintf(msg, "player call peer at row:%d, col:%d", row, col);
-        post_log(msg);
+        strcpy(add_message(), "Your friend joins the battle");
     }
     else
         call_peer();

@@ -5,6 +5,7 @@
 
 #include "message.h"
 #include "cvector.h"
+#include "client.h"
 
 #define HEIGHT 5
 #define WIDTH 100
@@ -13,11 +14,13 @@
 WINDOW *msgwin;
 cvector_vector_type(char *) msgs;
 int start;
+int last;
 
 void init_message() {
     msgwin = newwin(HEIGHT, WIDTH, START, 0);
     msgs = NULL;
     start = 0;
+    last = 0;
 }
 char *add_message() {
     char *msg;
@@ -34,6 +37,9 @@ void draw_message() {
     wclear(msgwin);
     for(i = start; i < cvector_size(msgs); ++i) {
         mvwaddstr(msgwin, i - start, 0, msgs[i]);
+    }
+    for(; last < cvector_size(msgs); ++last) {
+        post_log(msgs[last]);
     }
     wrefresh(msgwin);
 }

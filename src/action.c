@@ -58,7 +58,6 @@ void enter_door_player(tile *t) {
         f->cur_room->entities[r]->bg = f->cur_room->entities[r]->fg = -1;
 
     fputs("Player successfully moved into a door!\n", stderr);
-    post_log("Player moved into a door!");
 
     sprintf(add_message(), "You pass through the %s and enter into the %s", t->name, f->cur_room->name);
 } 
@@ -111,15 +110,11 @@ void handle_entity_enter_tile_event(entity *e, tile *new_tile) {
 
 //player를 현재위치에서 row행 col열로 이동시키는 함수. 해당 위치에 문이나 몬스터가 있으면 알맞은 행동을 취한다. 
 void handle_player_enter_tile_event(tile *new_tile){
-    char log[50];
     entity *player = get_player();
     entity *target = get_entity_at_tile(new_tile);
     int prev_row = player->r;
     int prev_col = player->c;
     tile *prev_tile = get_tile_at(prev_row, prev_col);
-
-    sprintf(log, "player tried moving to row:%d, col:%d", new_tile->r, new_tile->c);
-    post_log(log);
 
     if(!new_tile) return;
 
@@ -128,6 +123,7 @@ void handle_player_enter_tile_event(tile *new_tile){
         return;
     }
     else if(!is_passable_tile(new_tile)){
+        sprintf(add_message(), "You bump you head at the %s at (%d, %d)", new_tile->name, new_tile->r, new_tile->c);
         return;
     }
     // else if(){// 아이템 있으면 획득
@@ -136,10 +132,8 @@ void handle_player_enter_tile_event(tile *new_tile){
     else if(target == NULL){ //entity 아무것도 없으면 이동
         move_entity_to(player, new_tile);
         sprintf(add_message(), "You moved into the %s at (%d, %d)", new_tile->name, new_tile->r, new_tile->c);
-        post_log("player moved successfully");
     }
     else if(target->is_enemy){ // 공격가능한 대상이 있으면 공격
-        post_log("player attacked enemy");
         sprintf(add_message(), "You attack the %s at (%d, %d)", target->name, target->r, target->c);
         attack(player, target);
     }
