@@ -72,8 +72,7 @@ bool update_player() {
                 exit(0);
                 break;
             case 'm':
-                add_message("I will be writing a test message. It will be multi-lines long. aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-
+                add_message(get_cur_room()->desc);
             //...
             default:
                 return false;

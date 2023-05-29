@@ -31,6 +31,7 @@ typedef struct room {
     door doors[DOOR_DIR_NUM];
     cvector_vector_type(entity *) entities;
     char *name;
+    char *desc;
 } room;
 
 room * get_tmp_room();

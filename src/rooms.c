@@ -108,6 +108,7 @@ room * get_butcher_room() {
     memset(rm, 0, sizeof(rm));
 
     rm->name = "Butcher's Room";
+    rm->desc = "This is the butcher's room, a place where the carrots are turned into sustenance for the rabbit lords. You can smell the blood of the innocents from its red-stained floors.";
 
     rm->r = 9;
     rm->c = 6;
@@ -190,6 +191,7 @@ room * get_start_room() {
     memset(rm, 0, sizeof(rm));
 
     rm->name = "Sacrificial Room";
+    rm->desc = "A place of your awakening. A chaotic mess of runes and sigils are drawn haphazardly across the floor. You think it's enscribed with carrot blood.";
 
     rm->r = 13;
     rm->c = 11;
@@ -275,6 +277,7 @@ room * get_corridor_room() {
     memset(rm, 0, sizeof(rm));
     
     rm->name = "Corridor";
+    rm->desc = "A luxurious passageway. Its walls are dotted with drawings of famed rabbit heroes, and its floors covered with blood-red velvet.";
 
     rm->r = 5;
     rm->c = 17;

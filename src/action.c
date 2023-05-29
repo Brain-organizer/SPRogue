@@ -131,7 +131,7 @@ void handle_player_enter_tile_event(tile *new_tile){
     // }
     else if(target == NULL){ //entity 아무것도 없으면 이동
         move_entity_to(player, new_tile);
-        add_message("You moved into the %s at (%d, %d)", new_tile->name, new_tile->r, new_tile->c);
+        add_message("You move into the %s at (%d, %d)", new_tile->name, new_tile->r, new_tile->c);
     }
     else if(target->is_enemy){ // 공격가능한 대상이 있으면 공격
         add_message("You attack the %s at (%d, %d)", target->name, target->r, target->c);
