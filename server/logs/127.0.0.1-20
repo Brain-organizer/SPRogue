@@ -1,0 +1,50 @@
+player tried moving to row:6, col:6
+player moved successfully
+player tried moving to row:6, col:7
+player moved successfully
+player tried moving to row:5, col:7
+player moved successfully
+player tried moving to row:4, col:7
+player moved successfully
+player tried moving to row:3, col:7
+player moved successfully
+player call peer at row:4, col:7
+player call peer at row:3, col:6
+player call peer at row:3, col:8
+player make_potatoboom at row:2, col:7
+player tried moving to row:3, col:8
+player moved successfully
+player make_potatoboom at row:2, col:8
+player tried moving to row:2, col:8
+player moved successfully
+player call peer at row:3, col:8
+player tried moving to row:2, col:7
+player moved successfully
+player tried moving to row:2, col:6
+player moved successfully
+player tried moving to row:3, col:6
+player attacked enemy
+player tried moving to row:3, col:6
+player attacked enemy
+player tried moving to row:3, col:6
+player attacked enemy
+player tried moving to row:3, col:6
+player attacked enemy
+player tried moving to row:3, col:6
+player moved successfully
+player tried moving to row:4, col:6
+player moved successfully
+player tried moving to row:4, col:7
+player moved successfully
+player tried moving to row:4, col:8
+player attacked enemy
+player tried moving to row:5, col:7
+player moved successfully
+player tried moving to row:6, col:7
+player moved successfully
+player tried moving to row:6, col:6
+player moved successfully
+player tried moving to row:7, col:6
+player moved successfully
+player tried moving to row:7, col:7
+player moved successfully

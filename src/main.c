@@ -16,6 +16,7 @@
 #include "floor.h"
 #include "color.h"
 #include "sidebar.h"
+#include "client.h"
 
 void init();
 bool quit();
@@ -35,6 +36,7 @@ int main() {
         //엔티티 액션 함수 호출 : 함수 내부에서 for문을 돌며 모든 엔티티에 대해 update_entity 수행. 
         update_all_entities();
 
+        increase_tick();
         draw();
         draw_sidebar();
     }
@@ -51,6 +53,8 @@ void init() {
     
     setlocale(LC_ALL, "");
 
+    init_connect();
+    init_tick();
     initscr();
     noecho();
     curs_set(0);

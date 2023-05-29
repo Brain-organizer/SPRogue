@@ -1,8 +1,8 @@
 CC = gcc
-CFLAGS = -lpthread
+CFLAGS = -lpthread -g
 SOURCES = ./src/*.c
 
-.PHONY: run clean
+.PHONY: run clean clear_rank
 
 build:
 		$(CC) $(SOURCES) $(CFLAGS) -o server
@@ -12,3 +12,6 @@ run:
 
 clean:
 		rm server
+
+clear_rank:
+		./rank/ranking_clear

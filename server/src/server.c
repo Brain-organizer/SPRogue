@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
     int ptocpipe[2];
     int ctoppipe[2];
     int pid;
+    int clnt_adr_sz;
     struct sockaddr_in clnt_adr;
     struct clnt_info cinfo;
     struct commu_args args;
@@ -77,7 +78,11 @@ int main(int argc, char *argv[])
 
     while (1)
     {
-        clnt_sock = accept(serv_sock, (struct sockaddr *)&clnt_adr, NULL);
+        clnt_adr_sz = sizeof(clnt_adr);
+        if((clnt_sock = accept(serv_sock, (struct sockaddr *)&clnt_adr, &clnt_adr_sz)) == -1){
+            perror("accept error");
+            continue;
+        }
 
         sem_wait(&first_copy);
         cinfo.ip = inet_ntoa(clnt_adr.sin_addr);
@@ -99,16 +104,16 @@ void *handle_clnt(void *arg)
     char *clnt_ip, *name;
     char log[BUF_SIZ];
     int playtime;
+    int str_len;
     struct rank_info rinfo;
     req_t req_type;
-    FILE *logf, *sockfp, *wsockfp;
+    FILE *logf;
+    int check = 0;
 
     sem_wait(&second_copy);
     cinfo = *((struct clnt_info *)arg);
     sem_post(&first_copy);
 
-    sockfp = fdopen(cinfo.sock, "r");
-    sockfp = fdopen(cinfo.sock, "w");
     clnt_ip = cinfo.ip;
     if ((name = create_name(clnt_ip)) == NULL)
     {
@@ -124,32 +129,40 @@ void *handle_clnt(void *arg)
 
     while (1)
     {
-        if (fscanf(sockfp, "%d", (int *)&req_type) == EOF)
+        if (read(cinfo.sock, &req_type, sizeof(req_type)) == 0)
             break;
+        if(write(cinfo.sock, &check, sizeof(check)) == -1){
+            perror("write error in check");
+            break;
+        }
 
         if (req_type == POST_LOG)
         {
-            if (fgets(log, BUF_SIZ, sockfp) == NULL) // log는 한줄 씩만 넘어와야 함.
+            if ((str_len = read(cinfo.sock,log,BUF_SIZ)) == 0) 
                 break;
-            fputs(log, logf);
+            if(write(cinfo.sock, &check, sizeof(check)) == -1){
+                perror("write error in check");
+                break;
+            }
+            log[str_len] = 0;
+            fprintf(logf,"%s\n",log);
         }
         else if (req_type == POST_RANK)
         {
-            if (fscanf(sockfp, "%d", &playtime) == EOF)
+            if (read(cinfo.sock, &playtime, sizeof(int)) == 0)
                 break;
+        
             if((rinfo = update_rank(name, playtime)).prec_playtime == -1){
                 fprintf(stderr,"update_rank(%s, %d) error\n", name, playtime);
                 return NULL;
             }
-            fprintf(wsockfp,"%d",rinfo.rank);
-            fprintf(wsockfp,"%d",rinfo.prec_playtime);
+            write(cinfo.sock, &rinfo, sizeof(rinfo));
         }
     }
 
-    free(clnt_ip);
     free(name);
     fclose(logf);
-    fclose(sockfp);
+    close(cinfo.sock);
 
     return NULL;
 }
@@ -179,53 +192,41 @@ void *commuicate_with_sighandle_proc(void *arg){
 char *create_name(char *name){
     int i;
     char *new_name;
-    if (chdir("logs/") == -1)
-    {
-        perror("chdir to ./logs error");
-        return NULL;
-    }
+    char* path;
 
     new_name = malloc(strlen(name) + 10);
     strcpy(new_name, name);
+    path = malloc(strlen(new_name)+6);
 
     i = 0;
-    do
-    {
-        sprintf(new_name + strlen(new_name), "-%d", i++);
-    } while (access(new_name, F_OK) == 0);
+    do{
+        sprintf(new_name + strlen(name), "-%d", i++);
+        sprintf(path, "logs/%s",new_name);
+    } while (access(path, F_OK) == 0);
 
-    if (chdir("../") == -1)
-    {
-        perror("chdir to ../ from logs error");
-        return NULL;
-    }
+    free(path);
 
     return new_name;
 }
 
 FILE *create_log_file(char *filename){
     int fd;
+    char* path;
 
-    if (chdir("logs/") == -1)
-    {
-        perror("chdir to ./logs error");
-        return NULL;
-    }
+    path = malloc(strlen(filename)+10);
+    sprintf(path, "logs/%s",filename);
+    
 
-    fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 
     if (fd == -1)
     {
-        fprintf(stderr, "%s ", filename);
+        fprintf(stderr, "%s ", path);
         perror("open");
         return NULL;
     }
 
-    if (chdir("../") == -1)
-    {
-        perror("chdir to ../ from logs error");
-        return NULL;
-    }
+    free(path);
 
     return fdopen(fd, "w");
 }

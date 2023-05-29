@@ -1,9 +1,14 @@
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "player.h"
 #include "entity.h"
 #include "floor.h"
 #include "action.h"
+#include "client.h"
+#include "color.h"
+
+char msg[200];
 
 entity *player;
 
@@ -47,7 +52,20 @@ bool update_player() {
                 //인벤토리 창
 
             case 'p': case 'P':
-                //일시정지
+                //종료(테스트용)
+                struct rank_info rinfo = post_rank(get_tick());
+                if(rinfo.prec_playtime==0){
+                    fprintf(stderr,"server disconected\n");
+                }
+                sprintf(msg, "당신의 순위는 %d위(%d틱만에 클리어), 바로 앞 순위의 플레이어는 %d틱만에 클리어했어요!", rinfo.rank, get_tick(), rinfo.prec_playtime);
+                close_connect();
+                SET_COLOR(0);
+                mvaddstr(0,1,msg);
+                refresh();
+                sleep(5);
+                endwin();
+                exit(0);
+                break;
 
             //...
             default:
@@ -86,8 +104,11 @@ void make_potatoboom(){
         return;
     }
 
-    if(is_passable(row,col) && get_entity_at(row,col) == NULL)
+    if(is_passable(row,col) && get_entity_at(row,col) == NULL){
         push_entity_into_room(NULL, create_entity(ET_POTATOBOOM), row, col);
+        sprintf(msg, "player make_potatoboom at row:%d, col:%d", row, col);
+        post_log(msg);
+    }
     else
         make_potatoboom();
 
@@ -123,6 +144,9 @@ void call_peer(){
         e->attack_de = player->attack_de;
         e->mv_de = player->mv_de;
         push_entity_into_room(NULL, e, row, col);
+
+        sprintf(msg, "player call peer at row:%d, col:%d", row, col);
+        post_log(msg);
     }
     else
         call_peer();

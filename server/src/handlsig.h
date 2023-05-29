@@ -8,6 +8,7 @@
 #include <sys/wait.h>
 
 void handle_signal(int infd, int outfd, int cpid);
-void kill_cproc(int signum);
+void* kill_cproc(void *args);
 void* save_cur_ranking(void* args);
 void sigalrm_handle(int signum);
+void exit_handle(int signum);

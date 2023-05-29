@@ -18,9 +18,9 @@ void handle_signal(int infd, int outfd, int cpid){
         return;
     }
     
-    signal(SIGINT, kill_cproc);
-    signal(SIGQUIT, kill_cproc);
-    signal(SIGKILL, kill_cproc);
+    signal(SIGINT, exit_handle);
+    signal(SIGQUIT, exit_handle);
+    signal(SIGKILL, exit_handle);
     signal(SIGALRM, sigalrm_handle);
 
     while(1){
@@ -28,7 +28,8 @@ void handle_signal(int infd, int outfd, int cpid){
     }
 }
 
-void kill_cproc(int signum){
+void exit_handle(int signum){
+    pthread_t tid;
     char yorn[10];
     
     printf("서버를 종료하시겠습니까? (yes/no)\n");
@@ -37,7 +38,19 @@ void kill_cproc(int signum){
     if(strcmp(yorn,"yes\n") != 0)
         return;
     
+    if(pthread_create(&tid, NULL, kill_cproc, NULL) == -1){
+        perror("pthread_create error in exit handle");
+    }
+    if(pthread_detach(tid) == -1){
+        perror("pthread_detach error in exit handle");
+    }
+}
+
+void* kill_cproc(void *args){
+    
     signal(SIGALRM, SIG_IGN);
+
+    save_cur_ranking(NULL);
     
     mutexlock();
     kill(pid, SIGUSR1);

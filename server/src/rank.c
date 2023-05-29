@@ -7,7 +7,7 @@ int record_num = 0;
 void init_ranking(){
     for(int i = 0; i <= RANKING_SIZ; i++){
         strcpy(ranking[i].usr_id,"NULL");
-        ranking[i].play_time = 0;
+        ranking[i].play_time = INT_MAX;
     }
 }
 
@@ -68,14 +68,8 @@ struct rank_info get_own_rank(char *usr_name){
 
 int load_rank_data(){
     int fdrec;
-
-    if (chdir("rank/") == -1)
-    {
-        perror("chdir to ./rank error");
-        return -1;
-    }
-
-    if((fdrec = open("record",O_RDONLY)) == -1){
+    
+    if((fdrec = open("rank/record",O_RDONLY)) == -1){
         perror("record file open error");
         return -1;
     }
@@ -93,12 +87,6 @@ int load_rank_data(){
 
     pthread_mutex_unlock(&lock);
 
-    if (chdir("../") == -1)
-    {
-        perror("chdir to ../ from rank error");
-        return -1;
-    }
-
     close(fdrec);
     return 0;
 }
@@ -107,14 +95,8 @@ int save_rank_data(){
     int fdrec, fdread;
     FILE* fpread;
 
-    if (chdir("rank/") == -1)
-    {
-        perror("chdir to ./rank error");
-        return -1;
-    }
-
     pthread_mutex_lock(&lock);
-    if((fdrec = open("record", O_CREAT | O_WRONLY | O_TRUNC, 0644))== -1){
+    if((fdrec = open("rank/record", O_CREAT | O_WRONLY | O_TRUNC, 0644))== -1){
         perror("record file open error");
         return -1;
     }
@@ -127,7 +109,7 @@ int save_rank_data(){
         return -1;
     }
     
-    if((fdread = open("readable", O_CREAT | O_WRONLY | O_TRUNC, 0644))== -1){
+    if((fdread = open("rank/readable", O_CREAT | O_WRONLY | O_TRUNC, 0644))== -1){
         perror("record file open error");
         return -1;
     }
@@ -136,15 +118,9 @@ int save_rank_data(){
         return -1;
     }
     for(int i = 0; i <= RANKING_SIZ ; i++){
-        fprintf(fpread, "랭킹%d위 - id: %s, 소요시간: %d초\n", i, ranking[i].usr_id, ranking[i].play_time);
+        fprintf(fpread, "랭킹%d위 - id: %s, 소요턴: %d틱\n", i, ranking[i].usr_id, ranking[i].play_time);
     }
     pthread_mutex_unlock(&lock);
-
-    if (chdir("../") == -1)
-    {
-        perror("chdir to ../ from rank error");
-        return -1;
-    }
 
     fclose(fpread);
     close(fdrec);
@@ -152,11 +128,11 @@ int save_rank_data(){
 }
 
 int compare (const void* first, const void* second){
-    if(((struct record*)first)->play_time == ((struct record*)first)->play_time)
+    if(((struct record*)first)->play_time == ((struct record*)second)->play_time)
         return 0;
-    else if (((struct record*)first)->play_time == 0 || ((struct record*)first)->play_time > ((struct record*)first)->play_time)
+    else if (((struct record*)first)->play_time == 0 || ((struct record*)first)->play_time > ((struct record*)second)->play_time)
         return 1;
-    else if (((struct record*)second)->play_time == 0 || ((struct record*)first)->play_time < ((struct record*)first)->play_time)
+    else if (((struct record*)second)->play_time == 0 || ((struct record*)first)->play_time < ((struct record*)second)->play_time)
         return -1;
 }
 
