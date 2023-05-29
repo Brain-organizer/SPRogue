@@ -114,7 +114,7 @@ void make_potatoboom(){
     if(is_passable(row,col) && get_entity_at(row,col) == NULL){
         push_entity_into_room(NULL, create_entity(ET_POTATOBOOM), row, col);
 
-        add_message("POTATO BOOM");
+        add_message("You launch the potato bomb into the air, and it springs back to life.");
     }
     else
         make_potatoboom();
