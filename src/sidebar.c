@@ -47,21 +47,16 @@ int add_sidebar_for_entity(entity *entity, int y) {
 }
 
 void draw_sidebar() {
-    entity *pl;
     room * rm;
     int y, i;
 
     wclear(sidewin);
 
-    pl = get_player();
     rm = get_cur_room();
-
-    y = add_sidebar_for_entity(pl, 0);
+    y = 0;
 
     for(i = 0; i < cvector_size(rm->entities); ++i) {
-        if(rm->entities[i]->type != ET_CARROT) {
-            y = add_sidebar_for_entity(rm->entities[i], y);
-        }
+        y = add_sidebar_for_entity(rm->entities[i], y);
     }
 
     wrefresh(sidewin);
