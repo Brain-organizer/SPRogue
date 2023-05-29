@@ -324,9 +324,9 @@ void draw_room(room *rm) {
             if(rm->dirty[r][c]) {
                 rm->dirty[r][c] = false;
 
-                if(rm->map[r][c].entity_id == -1)
-                    draw_tile(rm->map[r] + c);
-                else
+                draw_tile(rm->map[r] + c);
+
+                if(rm->map[r][c].entity_id != -1)
                     draw_entity(rm->entities[rm->map[r][c].entity_id]);
             }
         }
@@ -385,6 +385,7 @@ void push_entity_into_room(room *rm, entity *e, int row, int col) {
     rm->map[row][col].entity_id = cvector_size(rm->entities);
     rm->dirty[row][col] = true;
     cvector_push_back(rm->entities, e);
+    e->tile = rm->map[row] + col;
     e->r = row;
     e->c = col;
 }
