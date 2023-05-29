@@ -277,7 +277,7 @@ room * get_corridor_room() {
     memset(rm, 0, sizeof(rm));
     
     rm->name = "Corridor";
-    rm->desc = "A luxurious passageway. Its walls are dotted with drawings of famed rabbit heroes, and its floors covered with blood-red velvet.";
+    rm->desc = "A luxurious passageway. Its walls are dotted with drawings of famed rabbit heroes, and its floors are covered with blood-red velvet.";
 
     rm->r = 5;
     rm->c = 17;
