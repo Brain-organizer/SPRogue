@@ -107,6 +107,8 @@ room * get_butcher_room() {
     rm = malloc(sizeof(room));
     memset(rm, 0, sizeof(rm));
 
+    rm->name = "Butcher's Room";
+
     rm->r = 9;
     rm->c = 6;
     
@@ -186,6 +188,8 @@ room * get_start_room() {
     bool flg;
     rm = malloc(sizeof(room));
     memset(rm, 0, sizeof(rm));
+
+    rm->name = "Sacrificial Room";
 
     rm->r = 13;
     rm->c = 11;
@@ -269,6 +273,8 @@ room * get_corridor_room() {
     bool flg;
     rm = malloc(sizeof(room));
     memset(rm, 0, sizeof(rm));
+    
+    rm->name = "Corridor";
 
     rm->r = 5;
     rm->c = 17;

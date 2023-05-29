@@ -46,6 +46,7 @@ typedef struct tile {
     int entity_id;
     int player_id;
     int door_id;
+    char *name;
     //status stat[10];
     //pile *pile;
 } tile;

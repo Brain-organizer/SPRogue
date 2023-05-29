@@ -17,6 +17,7 @@
 #include "color.h"
 #include "sidebar.h"
 #include "client.h"
+#include "message.h"
 
 void init();
 bool quit();
@@ -41,6 +42,7 @@ int main() {
     }
 
     free_floor();
+    free_message();
     
     endwin();
 
@@ -67,4 +69,6 @@ void init() {
     init_player();
 
     init_sidebar();
+
+    init_message();
 }

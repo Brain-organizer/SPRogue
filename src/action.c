@@ -7,6 +7,7 @@
 #include "automove.h"
 #include "color.h"
 #include "client.h"
+#include "message.h"
 
 void enter_door_entity() {
     fputs("Entity cannot to walk into a door!\n", stderr);
@@ -58,6 +59,8 @@ void enter_door_player(tile *t) {
 
     fputs("Player successfully moved into a door!\n", stderr);
     post_log("Player moved into a door!");
+
+    sprintf(add_message(), "You pass through the %s and enter into the %s", t->name, f->cur_room->name);
 } 
 
 void move_entity_to(entity *e, tile *next) {
@@ -132,10 +135,12 @@ void handle_player_enter_tile_event(tile *new_tile){
     // }
     else if(target == NULL){ //entity 아무것도 없으면 이동
         move_entity_to(player, new_tile);
+        sprintf(add_message(), "You moved into the %s at (%d, %d)", new_tile->name, new_tile->r, new_tile->c);
         post_log("player moved successfully");
     }
     else if(target->is_enemy){ // 공격가능한 대상이 있으면 공격
         post_log("player attacked enemy");
+        sprintf(add_message(), "You attack the %s at (%d, %d)", target->name, target->r, target->c);
         attack(player, target);
     }
 
@@ -183,7 +188,10 @@ void attack(entity *from, entity *to){
 
 //entity를 죽이는 함수. entity를 map에서 삭제하고, 죽었다는 메세지를 표시해줌.
 void kill_et(entity *target){
+    sprintf(add_message(), "%s at (%d, %d) has died...", target->name, target->r, target->c);
+
     pop_entity_from_room(NULL, target);
+    free(target);
 
     //todo :죽었다는 메세지 표시해주기.
 }

@@ -8,6 +8,7 @@
 #include "client.h"
 #include "color.h"
 #include "sidebar.h"
+#include "message.h"
 
 char msg[200];
 
@@ -27,6 +28,7 @@ bool update_player() {
     }
     else {
         draw_sidebar();
+        draw_message();
         
         switch(getch()) {
             case KEY_RIGHT:
@@ -42,12 +44,15 @@ bool update_player() {
                 handle_player_enter_tile_event(get_tile_at(player->r+1, player->c));
                 break;
             case '.':
+                strcpy(add_message(), "You waited");
                 player->delay = 100;
                 break;
             case 'q':
+                strcpy(add_message(), "POTATO BOOM");
                 make_potatoboom();
                 break;
             case 'w':
+                strcpy(add_message(), "Your friend joins the battle");
                 call_peer();
                 break;
             case 'i': case 'I':
