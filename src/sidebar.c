@@ -23,10 +23,10 @@ void init_sidebar() {
 
 int add_sidebar_for_entity(entity *entity, int y) {
     int x = 0;
-    SET_COLOR(entity->col);
+    WSET_COLOR(sidewin, entity->col);
     mvwaddstr(sidewin, y, x, entity->icon);
     x += strlen(entity->icon);
-    UNSET_COLOR(entity->col);
+    WUNSET_COLOR(sidewin, entity->col);
     mvwaddstr(sidewin, y, x, ": ");
     x += 2;
     mvwaddstr(sidewin, y, x, entity->name);

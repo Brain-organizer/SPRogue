@@ -5,7 +5,9 @@
 #include <stdbool.h>
 
 #define SET_COLOR(c) (attr_set(0, (c), 0))
-#define UNSET_COLOR(c) (attr_off(0, &(c)))
+#define WSET_COLOR(w, c) (wattr_set((w), 0, (c), 0))
+#define UNSET_COLOR(c) (SET_COLOR(0))
+#define WUNSET_COLOR(w, c) (WSET_COLOR(w, 0))
 #define PAIR_COLOR(f, g) (((f) << 8) + (g))
 
 typedef struct color {
