@@ -211,3 +211,30 @@ void do_random_movement(entity *e) {
 
     handle_entity_enter_tile_event(e, nexts[i]);
 }
+
+void do_examine() {
+    char c;
+    add_message("You begin to examine your surroundings.");
+    draw_message();
+
+    switch((c = getch())) {
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            add_message(get_cur_room()->entities[c-'0']->desc);
+            break;
+        case 'r':
+            add_message(get_cur_room()->desc);
+            break;
+        default:
+            add_message("You withdraw your gaze from your surroundings.");
+            add_message("To examine an entity, type in their id. To examine the room, type in the letter \'r\'");
+    }
+}

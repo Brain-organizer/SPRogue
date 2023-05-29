@@ -25,6 +25,7 @@ typedef struct entity {
     tile *tile;
     char *icon;
     char *name;
+    char *desc;
     entity_type type;
 } entity;
 

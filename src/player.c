@@ -71,8 +71,9 @@ bool update_player() {
                 endwin();
                 exit(0);
                 break;
-            case 'm':
-                add_message(get_cur_room()->desc);
+            case 'x':
+                do_examine();
+                return false;
             //...
             default:
                 return false;

@@ -33,6 +33,8 @@ void set_entity_template_ET_CARROT_func() {
     entity_template[ET_CARROT].type = ET_CARROT;
     entity_template[ET_CARROT].attack_de = 7000;
     entity_template[ET_CARROT].mv_de = 5000;
+    entity_template[ET_CARROT].name = "You";
+    entity_template[ET_CARROT].desc = "This is you. You are a carrot born not from the wombs of any mother, but by the wishes of the oppressed of this farm. They wished for vengeance, and paid with their blood. Now you are here to do their bidding.";
 }
 void draw_entity_func_ET_CARROT(entity *entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
@@ -41,7 +43,6 @@ void draw_entity_func_ET_CARROT(entity *entity) {
     entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
     entity->icon = "Y";
-    entity->name = "You";
 
     SET_COLOR(entity->col);
     mvaddstr(entity->r, entity->c, entity->icon);
@@ -56,6 +57,8 @@ void set_entity_template_ET_RABBIT_func() {
     entity_template[ET_RABBIT].type = ET_RABBIT;
     entity_template[ET_RABBIT].attack_de = 10000;
     entity_template[ET_RABBIT].mv_de = 7000;
+    entity_template[ET_RABBIT].name = "Rabbit";
+    entity_template[ET_RABBIT].desc = "You are looking at a rabbit, a race of nomadic warriors who have invaded the farm. Before their arrival, this place was called the Carrot-carrot village. Now, they call it Bunny-bunny village.";
 }
 void draw_entity_func_ET_RABBIT(entity *entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
@@ -64,7 +67,6 @@ void draw_entity_func_ET_RABBIT(entity *entity) {
     entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
     entity->icon = "R";
-    entity->name = "Rabbit";
 
     SET_COLOR(entity->col);
     mvaddstr(entity->r, entity->c, entity->icon);
@@ -79,6 +81,8 @@ void set_entity_template_ET_POTATOBOOM_func() {
     entity_template[ET_POTATOBOOM].type = ET_POTATOBOOM;
     entity_template[ET_POTATOBOOM].attack_de = 7000;
     entity_template[ET_POTATOBOOM].mv_de = 5000;
+    entity_template[ET_POTATOBOOM].name = "Potato Bomb";
+    entity_template[ET_POTATOBOOM].desc = "This is a bomb, made from dead potato. Once a living creature of joy and vigor, it now seeks to spread death through explosion.";
 }
 void draw_entity_func_ET_POTATOBOOM(entity * entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
@@ -87,7 +91,6 @@ void draw_entity_func_ET_POTATOBOOM(entity * entity) {
     entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
     entity->icon = "o";
-    entity->name = "BOOM";
     
     SET_COLOR(entity->col);
     mvaddstr(entity->r, entity->c, entity->icon);
@@ -102,6 +105,8 @@ void set_entity_template_ET_EGGPLANT_func() {
     entity_template[ET_EGGPLANT].type = ET_EGGPLANT;
     entity_template[ET_EGGPLANT].attack_de = 7000;
     entity_template[ET_EGGPLANT].mv_de = 5000;
+    entity_template[ET_EGGPLANT].name = "Zombie Eggplant";
+    entity_template[ET_EGGPLANT].desc = "A dead eggplant that has come back to life. A mindless creature, it reacts only to the scent of rabbit fur, which it seeks to chew down with vicious hate.";
 }
 void draw_entity_func_ET_EGGPLANT(entity * entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
@@ -110,7 +115,6 @@ void draw_entity_func_ET_EGGPLANT(entity * entity) {
     entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
     entity->icon = "Y";
-    entity->name = "Eggplant";
     
     SET_COLOR(entity->col);
     mvaddstr(entity->r, entity->c, entity->icon);

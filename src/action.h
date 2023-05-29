@@ -8,3 +8,4 @@ void attack(entity *from, entity *to);
 void kill_et(entity *target);
 void auto_move(entity* e);
 void do_random_movement(entity *e);
+void do_examine();
