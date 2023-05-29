@@ -12,8 +12,8 @@
 
 // makefile 내 row 수와 연관 있음
 #define HEIGHT 40
-#define WIDTH 20
-#define START 120 - WIDTH
+#define WIDTH 25
+#define START 125 - WIDTH
 
 WINDOW *sidewin;
 
@@ -21,15 +21,13 @@ void init_sidebar() {
     sidewin = newwin(HEIGHT, WIDTH, 0, START);
 }
 
-int add_sidebar_for_entity(entity *entity, int y) {
+int add_sidebar_for_entity(entity *entity, int y, int i) {
     int x = 0;
     WSET_COLOR(sidewin, entity->col);
     mvwaddstr(sidewin, y, x, entity->icon);
     x += strlen(entity->icon);
     WUNSET_COLOR(sidewin, entity->col);
-    mvwaddstr(sidewin, y, x, ": ");
-    x += 2;
-    mvwaddstr(sidewin, y, x, entity->name);
+    mvwprintw(sidewin, y, x, ": %s(%d)", entity->name, i);
     ++y;
     x = 0;
     mvwprintw(sidewin, y, x, "Health: %d", entity->hp);
@@ -56,7 +54,7 @@ void draw_sidebar() {
     y = 0;
 
     for(i = 0; i < cvector_size(rm->entities); ++i) {
-        y = add_sidebar_for_entity(rm->entities[i], y);
+        y = add_sidebar_for_entity(rm->entities[i], y, i);
     }
 
     wrefresh(sidewin);

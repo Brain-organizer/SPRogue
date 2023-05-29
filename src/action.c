@@ -214,6 +214,8 @@ void do_random_movement(entity *e) {
 
 void do_examine() {
     char c;
+    room *rm = get_cur_room();
+
     add_message("You begin to examine your surroundings.");
     draw_message();
 
@@ -228,7 +230,11 @@ void do_examine() {
         case '7':
         case '8':
         case '9':
-            add_message(get_cur_room()->entities[c-'0']->desc);
+            c -= '0';
+            if(cvector_size(rm->entities) <= c)
+                add_message("There is no entity with id \'%d\'", c);
+            else
+                add_message(rm->entities[c]->desc);
             break;
         case 'r':
             add_message(get_cur_room()->desc);

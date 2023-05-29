@@ -8,7 +8,7 @@
 #include "client.h"
 
 #define HEIGHT 5
-#define WIDTH 95
+#define WIDTH 100
 #define START 40 - HEIGHT
 
 WINDOW *msgwin;
