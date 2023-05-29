@@ -134,7 +134,6 @@ void handle_player_enter_tile_event(tile *new_tile){
         add_message("You move into the %s at (%d, %d)", new_tile->name, new_tile->r, new_tile->c);
     }
     else if(target->is_enemy){ // 공격가능한 대상이 있으면 공격
-        add_message("You attack the %s at (%d, %d)", target->name, target->r, target->c);
         attack(player, target);
     }
 
@@ -151,6 +150,7 @@ void auto_move(entity* e){
 void attack(entity *from, entity *to){
     switch(from->type){
     case ET_CARROT: case ET_RABBIT: case ET_EGGPLANT:
+        add_message("%s attack(s) the %s at (%d, %d)", from->name, to->name, to->r, to->c);
         if(to->hp <= from->power){
             to->hp = 0;
             kill_et(to);
@@ -163,6 +163,8 @@ void attack(entity *from, entity *to){
         break;
         
     case ET_POTATOBOOM:
+        add_message("%s explodes! %s is struck down with shrapnels of flesh and bone.", from->name, to->name);
+        
         if(to->hp < from->power){
             from->power -= to->hp;
             kill_et(to);
