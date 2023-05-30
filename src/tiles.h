@@ -24,6 +24,7 @@ typedef enum tile_type {
     TT_GREEN_CARPET,
     TT_DIRT_FLOOR,
     TT_TREE,
+    TT_FENCE,
     TILE_NUM,
 } tile_type;
 

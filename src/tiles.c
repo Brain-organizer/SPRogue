@@ -460,6 +460,24 @@ void draw_tile_func_TT_TREE(tile *tile) {
     UNSET_COLOR(tile->col);
 }
 
+void set_tile_template_TT_FENCE_func() {
+    tile_template[TT_FENCE].type = TT_FENCE;
+    tile_template[TT_FENCE].name = "Wooden Fence";
+    tile_template[TT_FENCE].desc = "A set of wooden stakes are held together by sturdy planks. It'd be difficult to pass through it.";
+}
+void draw_tile_func_TT_FENCE(tile *tile) {
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
+
+    tile->bg = get_color_id(184,147,92);
+    tile->fg = get_color_id(133*0.8,94*0.8,66*0.8);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+    SET_COLOR(tile->col);
+    mvaddstr(tile->r, tile->c, "#");
+    UNSET_COLOR(tile->col);
+}
+
 #define INIT_TILE_MACRO(NAME) set_tile_template(NAME); set_tile_template_ ## NAME ## _func(); draw_tile_func[NAME] = draw_tile_func_ ## NAME;
 
 void init_tiles() {
@@ -482,6 +500,7 @@ void init_tiles() {
     INIT_TILE_MACRO(TT_GREEN_CARPET)
     INIT_TILE_MACRO(TT_DIRT_FLOOR);
     INIT_TILE_MACRO(TT_TREE);
+    INIT_TILE_MACRO(TT_FENCE);
 }
 
 void draw_tile(tile *tile) {
