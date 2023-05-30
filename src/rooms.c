@@ -183,6 +183,22 @@ room * get_butcher_room() {
     return rm;
 }
 
+void dfs_start_room(room *rm, int r, int c) {
+    int i, rr, cc;
+    
+    if(rm->map[r][c].type != TT_DARK) return;
+    
+    ASSIGN_TILE_MACRO(TT_CAVE_FLOOR, r, c);
+
+    for(i = 0; i < MOVE_TYPES; ++i) {
+        rr = r + MOVE_DIRS[i][0];
+        cc = c + MOVE_DIRS[i][1];
+        if(rr >= 0 && rr < rm->r && cc >= 0 && cc < rm->c && rm->map[rr][cc].type != TT_CAVE_FLOOR) {
+            dfs_start_room(rm, rr, cc);
+        }
+    }
+}
+
 room * get_start_room() {
     room * rm;
     int r, c, tv;
@@ -193,8 +209,8 @@ room * get_start_room() {
     rm->name = "Sacrificial Room";
     rm->desc = "A place of your awakening. A chaotic mess of runes and sigils are drawn haphazardly across the floor. You think it's enscribed with carrot blood.";
 
-    rm->r = 13;
-    rm->c = 11;
+    rm->r = 18;
+    rm->c = 13;
     
     rm->map = malloc(sizeof(tile *) * rm->r);
 
@@ -215,57 +231,45 @@ room * get_start_room() {
         }
     }
     
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 0, 7); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 0, 8); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 0, 9);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 1, 4); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 1, 5); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 1, 6);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 2, 2); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 2, 3);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 3, 1); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 4, 1); 
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 5, 0); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 6, 0); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 7, 0);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 8, 1); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 9, 1);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 10, 2); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 10, 3);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 11, 4); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 11, 5); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 11, 6);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 12, 7); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 12, 8); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 12, 9);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 0, 11);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 1, 5); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 1, 6); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 1, 7); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 1, 9); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 1, 10);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 2, 4); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 2, 8);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 3, 4);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 4, 3);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 5, 3);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 6, 4);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 7, 1); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 7, 2); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 7, 3); 
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 8, 1);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 9, 1);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 10, 2);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 11, 2);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 12, 1);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 13, 0);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 14, 1);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 15, 1); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 15, 6);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 16, 2); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 16, 5); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 16, 7); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 16, 10);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 17, 3); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 17, 4); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 17, 7); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 17, 8); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 17, 9); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 17, 11);
     
-    for(r = 0; r < rm->r; ++r) {
-        flg = false;
-        for(c = 0; c < rm->c; ++c) {
-            if(rm->map[r][c].type == TT_CAVE_WALL) flg = true;
-            else if(flg) {
-                ASSIGN_TILE_MACRO(TT_CAVE_FLOOR, r, c);
-            }
-        }
-    }
-
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 0, 12); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 17, 12); 
+    
     c = rm->c-1;
     for(r = 1; r < rm->r-1; ++r) {
         ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, c);
     }
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 0, c);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 12, c);
 
-    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_EAST, 6, c);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_EAST, rm->r/2, c);
 
-    ASSIGN_STAT_MACRO(TS_BLOOD, 5, 4);
-    ASSIGN_STAT_MACRO(TS_BLOOD, 5, 5);
-    ASSIGN_STAT_MACRO(TS_BLOOD, 5, 6);
-    ASSIGN_STAT_MACRO(TS_BLOOD, 6, 4);
-    ASSIGN_STAT_MACRO(TS_BLOOD, 6, 6);
-    ASSIGN_STAT_MACRO(TS_BLOOD, 7, 4);
-    ASSIGN_STAT_MACRO(TS_BLOOD, 7, 5);
-    ASSIGN_STAT_MACRO(TS_BLOOD, 7, 6);
-
-    ASSIGN_STAT_MACRO(TS_BLOOD, 4, 3);
-    ASSIGN_STAT_MACRO(TS_BLOOD, 4, 7);
-    ASSIGN_STAT_MACRO(TS_BLOOD, 8, 3);
-    ASSIGN_STAT_MACRO(TS_BLOOD, 8, 7);
+    dfs_start_room(rm, 1, 11);
 
     rm->entities = NULL;
 
+    /*
     push_entity_into_room(rm, create_entity(ET_RABBIT), 6, 4);
     push_entity_into_room(rm, create_entity(ET_RABBIT), 9, 4);
     push_entity_into_room(rm, create_entity(ET_RABBIT), 9, 5);
     push_entity_into_room(rm, create_entity(ET_RABBIT), 9, 6);
     push_entity_into_room(rm, create_entity(ET_RABBIT), 9, 7);
-
+    */
     return rm;
 }
 
