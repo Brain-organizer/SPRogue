@@ -7,9 +7,9 @@
 #include "cvector.h"
 #include "client.h"
 
-#define HEIGHT 7
-#define WIDTH 100
-#define START 42 - HEIGHT
+#define HEIGHT 8
+#define WIDTH 91
+#define START 38 - HEIGHT
 
 WINDOW *msgwin;
 cvector_vector_type(char *) msgs;

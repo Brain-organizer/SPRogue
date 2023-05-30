@@ -11,9 +11,9 @@
 #include "cvector.h"
 
 // makefile 내 row 수와 연관 있음
-#define HEIGHT 40
-#define WIDTH 25
-#define START 125 - WIDTH
+#define HEIGHT 38
+#define WIDTH 23
+#define START 115 - WIDTH
 
 WINDOW *sidewin;
 
