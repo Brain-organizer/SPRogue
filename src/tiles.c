@@ -478,6 +478,24 @@ void draw_tile_func_TT_FENCE(tile *tile) {
     UNSET_COLOR(tile->col);
 }
 
+void set_tile_template_TT_BOULDER_func() {
+    tile_template[TT_BOULDER].type = TT_BOULDER;
+    tile_template[TT_BOULDER].name = "Large Boulder";
+    tile_template[TT_BOULDER].desc = "A large granite slab has pierced up through the land.";
+}
+void draw_tile_func_TT_BOULDER(tile *tile) {
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
+
+    tile->bg = get_color_id(100,100,100);
+    tile->fg = 7;
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+    SET_COLOR(tile->col);
+    mvaddstr(tile->r, tile->c, "^");
+    UNSET_COLOR(tile->col);
+}
+
 #define INIT_TILE_MACRO(NAME) set_tile_template(NAME); set_tile_template_ ## NAME ## _func(); draw_tile_func[NAME] = draw_tile_func_ ## NAME;
 
 void init_tiles() {
@@ -501,6 +519,7 @@ void init_tiles() {
     INIT_TILE_MACRO(TT_DIRT_FLOOR);
     INIT_TILE_MACRO(TT_TREE);
     INIT_TILE_MACRO(TT_FENCE);
+    INIT_TILE_MACRO(TT_BOULDER);
 }
 
 void draw_tile(tile *tile) {
