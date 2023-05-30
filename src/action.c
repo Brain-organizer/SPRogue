@@ -136,6 +136,17 @@ void handle_player_enter_tile_event(tile *new_tile){
     else if(target == NULL){ //entity 아무것도 없으면 이동
         move_entity_to(player, new_tile);
         add_message("You move into the %s at (%d, %d)", new_tile->name, new_tile->r, new_tile->c);
+
+        if(new_tile->status & TS_BOMB) {
+            new_tile->status ^= TS_BOMB;
+            ++player->bombs;
+            add_message("You pick up a potato bomb from %s", new_tile->name);
+        }
+        if(new_tile->status & TS_PEER) {
+            new_tile->status ^= TS_PEER;
+            ++player->peers;
+            add_message("You pick up a dead eggplant from %s", new_tile->name);
+        }
     }
     else if(target->is_enemy){ // 공격가능한 대상이 있으면 공격
         attack(player, target);

@@ -28,6 +28,8 @@ typedef enum tile_type {
 typedef enum tile_status {
     TS_FIRE = 1 << 0,
     TS_BLOOD = 1 << 1,
+    TS_BOMB = 1 << 2,
+    TS_PEER = 1 << 3,
 } tile_status;
 
 typedef enum tile_flag {

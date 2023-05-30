@@ -278,6 +278,8 @@ room * get_start_room() {
     ASSIGN_STAT_MACRO(TS_BLOOD, 4+rm->roff, 8+rm->coff);
     ASSIGN_STAT_MACRO(TS_BLOOD, 3+rm->roff, 7+rm->coff);
 
+    ASSIGN_STAT_MACRO(TS_BOMB, 4+rm->roff, 7+rm->coff);
+
     ASSIGN_STAT_MACRO(TS_BLOOD, 11+rm->roff, 7+rm->coff);
     ASSIGN_STAT_MACRO(TS_BLOOD, 12+rm->roff, 7+rm->coff);
     ASSIGN_STAT_MACRO(TS_BLOOD, 13+rm->roff, 7+rm->coff);
@@ -286,6 +288,8 @@ room * get_start_room() {
     ASSIGN_STAT_MACRO(TS_BLOOD, 14+rm->roff, 7+rm->coff);
     ASSIGN_STAT_MACRO(TS_BLOOD, 14+rm->roff, 9+rm->coff);
     ASSIGN_STAT_MACRO(TS_BLOOD, 15+rm->roff, 8+rm->coff);
+
+    ASSIGN_STAT_MACRO(TS_PEER, 14+rm->roff, 8+rm->coff);
 
     ASSIGN_STAT_MACRO(TS_BLOOD, 12+rm->roff, 6+rm->coff);
     ASSIGN_STAT_MACRO(TS_BLOOD, 13+rm->roff, 5+rm->coff);
@@ -341,6 +345,9 @@ room * get_corridor_room() {
     ASSIGN_TILE_MACRO(TT_WOOD_WALL_NE, 0, rm->c-1);
     ASSIGN_TILE_MACRO(TT_WOOD_WALL_SE, rm->r-1, rm->c-1);
     ASSIGN_TILE_MACRO(TT_WOOD_WALL_SW, rm->r-1, 0);
+
+    ASSIGN_STAT_MACRO(TS_PEER, 1, 1);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 1, 2);
 
     ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_WEST, rm->r/2, 0);
     ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_EAST, rm->r/2, rm->c-1);
