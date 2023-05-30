@@ -21,13 +21,13 @@ void init_color_pairs() {
 
 int get_color_id(int r, int g, int b) {
     int i;
-    for(i = 1; i < 256; ++i) {
+    for(i = 8; i < 256; ++i) {
         if(colors[i].cnt > 0 && colors[i].r == r && colors[i].g == g && colors[i].b == b) {
             ++colors[i].cnt;
             return i;
         }
     }
-    for(i = 1; i < 256; ++i) {
+    for(i = 8; i < 256; ++i) {
         if(colors[i].cnt == 0) {
             colors[i].r = r;
             colors[i].g = g;
