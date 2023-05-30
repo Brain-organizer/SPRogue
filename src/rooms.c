@@ -294,12 +294,6 @@ room * get_start_room() {
 
     rm->entities = NULL;
     
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 13+rm->roff, 4+rm->coff, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 13+rm->roff, 5+rm->coff, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 14+rm->roff, 5+rm->coff, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 14+rm->roff, 7+rm->coff, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 13+rm->roff, 7+rm->coff, -1);
-    
     return rm;
 }
 
