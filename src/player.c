@@ -93,6 +93,14 @@ void free_player() {
 
 void make_potatoboom(){
     int row, col;
+    entity *pl = get_player();
+    if(pl->bombs > 0) {
+        --(pl->bombs);
+    }
+    else {
+        add_message("You ran out of potato bombs to throw.");
+        return;
+    }
     switch(getch()) {
     case KEY_RIGHT:
         row = player->r; col = player->c+1;
@@ -125,6 +133,14 @@ void make_potatoboom(){
 void call_peer(){
     int row, col;
     entity *e;
+    entity *pl = get_player();
+    if(pl->peers > 0) {
+        --(pl->peers);
+    }
+    else {
+        add_message("You ran out of dead eggplants to resurrect.");
+        return;
+    }
     switch(getch()) {
     case KEY_RIGHT:
         row = player->r; col = player->c+1;
@@ -152,7 +168,7 @@ void call_peer(){
         e->mv_de = player->mv_de;
         push_entity_into_room(NULL, e, row, col, 1);
 
-        add_message("Your friend joins the battle");
+        add_message("You bring back the dead eggplant to life. It now walks aimlessly.");
     }
     else
         call_peer();

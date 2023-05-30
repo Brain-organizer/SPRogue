@@ -21,6 +21,8 @@ void init_floor() {
 
     //player를 room에 집어넣는다. 
     push_player_into_room(cur_floor->cur_room->roff + 9, cur_floor->cur_room->coff + 7);
+    get_player()->bombs = 1;
+    get_player()->peers = 1;
 }
 void draw() {
     if(cur_floor->room_changed) {
