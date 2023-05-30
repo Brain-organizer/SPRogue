@@ -14,7 +14,7 @@ void init_floor() {
     cvector_push_back(cur_floor->rooms, get_butcher_room());
     cvector_push_back(cur_floor->rooms, get_corridor_room());
     cvector_push_back(cur_floor->rooms, get_tmp_room());
-    cur_floor->cur_room = cur_floor->rooms[3];
+    cur_floor->cur_room = cur_floor->rooms[0];
 
     link_rooms(cur_floor->rooms[0], cur_floor->rooms[2]);
 

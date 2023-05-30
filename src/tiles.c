@@ -12,6 +12,8 @@ void set_tile_template(tile_type tp) {
     tile_template[tp].flags = 0;
     tile_template[tp].fg = tile_template[tp].bg = -1;
     tile_template[tp].blink = 0;
+    tile_template[tp].name = "";
+    tile_template[tp].desc = "";
 }
 
 void set_tile_template_TT_NULL_func() {
@@ -24,6 +26,8 @@ void draw_tile_func_TT_NULL(tile *tile) {
 void set_tile_template_TT_GRASS_FLOOR_func() {
     tile_template[TT_GRASS_FLOOR].type = TT_GRASS_FLOOR;
     tile_template[TT_GRASS_FLOOR].flags = TF_PASSABLE;
+    tile_template[TT_GRASS_FLOOR].name = "Grass Floor";
+    tile_template[TT_GRASS_FLOOR].desc = "Soft green grass is growing atop a flat gathering of dirt.";
 }
 void draw_tile_func_TT_GRASS_FLOOR(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -67,6 +71,7 @@ void set_tile_template_TT_CAVE_FLOOR_func() {
     tile_template[TT_CAVE_FLOOR].type = TT_CAVE_FLOOR;
     tile_template[TT_CAVE_FLOOR].flags = TF_PASSABLE;
     tile_template[TT_CAVE_FLOOR].name = "Cave Floor";
+    tile_template[TT_CAVE_FLOOR].desc = "Moisture has drawn in moss and crawling critters.";
 }
 void draw_tile_func_TT_CAVE_FLOOR(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -109,6 +114,7 @@ void draw_tile_func_TT_CAVE_FLOOR(tile *tile) {
 void set_tile_template_TT_DARK_func() {
     tile_template[TT_DARK].type = TT_DARK;
     tile_template[TT_DARK].name = "Darkness";
+    tile_template[TT_DARK].desc = "It is dark. There is nothing here.";
 }
 void draw_tile_func_TT_DARK(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -125,6 +131,7 @@ void draw_tile_func_TT_DARK(tile *tile) {
 void set_tile_template_TT_CAVE_WALL_func() {
     tile_template[TT_CAVE_WALL].type = TT_CAVE_WALL;
     tile_template[TT_CAVE_WALL].name = "Cave Wall";
+    tile_template[TT_CAVE_WALL].desc = "Moisture has drawn in moss and crawling critters.";
 }
 void draw_tile_func_TT_CAVE_WALL(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -143,6 +150,7 @@ void set_tile_template_TT_WOOD_WALL_VER_func() {
     tile_template[TT_WOOD_WALL_VER].type = TT_WOOD_WALL_VER;
     tile_template[TT_WOOD_WALL_VER].flags = TF_BURNABLE;
     tile_template[TT_WOOD_WALL_VER].name = "Wooden Wall";
+    tile_template[TT_WOOD_WALL_VER].desc = "Rotting timber is beginning to crack under its own weight, revealing dark crevices within.";
 }
 void draw_tile_func_TT_WOOD_WALL_VER(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -161,6 +169,7 @@ void set_tile_template_TT_WOOD_WALL_HOR_func() {
     tile_template[TT_WOOD_WALL_HOR].type = TT_WOOD_WALL_HOR;
     tile_template[TT_WOOD_WALL_HOR].flags = TF_BURNABLE;
     tile_template[TT_WOOD_WALL_HOR].name = "Wooden Wall";
+    tile_template[TT_WOOD_WALL_HOR].desc = "Rotting timber is beginning to crack under its own weight, revealing dark crevices within.";
 }
 void draw_tile_func_TT_WOOD_WALL_HOR(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -179,6 +188,7 @@ void set_tile_template_TT_WOOD_WALL_NE_func() {
     tile_template[TT_WOOD_WALL_NE].type = TT_WOOD_WALL_NE;
     tile_template[TT_WOOD_WALL_NE].flags = TF_BURNABLE;
     tile_template[TT_WOOD_WALL_NE].name = "Wooden Wall";
+    tile_template[TT_WOOD_WALL_NE].desc = "Rotting timber is beginning to crack under its own weight, revealing dark crevices within.";
 }
 void draw_tile_func_TT_WOOD_WALL_NE(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -197,6 +207,7 @@ void set_tile_template_TT_WOOD_WALL_SE_func() {
     tile_template[TT_WOOD_WALL_SE].type = TT_WOOD_WALL_SE;
     tile_template[TT_WOOD_WALL_SE].flags = TF_BURNABLE;
     tile_template[TT_WOOD_WALL_SE].name = "Wooden Wall";
+    tile_template[TT_WOOD_WALL_SE].desc = "Rotting timber is beginning to crack under its own weight, revealing dark crevices within.";
 }
 void draw_tile_func_TT_WOOD_WALL_SE(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -215,6 +226,7 @@ void set_tile_template_TT_WOOD_WALL_SW_func() {
     tile_template[TT_WOOD_WALL_SW].type = TT_WOOD_WALL_SW;
     tile_template[TT_WOOD_WALL_SW].flags = TF_BURNABLE;
     tile_template[TT_WOOD_WALL_SW].name = "Wooden Wall";
+    tile_template[TT_WOOD_WALL_SW].desc = "Rotting timber is beginning to crack under its own weight, revealing dark crevices within.";
 }
 void draw_tile_func_TT_WOOD_WALL_SW(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -233,6 +245,7 @@ void set_tile_template_TT_WOOD_WALL_NW_func() {
     tile_template[TT_WOOD_WALL_NW].type = TT_WOOD_WALL_NW;
     tile_template[TT_WOOD_WALL_NW].flags = TF_BURNABLE;
     tile_template[TT_WOOD_WALL_NW].name = "Wooden Wall";
+    tile_template[TT_WOOD_WALL_NW].desc = "Rotting timber is beginning to crack under its own weight, revealing dark crevices within.";
 }
 void draw_tile_func_TT_WOOD_WALL_NW(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -251,6 +264,7 @@ void set_tile_template_TT_WOOD_FLOOR_func() {
     tile_template[TT_WOOD_FLOOR].type = TT_WOOD_FLOOR;
     tile_template[TT_WOOD_FLOOR].flags = TF_PASSABLE;
     tile_template[TT_WOOD_FLOOR].name = "Wooden Floor";
+    tile_template[TT_WOOD_FLOOR].desc = "Rotting timber is beginning to crack under its own weight, revealing dark crevices within.";
 }
 void draw_tile_func_TT_WOOD_FLOOR(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -293,6 +307,7 @@ void draw_tile_func_TT_WOOD_FLOOR(tile *tile) {
 void set_tile_template_TT_WOOD_TABLE_func() {
     tile_template[TT_WOOD_TABLE].type = TT_WOOD_TABLE;
     tile_template[TT_WOOD_TABLE].name = "Wooden Table";
+    tile_template[TT_WOOD_TABLE].desc = "Made of poor craftsmanship, one must doubt how much longer it will hold its shape.";
 }
 void draw_tile_func_TT_WOOD_TABLE(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -311,6 +326,7 @@ void set_tile_template_TT_WOOD_DOOR_VER_func() {
     tile_template[TT_WOOD_DOOR_VER].type = TT_WOOD_DOOR_VER;
     tile_template[TT_WOOD_DOOR_VER].flags |= TF_DOOR;
     tile_template[TT_WOOD_DOOR_VER].name = "Wooden Door";
+    tile_template[TT_WOOD_DOOR_VER].desc = "Thick dark oak is held together by black cast-iron hinge, hiding what lies beyond its doors from your eyes. Or, perhaps, it's the other way around?";
 }
 void draw_tile_func_TT_WOOD_DOOR_VER(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -329,6 +345,7 @@ void set_tile_template_TT_WOOD_DOOR_HOR_func() {
     tile_template[TT_WOOD_DOOR_HOR].type = TT_WOOD_DOOR_HOR;
     tile_template[TT_WOOD_DOOR_HOR].flags |= TF_DOOR;
     tile_template[TT_WOOD_DOOR_HOR].name = "Wooden Door";
+    tile_template[TT_WOOD_DOOR_HOR].desc = "Thick dark oak is held together by black cast-iron hinge, hiding what lies beyond its doors from your eyes. Or, perhaps, it's the other way around?";
 }
 void draw_tile_func_TT_WOOD_DOOR_HOR(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -347,6 +364,7 @@ void set_tile_template_TT_RED_CARPET_func() {
     tile_template[TT_RED_CARPET].type = TT_RED_CARPET;
     tile_template[TT_RED_CARPET].flags |= TF_PASSABLE;
     tile_template[TT_RED_CARPET].name = "Red Carpet";
+    tile_template[TT_RED_CARPET].desc = "The carpet is made of red velvet. It glistens with life under the light. It feels decadent to touch.";
 }
 void draw_tile_func_TT_RED_CARPET(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -365,6 +383,7 @@ void set_tile_template_TT_GREEN_CARPET_func() {
     tile_template[TT_GREEN_CARPET].type = TT_GREEN_CARPET;
     tile_template[TT_GREEN_CARPET].flags |= TF_DOOR;
     tile_template[TT_GREEN_CARPET].name = "Green Carpet";
+    tile_template[TT_GREEN_CARPET].desc = "The carpet is made of green-dyed velvet. It glistens with life under the light. It feels decadent to touch.";
 }
 void draw_tile_func_TT_GREEN_CARPET(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -383,6 +402,7 @@ void set_tile_template_TT_DIRT_FLOOR_func() {
     tile_template[TT_DIRT_FLOOR].type = TT_DIRT_FLOOR;
     tile_template[TT_DIRT_FLOOR].flags |= TF_PASSABLE;
     tile_template[TT_DIRT_FLOOR].name = "Dirt Floor";
+    tile_template[TT_DIRT_FLOOR].desc = "A flat mound of dirt.";
 }
 void draw_tile_func_TT_DIRT_FLOOR(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -425,6 +445,7 @@ void draw_tile_func_TT_DIRT_FLOOR(tile *tile) {
 void set_tile_template_TT_TREE_func() {
     tile_template[TT_TREE].type = TT_TREE;
     tile_template[TT_TREE].name = "Tree";
+    tile_template[TT_TREE].desc = "A large oak tree is growing atop a flat mound of dirt";
 }
 void draw_tile_func_TT_TREE(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -515,4 +536,32 @@ int is_door(int row, int col) {
 int is_door_tile(tile *t) {
     room *rm = get_cur_room();
     return (t->flags & TF_DOOR) && rm->doors[t->door_id].next;
+}
+
+char *tile_status_to_str(tile_status t) {
+    switch(t) {
+        case TS_FIRE:
+            return "on fire";
+        case TS_BLOOD:
+            return "covered with blood";
+        case TS_BOMB:
+            return "storing a piece of dead potato";
+        case TS_PEER:
+            return "storing an eggplant corpse";
+        default:
+            return "null status";
+    }
+}
+
+char *tile_flag_to_str(tile_flag t) {
+    switch(t) {
+        case TF_BURNABLE:
+            return "catch fire";
+        case TF_DOOR:
+            return "lead to a different room";
+        case TF_PASSABLE:
+            return "let a carrot pass through";
+        default:
+            return "null flag";
+    }
 }
