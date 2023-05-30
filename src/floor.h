@@ -20,6 +20,6 @@ void free_floor();
 room *get_cur_room();
 floor *get_cur_floor();
 
-void link_rooms(room *a, room *b);
+void link_rooms(room *a, room *b, int da, int db);
 
 #endif

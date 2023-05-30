@@ -8,16 +8,6 @@
 
 #include "cvector.h"
 
-typedef enum door_dir {
-    DD_NORTH,
-    DD_SOUTH,
-    DD_WEST,
-    DD_EAST,
-    DOOR_DIR_NUM,
-} door_dir;
-
-const static door_dir door_opp[DOOR_DIR_NUM] = { DD_SOUTH, DD_NORTH, DD_EAST, DD_WEST };
-
 typedef struct door {
     tile *prev;
     tile *next;
@@ -29,7 +19,7 @@ typedef struct room {
     int roff, coff;
     tile **map;
     bool **dirty;
-    door doors[DOOR_DIR_NUM];
+    cvector_vector_type(door) doors;
     cvector_vector_type(entity *) entities;
     char *name;
     char *desc;
@@ -45,8 +35,6 @@ bool is_door_ok(door d);
 void draw_room(room *rm);
 
 void free_room(room *rm);
-
-door_dir get_door_dir_opp(door_dir dir);
 
 void pop_entity_from_room(room *rm, entity *e);
 void push_entity_into_room(room *rm, entity *e, int row, int col, int ind);

@@ -7,7 +7,7 @@
 #include "sidebar.h"
 
 #define ASSIGN_TILE_MACRO(type, row, col) rm->map[row][col] = get_tile_template(type); rm->map[row][col].r = row; rm->map[row][col].c = col
-#define ASSIGN_DOOR_MACRO(type, dir, row, col) ASSIGN_TILE_MACRO(type, row, col); rm->map[row][col].door_id = dir; rm->doors[dir].prev = rm->map[row] + col; rm->doors[dir].next = NULL; rm->doors[dir].room_id = -1
+#define ASSIGN_DOOR_MACRO(type, row, col) ASSIGN_TILE_MACRO(type, row, col); rm->map[row][col].door_id = cvector_size(rm->doors); tdoor.prev = rm->map[row] + col; tdoor.next = NULL; tdoor.room_id = -1; cvector_push_back(rm->doors, tdoor)
 #define ASSIGN_STAT_MACRO(flg, row, col) rm->map[row][col].status |= flg
 
 bool is_door_ok(door d) {
@@ -18,8 +18,12 @@ room * get_tmp_room() {
     room * rm;
     int r, c, tv;
     bool flg;
+    door tdoor;
+
     rm = malloc(sizeof(room));
     memset(rm, 0, sizeof(rm));
+
+    rm->doors = NULL;
 
     rm->roff = 0;
     rm->coff = 0;
@@ -63,8 +67,12 @@ room * get_tmp_room() {
 room * get_butcher_room() {
     room * rm;
     int r, c;
+    door tdoor;
+
     rm = malloc(sizeof(room));
     memset(rm, 0, sizeof(rm));
+
+    rm->doors = NULL;
 
     rm->name = "Butcher's Room";
     rm->desc = "This is the butcher's room, a place where the carrots are turned into sustenance for the rabbit lords. You can smell the blood of the innocents from its red-stained floors.";
@@ -133,7 +141,7 @@ room * get_butcher_room() {
         rm->map[r][c].c = c;
     }
 
-    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_WEST, 4, 0);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, 4, 0);
 
     rm->map[3][rm->c-3].status |= TS_BLOOD;
 
@@ -162,8 +170,12 @@ room * get_start_room() {
     room * rm;
     int r, c, tv;
     bool flg;
+    door tdoor;
+
     rm = malloc(sizeof(room));
     memset(rm, 0, sizeof(rm));
+
+    rm->doors = NULL;
 
     rm->roff = 5;
     rm->coff = 25;
@@ -219,7 +231,7 @@ room * get_start_room() {
         ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r+rm->roff, c+rm->coff);
     }
 
-    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_EAST, 9+rm->roff, 12+rm->coff);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, 9+rm->roff, 12+rm->coff);
 
     dfs_start_room(rm, 9+rm->roff, 7+rm->coff);
 
@@ -264,8 +276,12 @@ room * get_corridor_room() {
     room * rm;
     int r, c, tv;
     bool flg;
+    door tdoor;
+
     rm = malloc(sizeof(room));
     memset(rm, 0, sizeof(rm));
+
+    rm->doors = NULL;
     
     rm->name = "Corridor";
     rm->desc = "A luxurious passageway. Its walls are dotted with drawings of famed rabbit heroes, and its floors are covered with blood-red velvet.";
@@ -305,8 +321,8 @@ room * get_corridor_room() {
     ASSIGN_TILE_MACRO(TT_WOOD_WALL_SE, rm->r-1, rm->c-1);
     ASSIGN_TILE_MACRO(TT_WOOD_WALL_SW, rm->r-1, 0);
 
-    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_WEST, rm->r/2, 0);
-    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_EAST, rm->r/2, rm->c-1);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, rm->r/2, 0);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, rm->r/2, rm->c-1);
 
     for(c = 1; c < rm->c-1; ++c) {
         ASSIGN_TILE_MACRO(TT_RED_CARPET, 2, c);
@@ -405,8 +421,4 @@ void push_entity_into_room(room *rm, entity *e, int row, int col, int ind) {
 //room이 변경된 후 반드시 호출해주어야 하는 함수.
 void push_player_into_room(int row, int col){
     push_entity_into_room(NULL, get_player(), row, col, 0);
-}
-
-door_dir get_door_dir_opp(door_dir dir) {
-    return door_opp[dir];
 }

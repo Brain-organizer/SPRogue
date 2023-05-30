@@ -14,9 +14,9 @@ void init_floor() {
     cvector_push_back(cur_floor->rooms, get_butcher_room());
     cvector_push_back(cur_floor->rooms, get_corridor_room());
     cvector_push_back(cur_floor->rooms, get_tmp_room());
-    cur_floor->cur_room = cur_floor->rooms[3];
+    cur_floor->cur_room = cur_floor->rooms[0];
 
-    link_rooms(cur_floor->rooms[0], cur_floor->rooms[2]);
+    link_rooms(cur_floor->rooms[0], cur_floor->rooms[2], 0, 0);
 
     //player를 room에 집어넣는다. 
     push_player_into_room(cur_floor->cur_room->roff + (cur_floor->cur_room->r-cur_floor->cur_room->roff)/2, cur_floor->cur_room->coff + (cur_floor->cur_room->c-cur_floor->cur_room->coff)/2);
@@ -61,31 +61,19 @@ int get_room_index(room *rm) {
 }
 
 
-void link_rooms(room *a, room *b) {
+void link_rooms(room *a, room *b, int da, int db) {
     floor *f = cur_floor;
-    bool cands[DOOR_DIR_NUM] = {false};
-    int i, a_ind, b_ind, choice;
-    bool check = false;
+    int ra, rb;
 
-    if(a == NULL || b == NULL) return;
-
-    if((a_ind = get_room_index(a)) == -1 || (b_ind = get_room_index(b)) == -1) return;
-
-    for(i = 0; i < DOOR_DIR_NUM; ++i) {
-        if(is_door_ok(a->doors[i]) && is_door_ok(b->doors[get_door_dir_opp(i)])) {
-            cands[i] = true;
-            check = true;
-        }
+    for(ra = 0; ra < cvector_size(f->rooms); ++ra) {
+        if(f->rooms[ra] == a) break;
+    }
+    for(rb = 0; rb < cvector_size(f->rooms); ++rb) {
+        if(f->rooms[rb] == b) break;
     }
 
-    if(!check) return;
-
-    do {
-        choice = rand() % DOOR_DIR_NUM;
-    } while(!cands[choice]);
-
-    a->doors[choice].next = b->doors[get_door_dir_opp(choice)].prev;
-    b->doors[get_door_dir_opp(choice)].next = a->doors[choice].prev;
-    a->doors[choice].room_id = b_ind;
-    b->doors[get_door_dir_opp(choice)].room_id = a_ind;
+    a->doors[da].next = b->doors[db].prev;
+    b->doors[db].next = a->doors[da].prev;
+    a->doors[da].room_id = rb;
+    b->doors[db].room_id = ra;
 }
