@@ -26,6 +26,7 @@ typedef struct door {
 
 typedef struct room {
     int r, c;
+    int roff, coff;
     tile **map;
     bool **dirty;
     door doors[DOOR_DIR_NUM];

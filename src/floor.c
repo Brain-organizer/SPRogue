@@ -20,7 +20,7 @@ void init_floor() {
     link_rooms(cur_floor->rooms[0], cur_floor->rooms[2]);
 
     //player를 room에 집어넣는다. 
-    push_player_into_room(cur_floor->cur_room->r/2, cur_floor->cur_room->c/2);
+    push_player_into_room(cur_floor->cur_room->roff + 9, cur_floor->cur_room->coff + 7);
 }
 void draw() {
     if(cur_floor->room_changed) {

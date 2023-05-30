@@ -206,11 +206,14 @@ room * get_start_room() {
     rm = malloc(sizeof(room));
     memset(rm, 0, sizeof(rm));
 
+    rm->roff = 5;
+    rm->coff = 25;
+    
     rm->name = "Sacrificial Room";
     rm->desc = "A place of your awakening. A chaotic mess of runes and sigils are drawn haphazardly across the floor. You think it's enscribed with carrot blood.";
 
-    rm->r = 18;
-    rm->c = 13;
+    rm->r = 18 + rm->roff;
+    rm->c = 13 + rm->coff;
     
     rm->map = malloc(sizeof(tile *) * rm->r);
 
@@ -231,44 +234,71 @@ room * get_start_room() {
         }
     }
     
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 0, 11);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 1, 5); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 1, 6); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 1, 7); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 1, 9); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 1, 10);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 2, 4); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 2, 8);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 3, 4);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 4, 3);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 5, 3);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 6, 4);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 7, 1); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 7, 2); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 7, 3); 
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 8, 1);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 9, 1);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 10, 2);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 11, 2);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 12, 1);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 13, 0);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 14, 1);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 15, 1); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 15, 6);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 16, 2); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 16, 5); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 16, 7); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 16, 10);
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 17, 3); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 17, 4); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 17, 7); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 17, 8); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 17, 9); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 17, 11);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+0, 11+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+1, 5+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+1, 6+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+1, 7+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+1, 9+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+1, 10+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+2, 4+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+2, 8+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+3, 4+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+4, 3+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+5, 3+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+6, 4+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+7, 1+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+7, 2+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+7, 3+rm->coff); 
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+8, 1+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+9, 1+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+10, 2+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+11, 2+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+12, 1+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+13, 0+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+14, 1+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+15, 1+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+15, 6+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+16, 2+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+16, 5+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+16, 7+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+16, 10+rm->coff);
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+17, 3+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+17, 4+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+17, 7+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+17, 8+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+17, 9+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+17, 11+rm->coff);
     
-    ASSIGN_TILE_MACRO(TT_CAVE_WALL, 0, 12); ASSIGN_TILE_MACRO(TT_CAVE_WALL, 17, 12); 
+    ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+0, 12+rm->coff); ASSIGN_TILE_MACRO(TT_CAVE_WALL, rm->roff+17, 12+rm->coff); 
     
-    c = rm->c-1;
-    for(r = 1; r < rm->r-1; ++r) {
-        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, c);
+    c = 12;
+    for(r = 1; r < 17; ++r) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r+rm->roff, c+rm->coff);
     }
 
-    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_EAST, rm->r/2, c);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_EAST, 9+rm->roff, 12+rm->coff);
 
-    dfs_start_room(rm, 1, 11);
+    dfs_start_room(rm, 9+rm->roff, 7+rm->coff);
+
+    ASSIGN_STAT_MACRO(TS_BLOOD, 8+rm->roff, 7+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 10+rm->roff, 7+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 9+rm->roff, 6+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 9+rm->roff, 8+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 9+rm->roff, 9+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 10+rm->roff, 5+rm->coff);
+
+    ASSIGN_STAT_MACRO(TS_BLOOD, 7+rm->roff, 7+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 6+rm->roff, 6+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 5+rm->roff, 7+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 4+rm->roff, 6+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 4+rm->roff, 8+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 3+rm->roff, 7+rm->coff);
+
+    ASSIGN_STAT_MACRO(TS_BLOOD, 11+rm->roff, 7+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 12+rm->roff, 7+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 13+rm->roff, 7+rm->coff);
+
+    ASSIGN_STAT_MACRO(TS_BLOOD, 13+rm->roff, 8+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 14+rm->roff, 7+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 14+rm->roff, 9+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 15+rm->roff, 8+rm->coff);
+
+    ASSIGN_STAT_MACRO(TS_BLOOD, 12+rm->roff, 6+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 13+rm->roff, 5+rm->coff);
+    ASSIGN_STAT_MACRO(TS_BLOOD, 13+rm->roff, 4+rm->coff);
+
 
     rm->entities = NULL;
-
     
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 13, 4, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 13, 5, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 14, 5, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 14, 7, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 13, 7, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 13+rm->roff, 4+rm->coff, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 13+rm->roff, 5+rm->coff, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 14+rm->roff, 5+rm->coff, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 14+rm->roff, 7+rm->coff, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 13+rm->roff, 7+rm->coff, -1);
     
     return rm;
 }
