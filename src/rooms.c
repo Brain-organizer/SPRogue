@@ -27,8 +27,8 @@ room * get_tmp_room() {
     rm->name = "Test Room";
     rm->desc = "Room to see all present tiles";
 
-    rm->r = 1;
-    rm->c = TILE_NUM;
+    rm->r = TILE_NUM;
+    rm->c = 2;
 
     rm->map = malloc(sizeof(tile *) * rm->r);
 
@@ -49,9 +49,9 @@ room * get_tmp_room() {
         }
     }
 
-    r = 0;
-    for(c = 0; c < TILE_NUM; ++c) {
-        ASSIGN_TILE_MACRO(c, r, c);
+    for(r = 0; r < TILE_NUM; ++r) {
+        ASSIGN_TILE_MACRO(r, r, 0);
+        ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, r, 1);
     }
 
 

@@ -19,7 +19,7 @@ void init_floor() {
     link_rooms(cur_floor->rooms[0], cur_floor->rooms[2]);
 
     //player를 room에 집어넣는다. 
-    push_player_into_room(cur_floor->cur_room->roff + (cur_floor->cur_room->r-cur_floor->cur_room->roff)/2, cur_floor->cur_room->coff + (cur_floor->cur_room->c-cur_floor->cur_room->coff)/2+1);
+    push_player_into_room(cur_floor->cur_room->roff + (cur_floor->cur_room->r-cur_floor->cur_room->roff)/2, cur_floor->cur_room->coff + (cur_floor->cur_room->c-cur_floor->cur_room->coff)/2);
     get_player()->bombs = 1;
     get_player()->peers = 1;
 }

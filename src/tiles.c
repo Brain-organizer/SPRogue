@@ -36,7 +36,7 @@ void draw_tile_func_TT_GRASS_FLOOR(tile *tile) {
         tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
         SET_COLOR(tile->col);
-        mvaddstr(tile->r, tile->c, "%");
+        mvaddstr(tile->r, tile->c, ":");
     }
     else if(tile->status & TS_BOMB) {
         tile->fg = get_color_id(80, 80, 200);
@@ -422,6 +422,23 @@ void draw_tile_func_TT_DIRT_FLOOR(tile *tile) {
     UNSET_COLOR(tile->col);
 }
 
+void set_tile_template_TT_TREE_func() {
+    tile_template[TT_TREE].type = TT_TREE;
+    tile_template[TT_TREE].name = "Tree";
+}
+void draw_tile_func_TT_TREE(tile *tile) {
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
+
+    tile->bg = get_color_id(184,147,92);
+    tile->fg = get_color_id(0,110,51);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+    SET_COLOR(tile->col);
+    mvaddstr(tile->r, tile->c, "¥");
+    UNSET_COLOR(tile->col);
+}
+
 #define INIT_TILE_MACRO(NAME) set_tile_template(NAME); set_tile_template_ ## NAME ## _func(); draw_tile_func[NAME] = draw_tile_func_ ## NAME;
 
 void init_tiles() {
@@ -443,6 +460,7 @@ void init_tiles() {
     INIT_TILE_MACRO(TT_RED_CARPET)
     INIT_TILE_MACRO(TT_GREEN_CARPET)
     INIT_TILE_MACRO(TT_DIRT_FLOOR);
+    INIT_TILE_MACRO(TT_TREE);
 }
 
 void draw_tile(tile *tile) {
