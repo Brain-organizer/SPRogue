@@ -41,7 +41,7 @@ void draw_tile_func_TT_CAVE_FLOOR(tile *tile) {
     tile->bg = get_color_id(200, 200, 200);
 
     if(tile->status & TS_BLOOD) {
-        tile->fg = get_color_id(139, 0, 0);
+        tile->fg = get_color_id(140, 0, 0);
         tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
         SET_COLOR(tile->col);
@@ -225,7 +225,7 @@ void draw_tile_func_TT_WOOD_FLOOR(tile *tile) {
     tile->bg = get_color_id(186,140,99);
 
     if(tile->status & TS_BLOOD) {
-        tile->fg = get_color_id(139, 0, 0);
+        tile->fg = get_color_id(140, 0, 0);
         tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
         SET_COLOR(tile->col);
@@ -319,7 +319,7 @@ void draw_tile_func_TT_RED_CARPET(tile *tile) {
     if(tile->bg > 0) unget_color_id(tile->bg);
 
     tile->fg = 0;
-    tile->bg = get_color_id(128, 0, 0);
+    tile->bg = get_color_id(160, 0, 0);
     tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
     SET_COLOR(tile->col);
