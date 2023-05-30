@@ -8,6 +8,7 @@
 #include "color.h"
 #include "client.h"
 #include "message.h"
+#include "sidebar.h"
 
 void enter_door_entity() {
     fputs("Entity cannot to walk into a door!\n", stderr);
@@ -41,6 +42,7 @@ void enter_door_player(tile *t) {
     }
     for(r = 0; r < cvector_size(f->cur_room->entities); ++r)
         f->cur_room->entities[r]->bg = f->cur_room->entities[r]->fg = -1;
+    clear_sidebar();
     
     f->cur_room = f->rooms[dr.room_id];
 

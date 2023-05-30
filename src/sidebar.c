@@ -23,6 +23,11 @@ void init_sidebar() {
     colorsv = NULL;
 }
 
+void clear_sidebar() {
+    cvector_clear(colorsv);
+    wclear(sidewin);
+}
+
 int add_sidebar_for_entity(entity *entity, int y, int i) {
     int x = 0, col;
     WSET_COLOR(sidewin, entity->col);
