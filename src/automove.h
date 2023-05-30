@@ -2,8 +2,8 @@
 #include "entity.h"
 
 //만든 맵들 중 가장 큰 사이즈의 ROW와 COL을 넣어줘야 한다.
-#define MAX_MAP_ROW 13
-#define MAX_MAP_COL 12
+#define MAX_MAP_ROW 30
+#define MAX_MAP_COL 92
 
 dir_type get_next_step(entity *e);
 int update_stepmap(int is_enemy);
