@@ -9,7 +9,7 @@
 
 #define HEIGHT 8
 #define WIDTH 91
-#define START 38 - HEIGHT
+#define START 39 - HEIGHT
 
 WINDOW *msgwin;
 cvector_vector_type(char *) msgs;

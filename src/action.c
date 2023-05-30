@@ -98,6 +98,10 @@ void handle_entity_enter_tile_event(entity *e, tile *new_tile) {
                 fputs("Entity tried to attack a player\n", stderr);
                 attack(e, target);
             }
+            else {
+                e->delay = e->attack_de;
+                add_message("%s fumbles around %s...", e->name, target->name);
+            }
         }
         else {
             move_entity_to(e, new_tile);

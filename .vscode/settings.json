@@ -9,6 +9,7 @@
         "struct_timeval.h": "c",
         "stdlib.h": "c",
         "tiles.h": "c",
-        "floor.h": "c"
+        "floor.h": "c",
+        "client.h": "c"
     }
 }

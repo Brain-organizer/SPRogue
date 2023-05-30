@@ -16,6 +16,8 @@ void set_entity_template(entity_type et) {
     entity_template[et].fg = -1;
     entity_template[et].bg = -1;
     entity_template[et].blink = 0;
+    entity_template[et].bombs = 0;
+    entity_template[et].peers = 0;
 }
 
 void set_entity_template_ET_NULL_func() {

@@ -11,7 +11,7 @@
 #include "cvector.h"
 
 // makefile 내 row 수와 연관 있음
-#define HEIGHT 38
+#define HEIGHT 40
 #define WIDTH 23
 #define START 115 - WIDTH
 
@@ -60,6 +60,14 @@ int add_sidebar_for_entity(entity *entity, int y, int i) {
     x = 0;
     if(entity->type != ET_CARROT) {
         mvwprintw(sidewin, y, x, "Delay: %d", entity->delay);
+        ++y;
+        x = 0;
+    }
+    else {
+        mvwprintw(sidewin, y, x, "Bombs: %d", entity->bombs);
+        ++y;
+        x = 0;
+        mvwprintw(sidewin, y, x, "Peers: %d", entity->peers);
         ++y;
         x = 0;
     }
