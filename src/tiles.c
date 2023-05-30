@@ -7,7 +7,6 @@ void (*draw_tile_func[TILE_NUM])(tile *);
 
 void set_tile_template(tile_type tp) {
     tile_template[tp].entity_id = -1;
-    tile_template[tp].player_id = -1;
     tile_template[tp].door_id = -1;
     tile_template[tp].status = 0;
     tile_template[tp].flags = 0;

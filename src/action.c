@@ -73,10 +73,8 @@ void move_entity_to(entity *e, tile *next) {
     if(next->entity_id != -1) return;   // 이 함수는 오직 움직임 만을 처리
 
     next->entity_id = cur->entity_id;
-    next->player_id = cur->player_id;
 
     cur->entity_id = -1;
-    cur->player_id = -1;
 
     rm->dirty[e->r][e->c] = true;
     rm->dirty[next->r][next->c] = true;

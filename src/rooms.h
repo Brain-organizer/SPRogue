@@ -48,7 +48,7 @@ void free_room(room *rm);
 door_dir get_door_dir_opp(door_dir dir);
 
 void pop_entity_from_room(room *rm, entity *e);
-void push_entity_into_room(room *rm, entity *e, int row, int col);
+void push_entity_into_room(room *rm, entity *e, int row, int col, int ind);
 void push_player_into_room(int row, int col);
 
 #endif

@@ -44,7 +44,6 @@ typedef struct tile {
     uint64_t status;
     uint64_t flags;
     int entity_id;
-    int player_id;
     int door_id;
     char *name;
     //status stat[10];

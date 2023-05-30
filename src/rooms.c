@@ -96,7 +96,7 @@ room * get_tmp_room() {
 
     rm->entities = NULL;
 
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 4, 4);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 4, 4, -1);
 
     return rm;
 }
@@ -263,13 +263,13 @@ room * get_start_room() {
 
     rm->entities = NULL;
 
-    /*
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 6, 4);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 9, 4);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 9, 5);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 9, 6);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 9, 7);
-    */
+    
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 13, 4, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 13, 5, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 14, 5, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 14, 7, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 13, 7, -1);
+    
     return rm;
 }
 
@@ -374,7 +374,7 @@ void pop_entity_from_room(room *rm, entity *e) {
 
     for(i = 0; i < cvector_size(rm->entities); ++i) {
         if(rm->entities[i] == e) {
-            rm->map[e->r][e->c].entity_id = rm->map[e->r][e->c].player_id = -1;
+            rm->map[e->r][e->c].entity_id = -1;
             rm->dirty[e->r][e->c] = true;
             cvector_erase(rm->entities, i);
 
@@ -391,7 +391,9 @@ void pop_entity_from_room(room *rm, entity *e) {
     exit(1);
 }
 
-void push_entity_into_room(room *rm, entity *e, int row, int col) {
+void push_entity_into_room(room *rm, entity *e, int row, int col, int ind) {
+    int i;
+
     if(rm == NULL) rm = get_cur_room();
     
     if(row < 0 || row >= rm->r || col < 0 || col >= rm->c || rm->map[row][col].entity_id != -1) {
@@ -399,32 +401,23 @@ void push_entity_into_room(room *rm, entity *e, int row, int col) {
     }
     rm->map[row][col].entity_id = cvector_size(rm->entities);
     rm->dirty[row][col] = true;
-    cvector_push_back(rm->entities, e);
+
+    if(ind == -1) cvector_push_back(rm->entities, e);
+    else cvector_insert(rm->entities, ind, e);
+
     e->tile = rm->map[row] + col;
     e->r = row;
     e->c = col;
+
+    for(i = 0; i < cvector_size(rm->entities); ++i) {
+        rm->entities[i]->tile->entity_id = i;
+    }
 }
 
 //player를 현재 room에다 배치하는 함수. map의 row행 col열에 배치되며, room의 entities[idx]에 player의 entity가 들어가게 된다. 
 //room이 변경된 후 반드시 호출해주어야 하는 함수.
 void push_player_into_room(int row, int col){
-    room *rm = get_cur_room();
-    entity *pl = get_player();
-    int i;
-
-    if(row < 0 || row >= rm->r || col < 0 || col >= rm->c || rm->map[row][col].entity_id != -1) {
-        raise("push_player_into_room");
-    }
-    rm->dirty[row][col] = true;
-    cvector_insert(rm->entities, 0, pl);
-    pl->tile = rm->map[row] + col;
-    pl->r = row;
-    pl->c = col;
-
-    for(i = 0; i < cvector_size(rm->entities); ++i) {
-        rm->entities[i]->tile->entity_id = i;
-    }
-    rm->map[row][col].player_id = 1;
+    push_entity_into_room(NULL, get_player(), row, col, 0);
 }
 
 door_dir get_door_dir_opp(door_dir dir) {
