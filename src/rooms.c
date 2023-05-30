@@ -346,9 +346,6 @@ room * get_corridor_room() {
     ASSIGN_TILE_MACRO(TT_WOOD_WALL_SE, rm->r-1, rm->c-1);
     ASSIGN_TILE_MACRO(TT_WOOD_WALL_SW, rm->r-1, 0);
 
-    ASSIGN_STAT_MACRO(TS_PEER, 1, 1);
-    ASSIGN_STAT_MACRO(TS_BLOOD, 1, 2);
-
     ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_WEST, rm->r/2, 0);
     ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, DD_EAST, rm->r/2, rm->c-1);
 

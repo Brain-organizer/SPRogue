@@ -41,7 +41,7 @@ void set_entity_template_ET_CARROT_func() {
 void draw_entity_func_ET_CARROT(entity *entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
     
-    entity->fg = get_color_id(255, 39, 0);
+    entity->fg = get_color_id(210, 30, 10);
     entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
     entity->icon = "Y";
