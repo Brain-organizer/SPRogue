@@ -22,6 +22,8 @@ typedef enum tile_type {
     TT_WOOD_DOOR_HOR,
     TT_RED_CARPET,
     TT_GREEN_CARPET,
+    TT_DIRT_FLOOR,
+    TT_TREE,
     TILE_NUM,
 } tile_type;
 
@@ -30,12 +32,14 @@ typedef enum tile_status {
     TS_BLOOD = 1 << 1,
     TS_BOMB = 1 << 2,
     TS_PEER = 1 << 3,
+    TS_NUM,
 } tile_status;
 
 typedef enum tile_flag {
     TF_PASSABLE = 1 << 0,
     TF_BURNABLE = 1 << 1,
     TF_DOOR = 1 << 2,
+    TF_NUM,
 } tile_flag;
 
 typedef struct tile {
@@ -48,6 +52,7 @@ typedef struct tile {
     int entity_id;
     int door_id;
     char *name;
+    char *desc;
     //status stat[10];
     //pile *pile;
 } tile;
@@ -72,5 +77,8 @@ int is_burnable_tile(tile *t);
 
 int is_door(int row, int col);
 int is_door_tile(tile *t);
+
+char *tile_status_to_str(tile_status t);
+char *tile_flag_to_str(tile_flag t);
 
 #endif

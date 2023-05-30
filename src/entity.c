@@ -41,7 +41,7 @@ void set_entity_template_ET_CARROT_func() {
 void draw_entity_func_ET_CARROT(entity *entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
     
-    entity->fg = get_color_id(139, 0, 0);
+    entity->fg = get_color_id(210, 30, 10);
     entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
     entity->icon = "Y";
@@ -89,7 +89,7 @@ void set_entity_template_ET_POTATOBOOM_func() {
 void draw_entity_func_ET_POTATOBOOM(entity * entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
     
-    entity->fg = get_color_id(139, 0, 0);
+    entity->fg = get_color_id(116, 69, 41);
     entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
     entity->icon = "o";
@@ -137,7 +137,7 @@ void set_entity_template_ET_EGGPLANT_func() {
 void draw_entity_func_ET_EGGPLANT(entity * entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
     
-    entity->fg = get_color_id(255, 255, 255);
+    entity->fg = get_color_id(27,14,27);
     entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
     entity->icon = "Y";

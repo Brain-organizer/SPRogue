@@ -10,6 +10,7 @@
         "stdlib.h": "c",
         "tiles.h": "c",
         "floor.h": "c",
-        "client.h": "c"
+        "client.h": "c",
+        "color.h": "c"
     }
 }

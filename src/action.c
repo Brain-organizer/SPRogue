@@ -229,8 +229,9 @@ void do_random_movement(entity *e) {
 }
 
 void do_examine() {
-    char c;
+    int c;
     room *rm = get_cur_room();
+    entity *pl = get_player();
 
     add_message("You begin to examine your surroundings.");
     draw_message();
@@ -255,8 +256,23 @@ void do_examine() {
         case 'r':
             add_message(get_cur_room()->desc);
             break;
+        case KEY_RIGHT:
+            describe_tile(pl->r, pl->c+1);
+            break;
+        case KEY_LEFT:
+            describe_tile(pl->r, pl->c-1);
+            break;
+        case KEY_UP:
+            describe_tile(pl->r-1, pl->c);
+            break;
+        case KEY_DOWN:
+            describe_tile(pl->r+1, pl->c);
+            break;
+        case '.':
+            describe_tile(pl->r, pl->c);
+            break;
         default:
             add_message("You withdraw your gaze from your surroundings.");
-            add_message("To examine an entity, type in their id. To examine the room, type in the letter \'r\'");
+            add_message("To examine an entity, type in their id. To examine objects around you, press the arrow key or the letter \'.\'. To examine the room, type in the letter \'r\'");
     }
 }
