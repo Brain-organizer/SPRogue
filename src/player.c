@@ -45,7 +45,7 @@ bool update_player() {
                 break;
             case '.':
                 add_message("You waited");
-                player->delay = 100;
+                player->delay = 5000;
                 break;
             case 'q':
                 make_potatoboom();
