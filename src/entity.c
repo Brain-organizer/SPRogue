@@ -99,6 +99,30 @@ void draw_entity_func_ET_POTATOBOOM(entity * entity) {
     UNSET_COLOR(entity->col);
 }
 
+void set_entity_template_ET_BEAR_func() {
+    entity_template[ET_BEAR].delay = 3000;
+    entity_template[ET_BEAR].hp = 300;
+    entity_template[ET_BEAR].power = 100;
+    entity_template[ET_BEAR].is_enemy = 1;
+    entity_template[ET_BEAR].type = ET_BEAR;
+    entity_template[ET_BEAR].attack_de = 20000;
+    entity_template[ET_BEAR].mv_de = 15000;
+    entity_template[ET_BEAR].name = "Bear";
+    entity_template[ET_BEAR].desc = "Bears are the rulers of the forest. They will try to tear you to pieces with their powerful strength and sharp claws. But if you use your speed well, you can even defeat a bear with your small frame.";
+}
+void draw_entity_func_ET_BEAR(entity * entity) {
+    if(entity->fg > 0) unget_color_id(entity->fg);
+    
+    entity->fg = get_color_id(224, 22, 74);
+    entity->bg = entity->tile->bg;
+    entity->col = PAIR_COLOR(entity->fg, entity->bg);
+    entity->icon = "B";
+    
+    SET_COLOR(entity->col);
+    mvaddstr(entity->r, entity->c, entity->icon);
+    UNSET_COLOR(entity->col);
+}
+
 void set_entity_template_ET_EGGPLANT_func() {
     entity_template[ET_EGGPLANT].delay = 5000;
     entity_template[ET_EGGPLANT].hp = 100;
@@ -131,6 +155,7 @@ void init_entities() {
     INIT_ENTITY_MACRO(ET_RABBIT)
     INIT_ENTITY_MACRO(ET_POTATOBOOM)
     INIT_ENTITY_MACRO(ET_EGGPLANT)
+    INIT_ENTITY_MACRO(ET_BEAR)
 }
 
 void draw_entity(entity *entity) {

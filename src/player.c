@@ -127,7 +127,7 @@ void make_potatoboom(){
     else
         make_potatoboom();
 
-    player->delay = 15000;
+    player->delay = 7500;
 }
 
 void call_peer(){
