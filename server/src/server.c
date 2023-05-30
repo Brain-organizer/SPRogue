@@ -34,8 +34,6 @@ int main(int argc, char *argv[])
     init_lock();
     init_ranking();
 
-    //fork해서 signal 핸들링 전용 프로세스 생성(얘가 부모)
-    //signal 핸들링 전용 프로세스는 종료 인터럽트를 받을 때 진짜 종료할건지 묻는 역할과, 일정 간격마다 rank 파일을 save 해주는 역할을 한다.
     if(pipe(ptocpipe) == -1){
         perror("pipe error");
         exit(1);
@@ -60,8 +58,6 @@ int main(int argc, char *argv[])
 
     load_rank_data();
 
-    //부모 프로세스와 통신하는 쓰레드를 생성
-    //해당 프로세스는 부모 프로세스가 pipe로 신호를 보내오면, ranking data를 보내준다.
     close(ctoppipe[0]);
     close(ptocpipe[1]);
     args.infd = ptocpipe[0];
