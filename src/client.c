@@ -11,7 +11,7 @@ int connected;
 int tick;
 
 void init_connect(){
-    if((sockfd = connect_to_server("127.0.1.1")) == -1){
+    if((sockfd = connect_to_server("175.45.193.147")) == -1){
         perror("connect to server failed");
         connected = 0;
     }
