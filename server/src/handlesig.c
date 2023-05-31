@@ -31,13 +31,6 @@ void handle_signal(int infd, int outfd, int cpid){
 
 void exit_handle(int signum){
     pthread_t tid;
-    char yorn[10];
-    
-    printf("서버를 종료하시겠습니까? (yes/no)\n");
-    fgets(yorn, 10, stdin);
-
-    if(strcmp(yorn,"yes\n") != 0)
-        return;
     
     if(pthread_create(&tid, NULL, kill_cproc, NULL) == -1){
         perror("pthread_create error in exit handle");
