@@ -61,6 +61,16 @@ void enter_door_player(tile *t) {
 
     fputs("Player successfully moved into a door!\n", stderr);
 
+    if(strcmp(f->cur_room->name, "Ambush") == 0 && f->cur_room->check) {
+        f->cur_room->check = false;
+        for(r = 0; r < cvector_size(f->cur_room->entities); ++r)
+            if(f->cur_room->entities[r]->type == ET_HORSE) {
+                f->cur_room->entities[r]->delay = 100000;
+                f->cur_room->entities[r]->hp *= 2;
+                f->cur_room->entities[r]->power *= 2;
+            }
+    }
+
     add_message("You pass through the %s and enter into the %s", t->name, f->cur_room->name);
 } 
 
