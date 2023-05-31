@@ -17,6 +17,7 @@ void init_floor() {
     cvector_push_back(cur_floor->rooms, get_storage_room());
     cvector_push_back(cur_floor->rooms, get_passageway());
     cvector_push_back(cur_floor->rooms, get_ambush_room());
+    cvector_push_back(cur_floor->rooms, get_boss_room());
     cur_floor->cur_room = cur_floor->rooms[0];
 
     link_rooms(0, 4, 0, 0);
@@ -24,6 +25,7 @@ void init_floor() {
     link_rooms(5, 1, 1, 0);
     link_rooms(1, 6, 1, 0);
     link_rooms(6, 2, 1, 0);
+    link_rooms(2, 7, 1, 0);
 
     //player를 room에 집어넣는다. 
     push_player_into_room(cur_floor->cur_room->roff + (cur_floor->cur_room->r-cur_floor->cur_room->roff)/2, cur_floor->cur_room->coff + (cur_floor->cur_room->c-cur_floor->cur_room->coff)/2);

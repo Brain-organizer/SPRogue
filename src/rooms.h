@@ -33,6 +33,7 @@ room * get_corridor_room();
 room * get_storage_room();
 room * get_passageway();
 room * get_ambush_room();
+room * get_boss_room();
 
 bool is_door_ok(door d);
 

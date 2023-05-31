@@ -792,6 +792,214 @@ room * get_ambush_room() {
     return rm;
 }
 
+room * get_boss_room() {
+    room * rm;
+    int r, c, tv;
+    bool flg;
+    door tdoor;
+
+    rm = malloc(sizeof(room));
+    memset(rm, 0, sizeof(rm));
+
+    rm->check = true;
+
+    rm->doors = NULL;
+
+    rm->roff = 0;
+    rm->coff = 0;
+    
+    rm->name = "Den of Bears";
+    rm->desc = "A place of residence for the bears, it is from this seat of power that they command. The bears, however, seem preoccupied.";
+
+    rm->r = 18 + rm->roff;
+    rm->c = 40 + rm->coff;
+    
+    rm->map = malloc(sizeof(tile *) * rm->r);
+
+    for(r = 0; r < rm->r; ++r) {
+        rm->map[r] = malloc(sizeof(tile) * rm->c);
+    } 
+
+    rm->dirty = malloc(sizeof(bool *) * rm->r);
+
+    for(r = 0; r < rm->r; ++r) {
+        rm->dirty[r] = malloc(sizeof(bool) * rm->c);
+        memset(rm->dirty[r], true, sizeof(bool) * rm->c);
+    }
+
+    for(r = 0; r < rm->r; ++r) {
+        for(c = 0; c < rm->c; ++c) {
+            ASSIGN_TILE_MACRO(TT_DARK, r, c);
+        }
+    }
+
+    for(r = rm->roff+4; r < rm->r; ++r) {
+        for(c = rm->coff+1; c < rm->c; ++c) {
+            ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, r, c);
+        }
+    }
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+1, rm->coff+30);
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+2, rm->coff+28);
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+2, rm->coff+29);
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+2, rm->coff+30);
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+2, rm->coff+31);
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+2, rm->coff+32);
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+3, rm->coff+26);
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+3, rm->coff+27);
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+3, rm->coff+28);
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+3, rm->coff+29);
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+3, rm->coff+30);
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+3, rm->coff+31);
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+3, rm->coff+32);
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+3, rm->coff+33);
+    ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, rm->roff+3, rm->coff+34);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff+4, rm->coff+22);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff+4, rm->coff+23);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff+4, rm->coff+24);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SE, rm->roff+4, rm->coff+25);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, rm->roff+3, rm->coff+25);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NW, rm->roff+2, rm->coff+25);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff+2, rm->coff+26);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SE, rm->roff+2, rm->coff+27);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NW, rm->roff+1, rm->coff+27);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff+1, rm->coff+28);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SE, rm->roff+1, rm->coff+29);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff+0, rm->coff+30);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NW, rm->roff+0, rm->coff+29);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NE, rm->roff+0, rm->coff+31);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SW, rm->roff+1, rm->coff+31);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff+1, rm->coff+32);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NE, rm->roff+1, rm->coff+33);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SW, rm->roff+2, rm->coff+33);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff+2, rm->coff+34);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NE, rm->roff+2, rm->coff+35);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, rm->roff+3, rm->coff+35);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SW, rm->roff+4, rm->coff+35);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff+4, rm->coff+36);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff+4, rm->coff+37);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff+4, rm->coff+38);
+
+    for(c = rm->coff+1; c < rm->c; ++c) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->r-1, c);
+    }
+    for(r = rm->roff+4; r < rm->r; ++r) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, rm->coff+1);
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, rm->c-1);
+    }
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NE, rm->roff+4, rm->coff+39);
+    
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SW, rm->r-1, rm->coff+1);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SE, rm->r-1, rm->c-1);
+
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_HOR, rm->r-1, rm->roff+30);
+
+    r = rm->roff+4;
+    for(c = rm->coff+1; c < rm->coff+22; ++c) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, r, c);
+    }
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NW, r, rm->coff+1);
+    c = rm->coff+1;
+    for(r = rm->roff+5; r < rm->roff+15; ++r) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, c);
+    }
+    
+    for(r = rm->roff+5; r < rm->roff+15; ++r) {
+        for(c = rm->coff+2; c < rm->coff+22; ++c) {
+            ASSIGN_TILE_MACRO(TT_GRASS_FLOOR, r, c);
+        }
+    }
+
+    r = rm->roff + 15;
+    for(c = rm->coff+2; c < rm->coff+23; ++c) {
+        ASSIGN_TILE_MACRO(TT_FENCE, r, c);
+    }
+    --c;
+    ASSIGN_TILE_MACRO(TT_FENCE, rm->roff+5, c);
+    ASSIGN_TILE_MACRO(TT_FENCE, rm->roff+6, c);
+    ASSIGN_TILE_MACRO(TT_FENCE, rm->roff+7, c);
+    ASSIGN_TILE_MACRO(TT_FENCE, rm->roff+12, c);
+    ASSIGN_TILE_MACRO(TT_FENCE, rm->roff+13, c);
+    ASSIGN_TILE_MACRO(TT_FENCE, rm->roff+14, c);
+
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+5, rm->coff+8);
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+6, rm->coff+8);
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+5, rm->coff+9);
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+6, rm->coff+9);
+
+    ASSIGN_TILE_MACRO(TT_TREE, rm->roff+8, rm->coff+4);
+    ASSIGN_TILE_MACRO(TT_TREE, rm->roff+11, rm->coff+7);
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+9, rm->coff+10);
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+9, rm->coff+11);
+
+    ASSIGN_TILE_MACRO(TT_TREE, rm->roff+6, rm->coff+16);
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+6, rm->coff+19);
+
+    ASSIGN_TILE_MACRO(TT_TREE, rm->roff+11, rm->coff+17);
+
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+9, rm->coff+19);
+
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+13, rm->coff+15);
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+13, rm->coff+16);
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+14, rm->coff+15);
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+14, rm->coff+16);
+
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+13, rm->coff+6);
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+13, rm->coff+5);
+
+    ASSIGN_TILE_MACRO(TT_TREE, rm->roff+10, rm->coff+13);
+    ASSIGN_TILE_MACRO(TT_TREE, rm->roff+5, rm->coff+7);
+    ASSIGN_TILE_MACRO(TT_TREE, rm->roff+13, rm->coff+11);
+    ASSIGN_TILE_MACRO(TT_TREE, rm->roff+11, rm->coff+17);
+    ASSIGN_TILE_MACRO(TT_TREE, rm->roff+14, rm->coff+2);
+    ASSIGN_TILE_MACRO(TT_TREE, rm->roff+7, rm->coff+12);
+    ASSIGN_TILE_MACRO(TT_TREE, rm->roff+13, rm->coff+21);
+
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+9, rm->coff+2);
+    ASSIGN_TILE_MACRO(TT_BOULDER, rm->roff+10, rm->coff+2);
+
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+1, rm->coff+30);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+2, rm->coff+28);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+2, rm->coff+29);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+2, rm->coff+30);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+2, rm->coff+31);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+2, rm->coff+32);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+3, rm->coff+28);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+3, rm->coff+29);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+3, rm->coff+33);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+4, rm->coff+30);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+4, rm->coff+27);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+4, rm->coff+33);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+3, rm->coff+31);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+3, rm->coff+27);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+3, rm->coff+34);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+3, rm->coff+30);
+
+    ASSIGN_STAT_MACRO(TS_CORPSE, rm->roff+2, rm->coff+30);
+    ASSIGN_STAT_MACRO(TS_CORPSE, rm->roff+1, rm->coff+30);
+    ASSIGN_STAT_MACRO(TS_CORPSE, rm->roff+2, rm->coff+29);
+    ASSIGN_STAT_MACRO(TS_CORPSE, rm->roff+3, rm->coff+31);
+
+    rm->entities = NULL;
+
+    push_entity_into_room(rm, create_entity(ET_BEAR), rm->roff+6, rm->coff+7, -1);
+    push_entity_into_room(rm, create_entity(ET_BEAR), rm->roff+2, rm->coff+30, -1);
+    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+6, rm->coff+27, -1);
+    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+6, rm->coff+29, -1);
+    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+6, rm->coff+31, -1);
+    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+6, rm->coff+33, -1);
+
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+25, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+26, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+28, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+29, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+31, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+32, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+34, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+35, -1);
+
+    return rm;
+}
+
 void draw_room(room *rm) {
     int r, c;
 

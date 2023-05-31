@@ -72,6 +72,14 @@ void enter_door_player(tile *t) {
     }
 
     add_message("You pass through the %s and enter into the %s", t->name, f->cur_room->name);
+
+    if(strcmp(f->cur_room->name, "Den of Bears") == 0 && f->cur_room->check) {
+        f->cur_room->check = false;
+        f->cur_room->entities[1]->name = "Grobar the Grim";
+        f->cur_room->entities[1]->delay = 100000;
+        
+        add_message("Grobar shouts, \"WHO DARES TO INTERRUPT MY BREAK! GUARDS, BRING ME THAT MEAT!!!\"");
+    }
 } 
 
 void move_entity_to(entity *e, tile *next) {
