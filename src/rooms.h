@@ -19,6 +19,7 @@ typedef struct room {
     int roff, coff;
     tile **map;
     bool **dirty;
+    bool check;
     cvector_vector_type(door) doors;
     cvector_vector_type(entity *) entities;
     char *name;
@@ -31,6 +32,7 @@ room * get_start_room();
 room * get_corridor_room();
 room * get_storage_room();
 room * get_passageway();
+room * get_ambush_room();
 
 bool is_door_ok(door d);
 

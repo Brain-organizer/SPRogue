@@ -149,8 +149,8 @@ room * get_butcher_room() {
 
     rm->doors = NULL;
 
-    rm->roff = 0;
-    rm->coff = 0;
+    rm->roff = 8;
+    rm->coff = 24;
     
     rm->name = "Butcher's Room";
     rm->desc = "This is the butcher's room, a place where the carrots are turned into sustenance for the rabbit lords. You can smell the blood of the innocents from its red-stained floors.";
@@ -279,7 +279,7 @@ room * get_butcher_room() {
     push_entity_into_room(rm, create_entity(ET_RABBIT), 7+rm->roff, 10+rm->coff, -1);
     push_entity_into_room(rm, create_entity(ET_RABBIT), 5+rm->roff, 7+rm->coff, -1);
     push_entity_into_room(rm, create_entity(ET_RABBIT), 2+rm->roff, 13+rm->coff, -1);\
-    
+
     push_entity_into_room(rm, create_entity(ET_RABBIT), 14+rm->roff, 6+rm->coff, -1);
     push_entity_into_room(rm, create_entity(ET_RABBIT), 14+rm->roff, 12+rm->coff, -1);
 
@@ -696,6 +696,84 @@ room * get_corridor_room() {
     }
 
     rm->entities = NULL;
+
+    return rm;
+}
+
+room * get_ambush_room() {
+    room * rm;
+    int r, c, tv;
+    bool flg;
+    door tdoor;
+
+    rm = malloc(sizeof(room));
+    memset(rm, 0, sizeof(rm));
+
+    rm->doors = NULL;
+
+    rm->roff = 0;
+    rm->coff = 0;
+    
+    rm->name = "Ambush";
+    rm->desc = "The rabbits are striking back! They have set up an ambush, and you must react! The horses seem extra dull today, however. Maybe you should act before they realize the situation.";
+
+    rm->check = true;
+
+    rm->r = 25 + rm->roff;
+    rm->c = 9 + rm->coff;
+    
+    rm->map = malloc(sizeof(tile *) * rm->r);
+
+    for(r = 0; r < rm->r; ++r) {
+        rm->map[r] = malloc(sizeof(tile) * rm->c);
+    } 
+
+    rm->dirty = malloc(sizeof(bool *) * rm->r);
+
+    for(r = 0; r < rm->r; ++r) {
+        rm->dirty[r] = malloc(sizeof(bool) * rm->c);
+        memset(rm->dirty[r], true, sizeof(bool) * rm->c);
+    }
+
+    for(r = 0; r < rm->r; ++r) {
+        for(c = 0; c < rm->c; ++c) {
+            ASSIGN_TILE_MACRO(TT_DARK, r, c);
+        }
+    }
+
+    for(r = 0; r < rm->r; ++r) {
+        for(c = 0; c < rm->c; ++c) {
+            ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, r, c);
+        }
+    }
+
+    for(c = rm->coff; c < rm->c; ++c) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff, c);
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->r-1, c);
+    }
+    for(r = rm->roff; r < rm->r; ++r) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, rm->coff);
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, rm->c-1);
+    }
+
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NW, rm->roff, rm->coff);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NE, rm->roff, rm->c-1);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SW, rm->r-1, rm->coff);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SE, rm->r-1, rm->c-1);
+    
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, rm->roff+12, rm->coff+0);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, rm->roff+2, rm->coff+8);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_HOR, rm->roff+24, rm->coff+4);
+
+    rm->entities = NULL;
+
+    push_entity_into_room(rm, create_entity(ET_HORSE), rm->roff+22, rm->coff+2, -1);
+    push_entity_into_room(rm, create_entity(ET_HORSE), rm->roff+22, rm->coff+4, -1);
+    push_entity_into_room(rm, create_entity(ET_HORSE), rm->roff+22, rm->coff+6, -1);
+
+    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+2, rm->coff+4, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+3, rm->coff+3, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+3, rm->coff+5, -1);
 
     return rm;
 }
