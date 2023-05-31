@@ -14,14 +14,15 @@ void init_floor() {
     cvector_push_back(cur_floor->rooms, get_butcher_room());
     cvector_push_back(cur_floor->rooms, get_corridor_room());
     cvector_push_back(cur_floor->rooms, get_tmp_room());
+    cvector_push_back(cur_floor->rooms, get_storage_room());
     cur_floor->cur_room = cur_floor->rooms[0];
 
-    link_rooms(cur_floor->rooms[0], cur_floor->rooms[2], 0, 0);
+    link_rooms(0, 4, 0, 0);
 
     //player를 room에 집어넣는다. 
     push_player_into_room(cur_floor->cur_room->roff + (cur_floor->cur_room->r-cur_floor->cur_room->roff)/2, cur_floor->cur_room->coff + (cur_floor->cur_room->c-cur_floor->cur_room->coff)/2);
-    get_player()->bombs = 1;
-    get_player()->peers = 1;
+    get_player()->bombs = 0;
+    get_player()->peers = 0;
 }
 void draw() {
     if(cur_floor->room_changed) {
@@ -61,16 +62,12 @@ int get_room_index(room *rm) {
 }
 
 
-void link_rooms(room *a, room *b, int da, int db) {
+void link_rooms(int ra, int rb, int da, int db) {
     floor *f = cur_floor;
-    int ra, rb;
+    room *a, *b;
 
-    for(ra = 0; ra < cvector_size(f->rooms); ++ra) {
-        if(f->rooms[ra] == a) break;
-    }
-    for(rb = 0; rb < cvector_size(f->rooms); ++rb) {
-        if(f->rooms[rb] == b) break;
-    }
+    a = f->rooms[ra];
+    b = f->rooms[rb];
 
     a->doors[da].next = b->doors[db].prev;
     b->doors[db].next = a->doors[da].prev;

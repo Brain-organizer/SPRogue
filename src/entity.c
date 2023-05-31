@@ -65,7 +65,7 @@ void set_entity_template_ET_RABBIT_func() {
 void draw_entity_func_ET_RABBIT(entity *entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
     
-    entity->fg = get_color_id(255, 255, 255);
+    entity->fg = get_color_id(230, 230, 230);
     entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
     entity->icon = "R";

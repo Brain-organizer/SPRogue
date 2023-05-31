@@ -35,14 +35,7 @@ void draw_tile_func_TT_GRASS_FLOOR(tile *tile) {
 
     tile->bg = get_color_id(184,147,92);
 
-    if(tile->status & TS_BLOOD) {
-        tile->fg = get_color_id(140, 0, 0);
-        tile->col = PAIR_COLOR(tile->fg, tile->bg);
-
-        SET_COLOR(tile->col);
-        mvaddstr(tile->r, tile->c, ":");
-    }
-    else if(tile->status & TS_BOMB) {
+    if(tile->status & TS_BOMB) {
         tile->fg = get_color_id(80, 80, 200);
         tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
@@ -62,6 +55,13 @@ void draw_tile_func_TT_GRASS_FLOOR(tile *tile) {
 
         SET_COLOR(tile->col);
         mvaddstr(tile->r, tile->c, "&");
+    }
+    else if(tile->status & TS_BLOOD) {
+        tile->fg = get_color_id(140, 0, 0);
+        tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+        SET_COLOR(tile->col);
+        mvaddstr(tile->r, tile->c, ":");
     }
     else {
         tile->fg = get_color_id(0,110,51);
@@ -86,14 +86,7 @@ void draw_tile_func_TT_CAVE_FLOOR(tile *tile) {
 
     tile->bg = get_color_id(200, 200, 200);
 
-    if(tile->status & TS_BLOOD) {
-        tile->fg = get_color_id(140, 0, 0);
-        tile->col = PAIR_COLOR(tile->fg, tile->bg);
-
-        SET_COLOR(tile->col);
-        mvaddstr(tile->r, tile->c, "%");
-    }
-    else if(tile->status & TS_BOMB) {
+    if(tile->status & TS_BOMB) {
         tile->fg = get_color_id(80, 80, 200);
         tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
@@ -113,6 +106,13 @@ void draw_tile_func_TT_CAVE_FLOOR(tile *tile) {
 
         SET_COLOR(tile->col);
         mvaddstr(tile->r, tile->c, "&");
+    }
+    else if(tile->status & TS_BLOOD) {
+        tile->fg = get_color_id(140, 0, 0);
+        tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+        SET_COLOR(tile->col);
+        mvaddstr(tile->r, tile->c, "%");
     }
     else {
         tile->fg = 0;
@@ -286,14 +286,7 @@ void draw_tile_func_TT_WOOD_FLOOR(tile *tile) {
 
     tile->bg = get_color_id(186,140,99);
 
-    if(tile->status & TS_BLOOD) {
-        tile->fg = get_color_id(140, 0, 0);
-        tile->col = PAIR_COLOR(tile->fg, tile->bg);
-
-        SET_COLOR(tile->col);
-        mvaddstr(tile->r, tile->c, "%");
-    }
-    else if(tile->status & TS_BOMB) {
+    if(tile->status & TS_BOMB) {
         tile->fg = get_color_id(80, 80, 200);
         tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
@@ -313,6 +306,13 @@ void draw_tile_func_TT_WOOD_FLOOR(tile *tile) {
 
         SET_COLOR(tile->col);
         mvaddstr(tile->r, tile->c, "&");
+    }
+    else if(tile->status & TS_BLOOD) {
+        tile->fg = get_color_id(140, 0, 0);
+        tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+        SET_COLOR(tile->col);
+        mvaddstr(tile->r, tile->c, "%");
     }
     else {
         tile->fg = 0;
@@ -431,14 +431,7 @@ void draw_tile_func_TT_DIRT_FLOOR(tile *tile) {
 
     tile->bg = get_color_id(184,147,92);
 
-    if(tile->status & TS_BLOOD) {
-        tile->fg = get_color_id(140, 0, 0);
-        tile->col = PAIR_COLOR(tile->fg, tile->bg);
-
-        SET_COLOR(tile->col);
-        mvaddstr(tile->r, tile->c, "%");
-    }
-    else if(tile->status & TS_BOMB) {
+    if(tile->status & TS_BOMB) {
         tile->fg = get_color_id(80, 80, 200);
         tile->col = PAIR_COLOR(tile->fg, tile->bg);
 
@@ -458,6 +451,13 @@ void draw_tile_func_TT_DIRT_FLOOR(tile *tile) {
 
         SET_COLOR(tile->col);
         mvaddstr(tile->r, tile->c, "&");
+    }
+    else if(tile->status & TS_BLOOD) {
+        tile->fg = get_color_id(140, 0, 0);
+        tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+        SET_COLOR(tile->col);
+        mvaddstr(tile->r, tile->c, "%");
     }
     else {
         tile->fg = 0;
@@ -524,6 +524,42 @@ void draw_tile_func_TT_BOULDER(tile *tile) {
     UNSET_COLOR(tile->col);
 }
 
+void set_tile_template_TT_SHELF_func() {
+    tile_template[TT_SHELF].type = TT_SHELF;
+    tile_template[TT_SHELF].name = "Wooden Shelf";
+    tile_template[TT_SHELF].desc = "A set of large planks are piled together to form a crude shelf. A set of unidentifiable items are placed within it. You think something just moved.";
+}
+void draw_tile_func_TT_SHELF(tile *tile) {
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
+
+    tile->bg = get_color_id(186,140,99);
+    tile->fg = get_color_id(133*0.8,94*0.8,66*0.8);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+    SET_COLOR(tile->col);
+    mvaddstr(tile->r, tile->c, "#");
+    UNSET_COLOR(tile->col);
+}
+
+void set_tile_template_TT_BOX_func() {
+    tile_template[TT_BOX].type = TT_BOX;
+    tile_template[TT_BOX].name = "Pile of Boxes";
+    tile_template[TT_BOX].desc = "A collection of wooden boxes that are roughly piled together. It'd be difficult to pass through them, let alone retrieve any items within.";
+}
+void draw_tile_func_TT_BOX(tile *tile) {
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
+
+    tile->bg = get_color_id(186,140,99);
+    tile->fg = get_color_id(133*0.8,94*0.8,66*0.8);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+    SET_COLOR(tile->col);
+    mvaddstr(tile->r, tile->c, "[");
+    UNSET_COLOR(tile->col);
+}
+
 #define INIT_TILE_MACRO(NAME) set_tile_template(NAME); set_tile_template_ ## NAME ## _func(); draw_tile_func[NAME] = draw_tile_func_ ## NAME;
 
 void init_tiles() {
@@ -548,6 +584,8 @@ void init_tiles() {
     INIT_TILE_MACRO(TT_TREE);
     INIT_TILE_MACRO(TT_FENCE);
     INIT_TILE_MACRO(TT_BOULDER);
+    INIT_TILE_MACRO(TT_SHELF);
+    INIT_TILE_MACRO(TT_BOX);
 }
 
 void draw_tile(tile *tile) {

@@ -269,12 +269,233 @@ room * get_start_room() {
 
     rm->entities = NULL;
 
-    push_entity_into_room(rm, create_entity(ET_BEAR), 14+rm->roff, 6+rm->coff, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), 14+rm->roff, 7+rm->coff, -1);
-    push_entity_into_room(rm, create_entity(ET_RUNNER), 14+rm->roff, 8+rm->coff, -1);
-    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+15, rm->coff+7, -1);
-    push_entity_into_room(rm, create_entity(ET_HORSE), rm->roff+15, rm->coff+8, -1);
+    //push_entity_into_room(rm, create_entity(ET_BEAR), 14+rm->roff, 6+rm->coff, -1);
+    //push_entity_into_room(rm, create_entity(ET_RABBIT), 14+rm->roff, 7+rm->coff, -1);
+    //push_entity_into_room(rm, create_entity(ET_RUNNER), 14+rm->roff, 8+rm->coff, -1);
+    //push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+15, rm->coff+7, -1);
+    //push_entity_into_room(rm, create_entity(ET_HORSE), rm->roff+15, rm->coff+8, -1);
     
+    return rm;
+}
+
+room * get_storage_room() {
+    room * rm;
+    int r, c, tv;
+    bool flg;
+    door tdoor;
+
+    rm = malloc(sizeof(room));
+    memset(rm, 0, sizeof(rm));
+
+    rm->doors = NULL;
+
+    rm->roff = 0;
+    rm->coff = 0;
+    
+    rm->name = "Storage Room";
+    rm->desc = "A place where rabbits store their goods, the smell of dust and rat piss permeates the air. Numerous shelves and boxes are coated with thick layer of dust.";
+
+    rm->r = 17 + rm->roff;
+    rm->c = 20 + rm->coff;
+    
+    rm->map = malloc(sizeof(tile *) * rm->r);
+
+    for(r = 0; r < rm->r; ++r) {
+        rm->map[r] = malloc(sizeof(tile) * rm->c);
+    } 
+
+    rm->dirty = malloc(sizeof(bool *) * rm->r);
+
+    for(r = 0; r < rm->r; ++r) {
+        rm->dirty[r] = malloc(sizeof(bool) * rm->c);
+        memset(rm->dirty[r], true, sizeof(bool) * rm->c);
+    }
+
+    for(r = 0; r < rm->r; ++r) {
+        for(c = 0; c < rm->c; ++c) {
+            ASSIGN_TILE_MACRO(TT_DARK, r, c);
+        }
+    }
+
+    for(r = rm->roff; r < rm->r; ++r) {
+        for(c = rm->coff; c < rm->c; ++c) {
+            ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, r, c);
+        }
+    }
+    for(c = rm->coff; c < rm->c; ++c) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff, c);
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->r-1, c);
+    }
+    for(r = rm->roff; r < rm->r; ++r) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, rm->coff);
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, rm->c-1);
+    }
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NW, rm->roff, rm->coff);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NE, rm->roff, rm->c-1);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SW, rm->r-1, rm->coff);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SE, rm->r-1, rm->c-1);
+    
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+1, rm->coff+2);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+1, rm->coff+3);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+1, rm->coff+4);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+1, rm->coff+5);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+1, rm->coff+6);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+1, rm->coff+7);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+2, rm->coff+2);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+2, rm->coff+3);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+2, rm->coff+4);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+2, rm->coff+5);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+2, rm->coff+6);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+2, rm->coff+7);
+
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+1, rm->coff+9);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+1, rm->coff+10);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+1, rm->coff+11);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+1, rm->coff+12);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+1, rm->coff+13);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+1, rm->coff+14);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+1, rm->coff+15);
+    //ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+2, rm->coff+9);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+2, rm->coff+10);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+2, rm->coff+11);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+2, rm->coff+12);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+2, rm->coff+13);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+2, rm->coff+14);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+2, rm->coff+15);
+
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+5, rm->coff+1);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+5, rm->coff+2);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+5, rm->coff+3);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+5, rm->coff+4);
+    //ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+5, rm->coff+5);
+    //ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+5, rm->coff+6);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+5, rm->coff+7);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+6, rm->coff+1);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+6, rm->coff+2);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+6, rm->coff+3);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+6, rm->coff+4);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+6, rm->coff+5);
+    //ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+6, rm->coff+6);
+    //ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+6, rm->coff+7);
+    
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+5, rm->coff+9);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+5, rm->coff+10);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+5, rm->coff+11);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+5, rm->coff+12);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+5, rm->coff+13);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+5, rm->coff+14);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+5, rm->coff+15);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+6, rm->coff+9);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+6, rm->coff+10);
+    //ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+6, rm->coff+11);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+6, rm->coff+12);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+6, rm->coff+13);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+6, rm->coff+14);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+6, rm->coff+15);
+
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+9, rm->coff+1);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+9, rm->coff+2);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+9, rm->coff+3);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+9, rm->coff+4);
+    //ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+9, rm->coff+5);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+9, rm->coff+6);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+9, rm->coff+7);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+10, rm->coff+1);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+10, rm->coff+2);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+10, rm->coff+3);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+10, rm->coff+4);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+10, rm->coff+5);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+10, rm->coff+6);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+10, rm->coff+7);
+    
+    //ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+9, rm->coff+9);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+9, rm->coff+10);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+9, rm->coff+11);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+9, rm->coff+12);
+    //ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+9, rm->coff+13);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+9, rm->coff+14);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+9, rm->coff+15);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+10, rm->coff+9);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+10, rm->coff+10);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+10, rm->coff+11);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+10, rm->coff+12);
+    //ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+10, rm->coff+13);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+10, rm->coff+14);
+    ASSIGN_TILE_MACRO(TT_SHELF, rm->roff+10, rm->coff+15);
+
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+1);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+2);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+3);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+4);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+5);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+6);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+7);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+8);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+9);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+10);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+11);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+12);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+13);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+14);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-4, rm->coff+15);
+
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+1);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+2);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+3);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+4);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+5);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+6);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+7);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+8);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+9);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+10);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+11);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+12);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+13);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+14);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-3, rm->coff+15);
+
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+1);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+2);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+3);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+4);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+5);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+6);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+7);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+8);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+9);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+10);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+11);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+12);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+13);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+14);
+    ASSIGN_TILE_MACRO(TT_BOX, rm->r-2, rm->coff+15);
+
+    for(r = rm->roff+1; r < rm->r-1; ++r) {
+        ASSIGN_TILE_MACRO(TT_SHELF, r, rm->c-2);
+    }
+
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_HOR, rm->roff, rm->coff+1);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_HOR, rm->r-1, rm->c-3);
+
+    ASSIGN_STAT_MACRO(TS_BOMB, rm->roff+1, rm->coff+8);
+    ASSIGN_STAT_MACRO(TS_PEER, rm->roff+6, rm->coff+11);
+    ASSIGN_STAT_MACRO(TS_HEALTH, rm->roff+9, rm->coff+5);
+
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+6, rm->coff+11);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+7, rm->coff+10);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+7, rm->coff+11);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+7, rm->coff+12);
+
+    rm->entities = NULL;
+
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+12, rm->coff+12, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+12, rm->coff+13, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+11, rm->coff+14, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+12, rm->coff+3, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+6, rm->coff+11, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+6, rm->coff+6, -1);
+
     return rm;
 }
 
