@@ -78,7 +78,7 @@ void set_tile_template_TT_CAVE_FLOOR_func() {
     tile_template[TT_CAVE_FLOOR].type = TT_CAVE_FLOOR;
     tile_template[TT_CAVE_FLOOR].flags = TF_PASSABLE;
     tile_template[TT_CAVE_FLOOR].name = "Cave Floor";
-    tile_template[TT_CAVE_FLOOR].desc = "Moisture has drawn in moss and crawling critters.";
+    tile_template[TT_CAVE_FLOOR].desc = "Moisture has drawn in moss and an assortment of crawling critters.";
 }
 void draw_tile_func_TT_CAVE_FLOOR(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
@@ -145,7 +145,7 @@ void draw_tile_func_TT_DARK(tile *tile) {
 void set_tile_template_TT_CAVE_WALL_func() {
     tile_template[TT_CAVE_WALL].type = TT_CAVE_WALL;
     tile_template[TT_CAVE_WALL].name = "Cave Wall";
-    tile_template[TT_CAVE_WALL].desc = "Moisture has drawn in moss and crawling critters.";
+    tile_template[TT_CAVE_WALL].desc = "Moisture has drawn in moss and an assortment of crawling critters.";
 }
 void draw_tile_func_TT_CAVE_WALL(tile *tile) {
     if(tile->fg > 0) unget_color_id(tile->fg);
