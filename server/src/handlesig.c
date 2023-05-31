@@ -20,6 +20,7 @@ void handle_signal(int infd, int outfd, int cpid){
     
     signal(SIGINT, exit_handle);
     signal(SIGQUIT, exit_handle);
+    signal(SIGTERM, exit_handle);
     signal(SIGKILL, exit_handle);
     signal(SIGALRM, sigalrm_handle);
 
