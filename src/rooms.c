@@ -125,12 +125,6 @@ room * get_passageway() {
     ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_HOR, rm->roff, rm->coff+7);
     ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_HOR, rm->r-1, rm->c-8);
 
-    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_HOR, rm->r-1, rm->coff+7);
-    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_HOR, rm->roff, rm->c-8);
-
-    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, rm->roff+2, rm->coff);
-    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, rm->roff+2, rm->c-1);
-
     rm->entities = NULL;
 
     push_entity_into_room(rm, create_entity(ET_HORSE), rm->r-2, rm->c-8, -1);
@@ -711,8 +705,8 @@ room * get_ambush_room() {
 
     rm->doors = NULL;
 
-    rm->roff = 0;
-    rm->coff = 0;
+    rm->roff = 5;
+    rm->coff = 28;
     
     rm->name = "Ambush";
     rm->desc = "The rabbits are striking back! They have set up an ambush, and you must react! The horses seem extra dull today, however. Maybe you should act before they realize the situation.";
@@ -741,8 +735,8 @@ room * get_ambush_room() {
         }
     }
 
-    for(r = 0; r < rm->r; ++r) {
-        for(c = 0; c < rm->c; ++c) {
+    for(r = rm->roff; r < rm->r; ++r) {
+        for(c = rm->coff; c < rm->c; ++c) {
             ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, r, c);
         }
     }
@@ -770,10 +764,16 @@ room * get_ambush_room() {
     push_entity_into_room(rm, create_entity(ET_HORSE), rm->roff+22, rm->coff+2, -1);
     push_entity_into_room(rm, create_entity(ET_HORSE), rm->roff+22, rm->coff+4, -1);
     push_entity_into_room(rm, create_entity(ET_HORSE), rm->roff+22, rm->coff+6, -1);
+    push_entity_into_room(rm, create_entity(ET_HORSE), rm->roff+23, rm->coff+3, -1);
+    push_entity_into_room(rm, create_entity(ET_HORSE), rm->roff+23, rm->coff+5, -1);
 
-    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+2, rm->coff+4, -1);
+    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+2, rm->coff+3, -1);
+    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+2, rm->coff+5, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+3, rm->coff+2, -1);
     push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+3, rm->coff+3, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+3, rm->coff+4, -1);
     push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+3, rm->coff+5, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+3, rm->coff+6, -1);
 
     return rm;
 }
