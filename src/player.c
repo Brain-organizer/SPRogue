@@ -53,6 +53,9 @@ bool update_player() {
             case 'w':
                 call_peer();
                 break;
+            case 'e':
+                throw_leaf();
+                break;
             case 'i': case 'I':
                 //인벤토리 창
 
@@ -128,6 +131,39 @@ void make_potatoboom(){
         make_potatoboom();
 
     player->delay = 7500;
+}
+
+void throw_leaf(){
+    int row, col;
+    entity *pl = get_player();
+    
+    switch(getch()) {
+    case KEY_RIGHT:
+        row = player->r; col = player->c+1;
+        break;
+    case KEY_LEFT:
+        row = player->r; col = player->c-1;
+        break;
+    case KEY_UP:
+        row = player->r-1; col = player->c;
+        break;
+    case KEY_DOWN:
+        row = player->r+1; col = player->c;
+        break;
+    default:
+        throw_leaf();
+        return;
+    }
+
+    if(is_passable(row,col) && get_entity_at(row,col) == NULL){
+        push_entity_into_room(NULL, create_entity(ET_LEAF), row, col, 1);
+
+        add_message("You throw your leaf. Recovery time must be needed.");
+    }
+    else
+        throw_leaf();
+
+    player->delay = 11000;
 }
 
 void call_peer(){

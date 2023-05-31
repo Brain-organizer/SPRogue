@@ -266,8 +266,12 @@ room * get_start_room() {
     ASSIGN_STAT_MACRO(TS_BLOOD, 13+rm->roff, 5+rm->coff);
     ASSIGN_STAT_MACRO(TS_BLOOD, 13+rm->roff, 4+rm->coff);
 
-
     rm->entities = NULL;
+
+    push_entity_into_room(rm, create_entity(ET_BEAR), rm->roff+14, rm->coff+7,-1);
+    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+14, rm->coff+8, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+14, rm->coff+9, -1);
+    push_entity_into_room(rm, create_entity(ET_HORSE), rm->roff+15, rm->coff+8, -1);
     
     return rm;
 }

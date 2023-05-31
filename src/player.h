@@ -11,6 +11,7 @@ bool update_player();
 void free_player();
 void make_potatoboom();
 void call_peer();
+void throw_leaf();
 entity *get_player();
 
 #endif

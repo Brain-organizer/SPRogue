@@ -30,7 +30,7 @@ void draw_entity_func_ET_NULL(entity *entity) {
 void set_entity_template_ET_CARROT_func() {
     entity_template[ET_CARROT].delay = 5000;
     entity_template[ET_CARROT].hp = 200;
-    entity_template[ET_CARROT].power = 20;
+    entity_template[ET_CARROT].power = 40;
     entity_template[ET_CARROT].is_enemy = 0;
     entity_template[ET_CARROT].type = ET_CARROT;
     entity_template[ET_CARROT].attack_de = 7000;
@@ -52,13 +52,13 @@ void draw_entity_func_ET_CARROT(entity *entity) {
 }
 
 void set_entity_template_ET_RABBIT_func() {
-    entity_template[ET_RABBIT].delay = 7000;
-    entity_template[ET_RABBIT].hp = 100;
-    entity_template[ET_RABBIT].power = 20;
+    entity_template[ET_RABBIT].delay = 8000;
+    entity_template[ET_RABBIT].hp = 80;
+    entity_template[ET_RABBIT].power = 10;
     entity_template[ET_RABBIT].is_enemy = 1;
     entity_template[ET_RABBIT].type = ET_RABBIT;
-    entity_template[ET_RABBIT].attack_de = 10000;
-    entity_template[ET_RABBIT].mv_de = 7000;
+    entity_template[ET_RABBIT].attack_de = 6000;
+    entity_template[ET_RABBIT].mv_de = 4000;
     entity_template[ET_RABBIT].name = "Rabbit";
     entity_template[ET_RABBIT].desc = "You are looking at a rabbit, a race of nomadic warriors who have invaded the village. Before their arrival, this place was called the Carrot-carrot village. Now, they call it the Bunny-bunny farm.";
 }
@@ -69,6 +69,54 @@ void draw_entity_func_ET_RABBIT(entity *entity) {
     entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
     entity->icon = "R";
+
+    SET_COLOR(entity->col);
+    mvaddstr(entity->r, entity->c, entity->icon);
+    UNSET_COLOR(entity->col);
+}
+
+void set_entity_template_ET_CAPYBARA_func() {
+    entity_template[ET_CAPYBARA].delay = 10000;
+    entity_template[ET_CAPYBARA].hp = 130;
+    entity_template[ET_CAPYBARA].power = 25;
+    entity_template[ET_CAPYBARA].is_enemy = 1;
+    entity_template[ET_CAPYBARA].type = ET_CAPYBARA;
+    entity_template[ET_CAPYBARA].attack_de = 8000;
+    entity_template[ET_CAPYBARA].mv_de = 6000;
+    entity_template[ET_CAPYBARA].name = "Capybara";
+    entity_template[ET_CAPYBARA].desc = "Capybaras are the largest rodents in the world. They are strong and powerful.";
+}
+void draw_entity_func_ET_CAPYBARA(entity *entity) {
+    if(entity->fg > 0) unget_color_id(entity->fg);
+    
+    entity->fg = get_color_id(197,150,94);
+    entity->bg = entity->tile->bg;
+    entity->col = PAIR_COLOR(entity->fg, entity->bg);
+    entity->icon = "C";
+
+    SET_COLOR(entity->col);
+    mvaddstr(entity->r, entity->c, entity->icon);
+    UNSET_COLOR(entity->col);
+}
+
+void set_entity_template_ET_HORSE_func() {
+    entity_template[ET_HORSE].delay = 60000;
+    entity_template[ET_HORSE].hp = 160;
+    entity_template[ET_HORSE].power = 70;
+    entity_template[ET_HORSE].is_enemy = 1;
+    entity_template[ET_HORSE].type = ET_HORSE;
+    entity_template[ET_HORSE].attack_de = 40000;
+    entity_template[ET_HORSE].mv_de = 2500;
+    entity_template[ET_HORSE].name = "Horse";
+    entity_template[ET_HORSE].desc = "The horse will charge at you at high speed, kicking with its powerful hooves. However, it will take a long time for the horse to accelerate and attack again after it has charged, so you can take advantage of this time.";
+}
+void draw_entity_func_ET_HORSE(entity *entity) {
+    if(entity->fg > 0) unget_color_id(entity->fg);
+    
+    entity->fg = get_color_id(111,79,40);
+    entity->bg = entity->tile->bg;
+    entity->col = PAIR_COLOR(entity->fg, entity->bg);
+    entity->icon = "H";
 
     SET_COLOR(entity->col);
     mvaddstr(entity->r, entity->c, entity->icon);
@@ -99,14 +147,38 @@ void draw_entity_func_ET_POTATOBOOM(entity * entity) {
     UNSET_COLOR(entity->col);
 }
 
+void set_entity_template_ET_LEAF_func() {
+    entity_template[ET_LEAF].delay = 2000;
+    entity_template[ET_LEAF].hp = 50;
+    entity_template[ET_LEAF].power = 20;
+    entity_template[ET_LEAF].is_enemy = 0;
+    entity_template[ET_LEAF].type = ET_LEAF;
+    entity_template[ET_LEAF].attack_de = 2000;
+    entity_template[ET_LEAF].mv_de = 2000;
+    entity_template[ET_LEAF].name = "Leaf";
+    entity_template[ET_LEAF].desc = "This is a leaf that you've thrown";
+}
+void draw_entity_func_ET_LEAF(entity * entity) {
+    if(entity->fg > 0) unget_color_id(entity->fg);
+    
+    entity->fg = get_color_id(50, 89, 40);
+    entity->bg = entity->tile->bg;
+    entity->col = PAIR_COLOR(entity->fg, entity->bg);
+    entity->icon = "x";
+    
+    SET_COLOR(entity->col);
+    mvaddstr(entity->r, entity->c, entity->icon);
+    UNSET_COLOR(entity->col);
+}
+
 void set_entity_template_ET_BEAR_func() {
-    entity_template[ET_BEAR].delay = 3000;
+    entity_template[ET_BEAR].delay = 15000;
     entity_template[ET_BEAR].hp = 300;
     entity_template[ET_BEAR].power = 100;
     entity_template[ET_BEAR].is_enemy = 1;
     entity_template[ET_BEAR].type = ET_BEAR;
-    entity_template[ET_BEAR].attack_de = 20000;
-    entity_template[ET_BEAR].mv_de = 15000;
+    entity_template[ET_BEAR].attack_de = 10000;
+    entity_template[ET_BEAR].mv_de = 10000;
     entity_template[ET_BEAR].name = "Bear";
     entity_template[ET_BEAR].desc = "Bears are the rulers of the forest. They will try to tear you to pieces with their powerful strength and sharp claws. But if you use your speed well, you can even defeat a bear with your small frame.";
 }
@@ -131,8 +203,8 @@ void set_entity_template_ET_EGGPLANT_func() {
     entity_template[ET_EGGPLANT].type = ET_EGGPLANT;
     entity_template[ET_EGGPLANT].attack_de = 7000;
     entity_template[ET_EGGPLANT].mv_de = 5000;
-    entity_template[ET_EGGPLANT].name = "Zombie Eggplant";
-    entity_template[ET_EGGPLANT].desc = "A dead eggplant that has come back to life. A mindless creature, it reacts only to the scent of rabbit fur, which it seeks to chew down with vicious hate.";
+    entity_template[ET_EGGPLANT].name = "Zombie Carrot";
+    entity_template[ET_EGGPLANT].desc = "A dead carrot that has come back to life. A mindless creature, it reacts only to the scent of rabbit fur, which it seeks to chew down with vicious hate.";
 }
 void draw_entity_func_ET_EGGPLANT(entity * entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
@@ -156,6 +228,9 @@ void init_entities() {
     INIT_ENTITY_MACRO(ET_POTATOBOOM)
     INIT_ENTITY_MACRO(ET_EGGPLANT)
     INIT_ENTITY_MACRO(ET_BEAR)
+    INIT_ENTITY_MACRO(ET_HORSE)
+    INIT_ENTITY_MACRO(ET_CAPYBARA)
+    INIT_ENTITY_MACRO(ET_LEAF)
 }
 
 void draw_entity(entity *entity) {

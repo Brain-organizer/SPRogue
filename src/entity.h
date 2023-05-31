@@ -10,6 +10,9 @@ typedef enum entity_type {
     ET_POTATOBOOM,
     ET_EGGPLANT,
     ET_BEAR,
+    ET_HORSE,
+    ET_CAPYBARA,
+    ET_LEAF,
     ENTITY_NUM,
 } entity_type;
 
