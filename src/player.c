@@ -23,6 +23,7 @@ void place_player() {
 }
 
 bool update_player() {
+    struct rank_info rinfo;
     if(player->delay) {
         --(player->delay);
     }
@@ -67,7 +68,7 @@ bool update_player() {
 
             case 'p': case 'P':
                 //종료(테스트용)
-                struct rank_info rinfo = post_rank(get_tick());
+                rinfo = post_rank(get_tick());
                 if(rinfo.prec_playtime==0){
                     fprintf(stderr,"server disconected\n");
                 }

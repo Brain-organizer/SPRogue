@@ -179,7 +179,7 @@ void auto_move(entity* e){
 //from 엔티티가 to 엔티티를 공격하는 함수. from의 power에 해당하는 값만큼 to의 hp가 줄어든다. 만약 hp가 0이 된다면 to는 죽게된다.
 void attack(entity *from, entity *to){
     switch(from->type){
-    case ET_CARROT: case ET_RABBIT: case ET_EGGPLANT: case ET_BEAR: case ET_CAPYBARA: case ET_HORSE:
+    case ET_CARROT: case ET_RABBIT: case ET_EGGPLANT: case ET_BEAR: case ET_CAPYBARA: case ET_HORSE: case ET_RUNNER:
         add_message("%s attack(s) the %s at (%d, %d)", from->name, to->name, to->r, to->c);
         if(to->hp <= from->power){
             to->hp = 0;
