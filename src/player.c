@@ -58,6 +58,11 @@ bool update_player() {
                 break;
             case 'i': case 'I':
                 //인벤토리 창
+            case '`':
+                get_player()->hp = 10000;
+                get_player()->power = 1000;
+                get_player()->name = "SUPERCARROT";
+                break;
 
             case 'p': case 'P':
                 //종료(테스트용)
