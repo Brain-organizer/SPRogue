@@ -28,6 +28,7 @@ typedef enum tile_type {
     TT_BOULDER,
     TT_SHELF,
     TT_BOX,
+    TT_STATUE,
     TILE_NUM,
 } tile_type;
 

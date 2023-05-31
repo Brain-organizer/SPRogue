@@ -75,8 +75,8 @@ room * get_passageway() {
 
     rm->doors = NULL;
 
-    rm->roff = 12;
-    rm->coff = 15;
+    rm->roff = 13;
+    rm->coff = 20;
     
     rm->name = "Passageway";
     rm->desc = "You are in a passageway, a large corridor that connects the many rooms of this barn. Most of the doors, however, are locked shut.";
@@ -143,8 +143,8 @@ room * get_butcher_room() {
 
     rm->doors = NULL;
 
-    rm->roff = 8;
-    rm->coff = 24;
+    rm->roff = 7;
+    rm->coff = 31;
     
     rm->name = "Butcher's Room";
     rm->desc = "This is the butcher's room, a place where the carrots are turned into sustenance for the rabbit lords. You can smell the blood of the innocents from its red-stained floors.";
@@ -308,7 +308,7 @@ room * get_start_room() {
     rm->doors = NULL;
 
     rm->roff = 5;
-    rm->coff = 25;
+    rm->coff = 32;
     
     rm->name = "Sacrificial Room";
     rm->desc = "A place of your awakening. A chaotic mess of runes and sigils are drawn haphazardly across the floor. You think it's enscribed with carrot blood.";
@@ -419,8 +419,8 @@ room * get_storage_room() {
 
     rm->doors = NULL;
 
-    rm->roff = 6;
-    rm->coff = 20;
+    rm->roff = 7;
+    rm->coff = 29;
     
     rm->name = "Storage Room";
     rm->desc = "A place where rabbits store their goods, the smell of dust and rat piss permeates the air. Numerous shelves and boxes are coated with thick layer of dust.";
@@ -643,12 +643,15 @@ room * get_corridor_room() {
     memset(rm, 0, sizeof(rm));
 
     rm->doors = NULL;
+
+    rm->roff = 12;
+    rm->coff = 15;
     
     rm->name = "Corridor";
-    rm->desc = "A luxurious passageway. Its walls are dotted with drawings of famed rabbit heroes, and its floors are covered with blood-red velvet.";
+    rm->desc = "A luxurious passageway. Its walls are lined with marble statues of rabbit heroes, and its floors are covered with blood-red velvet.";
 
-    rm->r = 5;
-    rm->c = 17;
+    rm->r = 7 + rm->roff;
+    rm->c = 50 + rm->coff;
     
     rm->map = malloc(sizeof(tile *) * rm->r);
 
@@ -665,28 +668,39 @@ room * get_corridor_room() {
 
     for(r = 0; r < rm->r; ++r) {
         for(c = 0; c < rm->c; ++c) {
-            ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, r, c);
+            ASSIGN_TILE_MACRO(TT_DARK, r, c);
         }
     }
 
-    for(c = 1; c < rm->c-1; ++c) {
-        ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, 0, c);
+    for(r = rm->roff; r < rm->r; ++r) {
+        for(c = rm->coff; c < rm->c; ++c) {
+            ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, r, c);
+        }
+    }
+    for(c = rm->coff; c < rm->c; ++c) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff, c);
         ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->r-1, c);
     }
-    for(r = 1; r < rm->r-1; ++r) {
-        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, 0);
+    for(r = rm->roff; r < rm->r; ++r) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, rm->coff);
         ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, rm->c-1);
     }
-    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NW, 0, 0);
-    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NE, 0, rm->c-1);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NW, rm->roff, rm->coff);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NE, rm->roff, rm->c-1);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SW, rm->r-1, rm->coff);
     ASSIGN_TILE_MACRO(TT_WOOD_WALL_SE, rm->r-1, rm->c-1);
-    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SW, rm->r-1, 0);
 
-    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, rm->r/2, 0);
-    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, rm->r/2, rm->c-1);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, rm->roff+3, rm->coff);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, rm->roff+3, rm->c-1);
 
-    for(c = 1; c < rm->c-1; ++c) {
-        ASSIGN_TILE_MACRO(TT_RED_CARPET, 2, c);
+    for(r = rm->roff+2; r < rm->roff+5; ++r) {
+        for(c = rm->coff+1; c < rm->c-1; ++c) {
+            ASSIGN_TILE_MACRO(TT_RED_CARPET, r, c);
+        }
+    }
+    for(c = rm->coff+4; c < rm->c-3; c += 4) {
+        ASSIGN_TILE_MACRO(TT_STATUE, rm->roff+1, c);
+        ASSIGN_TILE_MACRO(TT_STATUE, rm->r-2, c);
     }
 
     rm->entities = NULL;
@@ -705,8 +719,8 @@ room * get_ambush_room() {
 
     rm->doors = NULL;
 
-    rm->roff = 5;
-    rm->coff = 28;
+    rm->roff = 3;
+    rm->coff = 35;
     
     rm->name = "Ambush";
     rm->desc = "The rabbits are striking back! They have set up an ambush, and you must react! The horses seem extra dull today, however. Maybe you should act before they realize the situation.";

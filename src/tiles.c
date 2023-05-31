@@ -581,6 +581,24 @@ void draw_tile_func_TT_BOX(tile *tile) {
     UNSET_COLOR(tile->col);
 }
 
+void set_tile_template_TT_STATUE_func() {
+    tile_template[TT_STATUE].type = TT_STATUE;
+    tile_template[TT_STATUE].name = "Statue";
+    tile_template[TT_STATUE].desc = "A marble statue of fine craftsmanship, it depicts the famed rabbit heroes of old. It is full of uncanny vigor, almost as if it's going to come back to life.";
+}
+void draw_tile_func_TT_STATUE(tile *tile) {
+    if(tile->fg > 0) unget_color_id(tile->fg);
+    if(tile->bg > 0) unget_color_id(tile->bg);
+
+    tile->bg = get_color_id(186,140,99);
+    tile->fg = get_color_id(200, 200, 200);
+    tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+    SET_COLOR(tile->col);
+    mvaddstr(tile->r, tile->c, "R");
+    UNSET_COLOR(tile->col);
+}
+
 #define INIT_TILE_MACRO(NAME) set_tile_template(NAME); set_tile_template_ ## NAME ## _func(); draw_tile_func[NAME] = draw_tile_func_ ## NAME;
 
 void init_tiles() {
@@ -607,6 +625,7 @@ void init_tiles() {
     INIT_TILE_MACRO(TT_BOULDER);
     INIT_TILE_MACRO(TT_SHELF);
     INIT_TILE_MACRO(TT_BOX);
+    INIT_TILE_MACRO(TT_STATUE);
 }
 
 void draw_tile(tile *tile) {
