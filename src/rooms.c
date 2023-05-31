@@ -289,8 +289,8 @@ room * get_storage_room() {
 
     rm->doors = NULL;
 
-    rm->roff = 0;
-    rm->coff = 0;
+    rm->roff = 6;
+    rm->coff = 20;
     
     rm->name = "Storage Room";
     rm->desc = "A place where rabbits store their goods, the smell of dust and rat piss permeates the air. Numerous shelves and boxes are coated with thick layer of dust.";
@@ -487,6 +487,9 @@ room * get_storage_room() {
     ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+7, rm->coff+11);
     ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+7, rm->coff+12);
 
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+1, rm->coff+8);
+    ASSIGN_STAT_MACRO(TS_BLOOD, rm->roff+2, rm->coff+8);
+
     rm->entities = NULL;
 
     push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+12, rm->coff+12, -1);
@@ -495,6 +498,7 @@ room * get_storage_room() {
     push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+12, rm->coff+3, -1);
     push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+6, rm->coff+11, -1);
     push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+6, rm->coff+6, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+1, rm->coff+8, -1);
 
     return rm;
 }
