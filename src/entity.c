@@ -89,7 +89,7 @@ void set_entity_template_ET_CAPYBARA_func() {
 void draw_entity_func_ET_CAPYBARA(entity *entity) {
     if(entity->fg > 0) unget_color_id(entity->fg);
     
-    entity->fg = get_color_id(197,150,94);
+    entity->fg = get_color_id(40,40,40);
     entity->bg = entity->tile->bg;
     entity->col = PAIR_COLOR(entity->fg, entity->bg);
     entity->icon = "C";

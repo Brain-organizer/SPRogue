@@ -114,6 +114,13 @@ void draw_tile_func_TT_CAVE_FLOOR(tile *tile) {
         SET_COLOR(tile->col);
         mvaddstr(tile->r, tile->c, "%");
     }
+    else if(tile->status & TS_CORPSE) {
+        tile->fg = get_color_id(140, 0, 0);
+        tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+        SET_COLOR(tile->col);
+        mvaddstr(tile->r, tile->c, "@");
+    }
     else {
         tile->fg = 0;
         tile->col = PAIR_COLOR(tile->fg, tile->bg);
@@ -314,6 +321,13 @@ void draw_tile_func_TT_WOOD_FLOOR(tile *tile) {
         SET_COLOR(tile->col);
         mvaddstr(tile->r, tile->c, "%");
     }
+    else if(tile->status & TS_CORPSE) {
+        tile->fg = get_color_id(140, 0, 0);
+        tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+        SET_COLOR(tile->col);
+        mvaddstr(tile->r, tile->c, "@");
+    }
     else {
         tile->fg = 0;
         tile->col = PAIR_COLOR(tile->fg, tile->bg);
@@ -458,6 +472,13 @@ void draw_tile_func_TT_DIRT_FLOOR(tile *tile) {
 
         SET_COLOR(tile->col);
         mvaddstr(tile->r, tile->c, "%");
+    }
+    else if(tile->status & TS_CORPSE) {
+        tile->fg = get_color_id(140, 0, 0);
+        tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+        SET_COLOR(tile->col);
+        mvaddstr(tile->r, tile->c, "@");
     }
     else {
         tile->fg = 0;
@@ -654,6 +675,8 @@ char *tile_status_to_str(tile_status t) {
             return "storing an eggplant corpse";
         case TS_HEALTH:
             return "storing a vial of blood";
+        case TS_CORPSE:
+            return "storing a half-butchered corpse";
         default:
             return "null status";
     }
