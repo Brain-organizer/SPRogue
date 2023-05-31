@@ -64,9 +64,10 @@ room * get_tmp_room() {
     return rm;
 }
 
-room * get_butcher_room() {
-    room * rm;
-    int r, c;
+room * get_passageway() {
+     room * rm;
+    int r, c, tv;
+    bool flg;
     door tdoor;
 
     rm = malloc(sizeof(room));
@@ -74,11 +75,14 @@ room * get_butcher_room() {
 
     rm->doors = NULL;
 
-    rm->name = "Butcher's Room";
-    rm->desc = "This is the butcher's room, a place where the carrots are turned into sustenance for the rabbit lords. You can smell the blood of the innocents from its red-stained floors.";
-
-    rm->r = 9;
-    rm->c = 6;
+    rm->roff = 12;
+    rm->coff = 15;
+    
+    rm->name = "Passageway";
+    rm->desc = "You are in a passageway, a large corridor that connects the many rooms of this barn. Most of the doors, however, are locked shut.";
+   
+    rm->r = 5 + rm->roff;
+    rm->c = 36 + rm->coff;
     
     rm->map = malloc(sizeof(tile *) * rm->r);
 
@@ -93,57 +97,85 @@ room * get_butcher_room() {
         memset(rm->dirty[r], true, sizeof(bool) * rm->c);
     }
 
-    r = 0;
-    for(c = 0; c < rm->c; ++c) {
-        rm->map[r][c] = get_tile_template(TT_WOOD_WALL_HOR);
-        rm->map[r][c].r = r;
-        rm->map[r][c].c = c;
-    }
-
-    r = rm->r-1;
-    for(c = 0; c < rm->c; ++c) {
-        rm->map[r][c] = get_tile_template(TT_WOOD_WALL_HOR);
-        rm->map[r][c].r = r;
-        rm->map[r][c].c = c;
-    }
-
-    c = 0;
     for(r = 0; r < rm->r; ++r) {
-        rm->map[r][c] = get_tile_template(TT_WOOD_WALL_VER);
-        rm->map[r][c].r = r;
-        rm->map[r][c].c = c;
-    }
-
-    c = rm->c-1;
-    for(r = 0; r < rm->r; ++r) {
-        rm->map[r][c] = get_tile_template(TT_WOOD_WALL_VER);
-        rm->map[r][c].r = r;
-        rm->map[r][c].c = c;
-    }
-
-    rm->map[0][0] = get_tile_template(TT_WOOD_WALL_NW); rm->map[0][0].r = 0, rm->map[0][0].c = 0;
-    rm->map[0][rm->c-1] = get_tile_template(TT_WOOD_WALL_NE); rm->map[0][rm->c-1].r = 0, rm->map[0][rm->c-1].c = rm->c-1;
-    rm->map[rm->r-1][0] = get_tile_template(TT_WOOD_WALL_SW); rm->map[rm->r-1][0].r = rm->r-1, rm->map[rm->r-1][0].c = 0;
-    rm->map[rm->r-1][rm->c-1] = get_tile_template(TT_WOOD_WALL_SE); rm->map[rm->r-1][rm->c-1].r = rm->r-1, rm->map[rm->r-1][rm->c-1].c = rm->c-1;
-
-    for(r = 1; r < rm->r - 1; ++r) {
-        for(c = 1; c < rm->c - 1; ++c) {
-            rm->map[r][c] = get_tile_template(TT_WOOD_FLOOR);
-            rm->map[r][c].r = r;
-            rm->map[r][c].c = c;
+        for(c = 0; c < rm->c; ++c) {
+            ASSIGN_TILE_MACRO(TT_DARK, r, c);
         }
     }
 
-    c = rm->c-2;
-    for(r = 3; r < rm->r - 3; ++r) {
-        rm->map[r][c] = get_tile_template(TT_WOOD_TABLE);
-        rm->map[r][c].r = r;
-        rm->map[r][c].c = c;
+    for(r = rm->roff; r < rm->r; ++r) {
+        for(c = rm->coff; c < rm->c; ++c) {
+            ASSIGN_TILE_MACRO(TT_WOOD_FLOOR, r, c);
+        }
+    }
+    for(c = rm->coff; c < rm->c; ++c) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->roff, c);
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_HOR, rm->r-1, c);
+    }
+    for(r = rm->roff; r < rm->r; ++r) {
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, rm->coff);
+        ASSIGN_TILE_MACRO(TT_WOOD_WALL_VER, r, rm->c-1);
     }
 
-    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, 4, 0);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NW, rm->roff, rm->coff);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_NE, rm->roff, rm->c-1);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SW, rm->r-1, rm->coff);
+    ASSIGN_TILE_MACRO(TT_WOOD_WALL_SE, rm->r-1, rm->c-1);
 
-    rm->map[3][rm->c-3].status |= TS_BLOOD;
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_HOR, rm->roff, rm->coff+7);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_HOR, rm->r-1, rm->c-8);
+
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_HOR, rm->r-1, rm->coff+7);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_HOR, rm->roff, rm->c-8);
+
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, rm->roff+2, rm->coff);
+    ASSIGN_DOOR_MACRO(TT_WOOD_DOOR_VER, rm->roff+2, rm->c-1);
+
+    rm->entities = NULL;
+
+    push_entity_into_room(rm, create_entity(ET_HORSE), rm->r-2, rm->c-8, -1);
+
+    return rm;
+}
+
+room * get_butcher_room() {
+    room * rm;
+    int r, c, tv;
+    bool flg;
+    door tdoor;
+
+    rm = malloc(sizeof(room));
+    memset(rm, 0, sizeof(rm));
+
+    rm->doors = NULL;
+
+    rm->roff = 5;
+    rm->coff = 25;
+    
+    rm->name = "Butcher's Room";
+    rm->desc = "This is the butcher's room, a place where the carrots are turned into sustenance for the rabbit lords. You can smell the blood of the innocents from its red-stained floors.";
+   
+    rm->r = 18 + rm->roff;
+    rm->c = 13 + rm->coff;
+    
+    rm->map = malloc(sizeof(tile *) * rm->r);
+
+    for(r = 0; r < rm->r; ++r) {
+        rm->map[r] = malloc(sizeof(tile) * rm->c);
+    } 
+
+    rm->dirty = malloc(sizeof(bool *) * rm->r);
+
+    for(r = 0; r < rm->r; ++r) {
+        rm->dirty[r] = malloc(sizeof(bool) * rm->c);
+        memset(rm->dirty[r], true, sizeof(bool) * rm->c);
+    }
+
+    for(r = 0; r < rm->r; ++r) {
+        for(c = 0; c < rm->c; ++c) {
+            ASSIGN_TILE_MACRO(TT_DARK, r, c);
+        }
+    }
 
     rm->entities = NULL;
 

@@ -100,7 +100,7 @@ void draw_entity_func_ET_CAPYBARA(entity *entity) {
 }
 
 void set_entity_template_ET_HORSE_func() {
-    entity_template[ET_HORSE].delay = 60000;
+    entity_template[ET_HORSE].delay = 20000;
     entity_template[ET_HORSE].hp = 160;
     entity_template[ET_HORSE].power = 70;
     entity_template[ET_HORSE].is_enemy = 1;
