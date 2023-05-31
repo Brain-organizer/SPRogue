@@ -266,6 +266,8 @@ room * get_start_room() {
     ASSIGN_STAT_MACRO(TS_BLOOD, 13+rm->roff, 5+rm->coff);
     ASSIGN_STAT_MACRO(TS_BLOOD, 13+rm->roff, 4+rm->coff);
 
+    ASSIGN_STAT_MACRO(TS_HEALTH, 14+rm->roff, 6+rm->coff);
+
 
     rm->entities = NULL;
     

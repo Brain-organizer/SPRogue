@@ -56,6 +56,13 @@ void draw_tile_func_TT_GRASS_FLOOR(tile *tile) {
         SET_COLOR(tile->col);
         mvaddstr(tile->r, tile->c, "y");
     }
+    else if(tile->status & TS_HEALTH) {
+        tile->fg = get_color_id(140, 0, 0);
+        tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+        SET_COLOR(tile->col);
+        mvaddstr(tile->r, tile->c, "&");
+    }
     else {
         tile->fg = get_color_id(0,110,51);
         tile->col = PAIR_COLOR(tile->fg, tile->bg);
@@ -99,6 +106,13 @@ void draw_tile_func_TT_CAVE_FLOOR(tile *tile) {
 
         SET_COLOR(tile->col);
         mvaddstr(tile->r, tile->c, "y");
+    }
+    else if(tile->status & TS_HEALTH) {
+        tile->fg = get_color_id(140, 0, 0);
+        tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+        SET_COLOR(tile->col);
+        mvaddstr(tile->r, tile->c, "&");
     }
     else {
         tile->fg = 0;
@@ -293,6 +307,13 @@ void draw_tile_func_TT_WOOD_FLOOR(tile *tile) {
         SET_COLOR(tile->col);
         mvaddstr(tile->r, tile->c, "y");
     }
+    else if(tile->status & TS_HEALTH) {
+        tile->fg = get_color_id(140, 0, 0);
+        tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+        SET_COLOR(tile->col);
+        mvaddstr(tile->r, tile->c, "&");
+    }
     else {
         tile->fg = 0;
         tile->col = PAIR_COLOR(tile->fg, tile->bg);
@@ -430,6 +451,13 @@ void draw_tile_func_TT_DIRT_FLOOR(tile *tile) {
 
         SET_COLOR(tile->col);
         mvaddstr(tile->r, tile->c, "y");
+    }
+    else if(tile->status & TS_HEALTH) {
+        tile->fg = get_color_id(140, 0, 0);
+        tile->col = PAIR_COLOR(tile->fg, tile->bg);
+
+        SET_COLOR(tile->col);
+        mvaddstr(tile->r, tile->c, "&");
     }
     else {
         tile->fg = 0;
@@ -586,6 +614,8 @@ char *tile_status_to_str(tile_status t) {
             return "storing a piece of dead potato";
         case TS_PEER:
             return "storing an eggplant corpse";
+        case TS_HEALTH:
+            return "storing a vial of blood";
         default:
             return "null status";
     }
