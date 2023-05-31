@@ -805,8 +805,8 @@ room * get_boss_room() {
 
     rm->doors = NULL;
 
-    rm->roff = 0;
-    rm->coff = 0;
+    rm->roff = 10;
+    rm->coff = 20;
     
     rm->name = "Den of Bears";
     rm->desc = "A place of residence for the bears, it is from this seat of power that they command. The bears, however, seem preoccupied.";
