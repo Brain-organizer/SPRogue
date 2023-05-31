@@ -268,8 +268,11 @@ room * get_start_room() {
 
     ASSIGN_STAT_MACRO(TS_HEALTH, 14+rm->roff, 6+rm->coff);
 
-
     rm->entities = NULL;
+
+    push_entity_into_room(rm, create_entity(ET_BEAR), 14+rm->roff, 6+rm->coff, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), 14+rm->roff, 7+rm->coff, -1);
+    push_entity_into_room(rm, create_entity(ET_RUNNER), 14+rm->roff, 8+rm->coff, -1);
     
     return rm;
 }

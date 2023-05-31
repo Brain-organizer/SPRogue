@@ -147,6 +147,30 @@ void draw_entity_func_ET_EGGPLANT(entity * entity) {
     UNSET_COLOR(entity->col);
 }
 
+void set_entity_template_ET_RUNNER_func() {
+    entity_template[ET_RUNNER].delay = 7000;
+    entity_template[ET_RUNNER].hp = 100;
+    entity_template[ET_RUNNER].power = 20;
+    entity_template[ET_RUNNER].is_enemy = 1;
+    entity_template[ET_RUNNER].type = ET_RUNNER;
+    entity_template[ET_RUNNER].attack_de = 7000;
+    entity_template[ET_RUNNER].mv_de = 3000;
+    entity_template[ET_RUNNER].name = "Runner";
+    entity_template[ET_RUNNER].desc = "You are looking at a Runner, rabbits with exceptional speed. They are capable of running at high speed, and will launch a hail of deadly kicks when they catch up with their enemies.";
+}
+void draw_entity_func_ET_RUNNER(entity *entity) {
+    if(entity->fg > 0) unget_color_id(entity->fg);
+    
+    entity->fg = get_color_id(19, 56, 190);
+    entity->bg = entity->tile->bg;
+    entity->col = PAIR_COLOR(entity->fg, entity->bg);
+    entity->icon = "R";
+
+    SET_COLOR(entity->col);
+    mvaddstr(entity->r, entity->c, entity->icon);
+    UNSET_COLOR(entity->col);
+}
+
 #define INIT_ENTITY_MACRO(NAME) set_entity_template(NAME); set_entity_template_ ## NAME ## _func(); draw_entity_func[NAME] = draw_entity_func_ ## NAME;
 
 void init_entities() {
@@ -156,6 +180,7 @@ void init_entities() {
     INIT_ENTITY_MACRO(ET_POTATOBOOM)
     INIT_ENTITY_MACRO(ET_EGGPLANT)
     INIT_ENTITY_MACRO(ET_BEAR)
+    INIT_ENTITY_MACRO(ET_RUNNER)
 }
 
 void draw_entity(entity *entity) {
