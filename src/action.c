@@ -147,6 +147,11 @@ void handle_player_enter_tile_event(tile *new_tile){
             ++player->peers;
             add_message("You pick up a dead eggplant from %s", new_tile->name);
         }
+        if(new_tile->status & TS_HEALTH) {
+            new_tile->status ^= TS_HEALTH;
+            player->hp = 200;
+            add_message("You consume the vial of blood from %s. It rejuvenates you.", new_tile->name);
+        }
     }
     else if(target->is_enemy){ // 공격가능한 대상이 있으면 공격
         attack(player, target);

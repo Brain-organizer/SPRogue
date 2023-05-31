@@ -13,6 +13,7 @@ typedef enum entity_type {
     ET_HORSE,
     ET_CAPYBARA,
     ET_LEAF,
+    ET_RUNNER,
     ENTITY_NUM,
 } entity_type;
 

@@ -34,6 +34,7 @@ typedef enum tile_status {
     TS_BLOOD = 1 << 1,
     TS_BOMB = 1 << 2,
     TS_PEER = 1 << 3,
+    TS_HEALTH = 1 << 4,
     TS_NUM,
 } tile_status;
 
