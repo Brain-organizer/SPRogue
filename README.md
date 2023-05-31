@@ -11,7 +11,7 @@ System programming 과제로 팀원들과 함께 만든 Rogue-like 게임, "Bunn
 
 
 ### 2. 터미널 세팅
-terminal 의 preferences 로 들어가 custom font를 enable 하고 폰트 크기를 12로 지정
+terminal 의 preferences 로 들어가 custom font를 enable 하고 폰트 크기를 알맞게(10~16사이) 지정
 
 
 ### 3. 실행을 위한 필수 패키지 설치
