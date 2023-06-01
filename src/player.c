@@ -64,7 +64,9 @@ bool update_player() {
                 get_player()->hp = 10000;
                 get_player()->power = 1000;
                 get_player()->name = "SUPERCARROT";
-                break;
+                add_message("YOU ARE ALL MIGHTY!!!");
+
+                return false;
 
             case 'p': case 'P':
                 //종료(테스트용)
@@ -143,6 +145,12 @@ void make_potatoboom(){
 void throw_leaf(){
     int row, col;
     entity *pl = get_player();
+
+    if(pl->hp <= 10) {
+        add_message("You don't have more leaves to throw...");
+        return;
+    }
+    pl->hp -= 10;
     
     switch(getch()) {
     case KEY_RIGHT:

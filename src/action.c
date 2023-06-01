@@ -20,6 +20,7 @@ void enter_door_player(tile *t) {
     room *rm = get_cur_room();
     door dr;
     int r, c;
+    int rr, cc;
 
     fputs("Player tried to enter a door\n", stderr);
     
@@ -72,6 +73,15 @@ void enter_door_player(tile *t) {
     }
 
     add_message("You pass through the %s and enter into the %s", t->name, f->cur_room->name);
+
+    for(r = 0; r < MOVE_TYPES; ++r) {
+        rr = dr.next->r + MOVE_DIRS[r][0], cc = dr.next->c + MOVE_DIRS[r][1];
+        if(is_passable(rr, cc)) {
+            handle_entity_enter_tile_event(player, f->cur_room->map[rr] + cc);
+            break;
+        }
+    }
+
 
     if(strcmp(f->cur_room->name, "Den of Bears") == 0 && f->cur_room->check) {
         f->cur_room->check = false;
