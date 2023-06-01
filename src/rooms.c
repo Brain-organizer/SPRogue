@@ -983,18 +983,15 @@ room * get_boss_room() {
 
     push_entity_into_room(rm, create_entity(ET_BEAR), rm->roff+6, rm->coff+7, -1);
     push_entity_into_room(rm, create_entity(ET_BEAR), rm->roff+2, rm->coff+30, -1);
-    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+6, rm->coff+27, -1);
     push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+6, rm->coff+29, -1);
+    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+6, rm->coff+30, -1);
     push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+6, rm->coff+31, -1);
-    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+6, rm->coff+33, -1);
 
     push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+25, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+26, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+28, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+27, -1);
     push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+29, -1);
     push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+31, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+32, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+34, -1);
+    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+33, -1);
     push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+8, rm->coff+35, -1);
 
     return rm;
