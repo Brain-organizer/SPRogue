@@ -781,12 +781,12 @@ room * get_ambush_room() {
     push_entity_into_room(rm, create_entity(ET_HORSE), rm->roff+23, rm->coff+3, -1);
     push_entity_into_room(rm, create_entity(ET_HORSE), rm->roff+23, rm->coff+5, -1);
 
-    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+2, rm->coff+3, -1);
-    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+2, rm->coff+5, -1);
+    push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+2, rm->coff+4, -1);
+    //push_entity_into_room(rm, create_entity(ET_CAPYBARA), rm->roff+2, rm->coff+5, -1);
     push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+3, rm->coff+2, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+3, rm->coff+3, -1);
+    //push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+3, rm->coff+3, -1);
     push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+3, rm->coff+4, -1);
-    push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+3, rm->coff+5, -1);
+    //push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+3, rm->coff+5, -1);
     push_entity_into_room(rm, create_entity(ET_RABBIT), rm->roff+3, rm->coff+6, -1);
 
     return rm;
