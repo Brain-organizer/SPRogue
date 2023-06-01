@@ -177,8 +177,8 @@ void set_entity_template_ET_BEAR_func() {
     entity_template[ET_BEAR].power = 100;
     entity_template[ET_BEAR].is_enemy = 1;
     entity_template[ET_BEAR].type = ET_BEAR;
-    entity_template[ET_BEAR].attack_de = 10000;
-    entity_template[ET_BEAR].mv_de = 10000;
+    entity_template[ET_BEAR].attack_de = 20000;
+    entity_template[ET_BEAR].mv_de = 15000;
     entity_template[ET_BEAR].name = "Bear";
     entity_template[ET_BEAR].desc = "Bears are the rulers of the forest. They will try to tear you to pieces with their powerful strength and sharp claws. But if you use your speed well, you can even defeat a bear with your small frame.";
 }
