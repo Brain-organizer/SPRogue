@@ -24,6 +24,7 @@ room * get_tmp_room() {
     memset(rm, 0, sizeof(rm));
 
     rm->doors = NULL;
+    rm->check = true;
 
     rm->roff = 0;
     rm->coff = 0;
@@ -74,6 +75,7 @@ room * get_passageway() {
     memset(rm, 0, sizeof(rm));
 
     rm->doors = NULL;
+    rm->check = true;
 
     rm->roff = 13;
     rm->coff = 20;
@@ -142,6 +144,7 @@ room * get_butcher_room() {
     memset(rm, 0, sizeof(rm));
 
     rm->doors = NULL;
+    rm->check = true;
 
     rm->roff = 7;
     rm->coff = 31;
@@ -306,6 +309,7 @@ room * get_start_room() {
     memset(rm, 0, sizeof(rm));
 
     rm->doors = NULL;
+    rm->check = true;
 
     rm->roff = 5;
     rm->coff = 32;
@@ -418,6 +422,7 @@ room * get_storage_room() {
     memset(rm, 0, sizeof(rm));
 
     rm->doors = NULL;
+    rm->check = true;
 
     rm->roff = 7;
     rm->coff = 29;
@@ -643,6 +648,7 @@ room * get_corridor_room() {
     memset(rm, 0, sizeof(rm));
 
     rm->doors = NULL;
+    rm->check = true;
 
     rm->roff = 12;
     rm->coff = 15;
@@ -718,6 +724,7 @@ room * get_ambush_room() {
     memset(rm, 0, sizeof(rm));
 
     rm->doors = NULL;
+    rm->check = true;
 
     rm->roff = 3;
     rm->coff = 35;
@@ -801,9 +808,8 @@ room * get_boss_room() {
     rm = malloc(sizeof(room));
     memset(rm, 0, sizeof(rm));
 
-    rm->check = true;
-
     rm->doors = NULL;
+    rm->check = true;
 
     rm->roff = 10;
     rm->coff = 20;

@@ -11,6 +11,7 @@
         "tiles.h": "c",
         "floor.h": "c",
         "client.h": "c",
-        "color.h": "c"
+        "color.h": "c",
+        "message.h": "c"
     }
 }

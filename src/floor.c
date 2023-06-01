@@ -3,6 +3,7 @@
 #include <ncurses.h>
 #include "floor.h"
 #include "util.h"
+#include "message.h"
 
 floor *cur_floor;
 
@@ -31,6 +32,10 @@ void init_floor() {
     push_player_into_room(cur_floor->cur_room->roff + (cur_floor->cur_room->r-cur_floor->cur_room->roff)/2, cur_floor->cur_room->coff + (cur_floor->cur_room->c-cur_floor->cur_room->coff)/2+1);
     get_player()->bombs = 0;
     get_player()->peers = 0;
+
+    cur_floor->cur_room->check = false;
+    add_message("You find yourself in the %s", cur_floor->cur_room->name);
+    add_message(cur_floor->cur_room->desc);
 }
 void draw() {
     if(cur_floor->room_changed) {
