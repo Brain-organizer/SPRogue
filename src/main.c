@@ -94,7 +94,7 @@ void end_game(int signum){
 void redirect_2(char *file){
     int errfd;
 
-    errfd = open(file,O_WRONLY);
+    errfd = open(file,O_WRONLY|O_CREAT|O_TRUNC,664);
     dup2(errfd, 2);
     close(errfd);
 }
