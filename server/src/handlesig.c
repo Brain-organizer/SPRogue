@@ -8,9 +8,9 @@ void handle_signal(int infd, int outfd, int cpid){
 
     struct itimerval timeset;
     
-    timeset.it_interval.tv_sec = 60;
+    timeset.it_interval.tv_sec = 3600;
     timeset.it_interval.tv_usec = 0;
-    timeset.it_value.tv_sec = 60;
+    timeset.it_value.tv_sec = 3600;
     timeset.it_value.tv_usec = 0;
 
     if(setitimer(ITIMER_REAL, &timeset, NULL) == -1){
