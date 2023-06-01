@@ -12,6 +12,7 @@
 #include <string.h>
 #include <locale.h>
 #include <time.h>
+#include <signal.h>
 
 #include "floor.h"
 #include "color.h"
@@ -20,9 +21,15 @@
 #include "message.h"
 
 void init();
+void end_game(int signum);
+void redirect_2(char *);
 bool quit();
 
 int main() {
+    signal(SIGINT, end_game);
+    signal(SIGTERM, end_game);
+    signal(SIGQUIT, end_game);
+
     init();
 
     init_floor();
@@ -51,6 +58,8 @@ int main() {
 
 void init() {
     srand(time(NULL));
+
+    redirect_2("logs/err");
     
     setlocale(LC_ALL, "");
 
@@ -71,4 +80,21 @@ void init() {
     init_sidebar();
 
     init_message();
+}
+
+void end_game(int signum){
+    close_connect();
+    mvaddstr(0,1,"게임을 종료합니다.");
+    refresh();
+    sleep(3);
+    endwin();
+    exit(0);
+}
+
+void redirect_2(char *file){
+    int errfd;
+
+    errfd = open(file,O_WRONLY);
+    dup2(errfd, 2);
+    close(errfd);
 }

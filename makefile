@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -lncursesw
 SOURCES = ./src/*.c
 
-.PHONY: run clean
+.PHONY: clean
 
 prerequisite:
 		sudo apt install libncurses5-dev libncursesw5-dev
@@ -13,7 +13,7 @@ build:
 
 run: 
 		resize -s 40 115
-		./rogue 2> logs/err
+		./rogue
 
 clean:
 		rm rogue
