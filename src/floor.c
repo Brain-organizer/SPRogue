@@ -34,7 +34,8 @@ void init_floor() {
     get_player()->peers = 0;
 
     cur_floor->cur_room->check = false;
-    add_message("You find yourself in the %s", cur_floor->cur_room->name);
+    add_message("You arise from a pool of blood...");
+    add_message("You find yourself in the %s.", cur_floor->cur_room->name);
     add_message(cur_floor->cur_room->desc);
 }
 void draw() {
