@@ -52,10 +52,10 @@ int main(int argc, char *argv[])
     if((pid = fork()) == -1){
         perror("fork error");
         exit(1);
-    } else if(pid != 0){
+    } else if(pid == 0){
         close(ctoppipe[1]);
         close(ptocpipe[0]);
-        handle_signal(ctoppipe[0], ptocpipe[1],pid);//
+        handle_signal(ctoppipe[0], ptocpipe[1],getpid());//
         exit(1);
     }
 
