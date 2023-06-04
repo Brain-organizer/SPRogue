@@ -31,6 +31,12 @@ int main(int argc, char *argv[])
     signal(SIGKILL,SIG_IGN);
     signal(SIGUSR1,exit_program);
 
+    int fd = open("logs/err",O_WRONLY|O_CREAT|O_TRUNC);
+    dup2(fd,2);
+    dup2(fd,1);
+    close(fd);
+    close(0);
+
     init_lock();
     init_ranking();
 
